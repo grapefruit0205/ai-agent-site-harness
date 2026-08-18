@@ -29,10 +29,15 @@ test("server-renders the complete Korean interactive article", async () => {
 
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="ko"/i);
-  assert.match(html, /<title>AI가 코드를 쓸수록, 개발자는 더 깊이 읽어야 한다<\/title>/i);
-  assert.match(html, /개발자는 더 깊이 읽어야 한다/);
-  assert.match(html, /책임은 사라지지 않고 위로 이동한다/);
-  assert.match(html, /자체 발표이며 독립 검증 통계가 아니다/);
+  assert.match(html, /<title>AI가 코드를 작성하는 시대, 개발자의 진짜 역할은 무엇일까요\?<\/title>/i);
+  assert.match(html, /개발자는 코드를 더 깊이 읽어야 합니다/);
+  assert.match(html, /사람이 지는 책임의 무게는 더 커집니다/);
+  assert.match(html, /기업 발표 수치이며 독립 기관의 검증 수치와는 다를 수 있습니다/);
+  assert.match(
+    html,
+    /property="og:image" content="https:\/\/ai-agent-code-reading\.chic-tick-3172\.chatgpt\.site\/og\.png"/,
+  );
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
 
   for (const sectionId of [
     "learn",

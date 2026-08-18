@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Gowun_Batang, Gowun_Dodum } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const editorialSans = Gowun_Dodum({
+  weight: "400",
+  variable: "--font-editorial-sans",
+  display: "swap",
+  preload: false,
+});
+
+const editorialSerif = Gowun_Batang({
+  weight: ["400", "700"],
+  variable: "--font-editorial-serif",
+  display: "swap",
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
@@ -25,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${editorialSans.variable} ${editorialSerif.variable} ${geistMono.variable}`}>
         {children}
       </body>
     </html>
