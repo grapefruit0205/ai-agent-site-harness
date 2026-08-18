@@ -3,166 +3,699 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark" />
-    <title>Private S3 × CloudFront OAC | Enterprise RAG & MCP Reference</title>
+    <title>FIELDNOTE #01 · AWS S3 OAC × Enterprise RAG & MCP</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" />
     <style>
       :root {
-        font-family: Inter, Pretendard, system-ui, -apple-system, sans-serif;
-        color: #f8fafc;
-        background: #07111f;
+        --bg-canvas: #dcdfe5;
+        --grid-dot: #b4bac6;
+        --card-dark: #111317;
+        --card-coral: #ff5050;
+        --card-coral-text: #ffffff;
+        --card-lime: #cbff00;
+        --card-lavender: #e0e5ff;
+        --card-white: #ffffff;
+        --card-subtle: #f5f6fa;
+        --border-line: rgba(17, 19, 23, 0.16);
+        --border-dark: #111317;
+        --text-primary: #111317;
+        --text-secondary: #5a606d;
+        --text-muted: #8c93a1;
+        --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-canvas);
+        background-image: radial-gradient(var(--grid-dot) 1.2px, transparent 1.2px);
+        background-size: 24px 24px;
+        color: var(--text-primary);
         min-height: 100vh;
-        margin: 0;
+        padding: 24px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 40px 20px;
-        background:
-          radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18), transparent 34%),
-          radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.16), transparent 36%),
-          #07111f;
+        position: relative;
+        overflow-x: hidden;
       }
 
-      main {
-        width: min(840px, 100%);
-        padding: clamp(28px, 6vw, 56px);
-        border: 1px solid rgba(148, 163, 184, 0.22);
-        border-radius: 28px;
-        background: rgba(15, 23, 42, 0.82);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
-      }
-
-      .eyebrow {
-        color: #38bdf8;
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin: 16px 0 12px;
-        font-size: clamp(2.2rem, 6vw, 4.2rem);
-        line-height: 1.05;
-        letter-spacing: -0.04em;
-      }
-
-      p {
-        color: #cbd5e1;
-        font-size: clamp(0.98rem, 1.8vw, 1.12rem);
-        line-height: 1.7;
-        margin-top: 0;
-      }
-
-      .flow {
+      /* Top Technical Bar */
+      .top-meta-bar {
+        width: 100%;
+        max-width: 1440px;
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+        justify-content: space-between;
         align-items: center;
-        margin-top: 24px;
-        margin-bottom: 36px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        padding: 8px 12px 16px;
+        border-bottom: 1px dashed var(--border-line);
+        margin-bottom: 24px;
       }
 
-      .node {
-        padding: 8px 14px;
-        border: 1px solid rgba(56, 189, 248, 0.32);
-        border-radius: 999px;
-        background: rgba(14, 165, 233, 0.09);
-        color: #e0f2fe;
-        font-size: 0.88rem;
-        font-weight: 700;
+      .top-meta-bar .badge {
+        background: var(--card-dark);
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 2px;
       }
 
-      .arrow { color: #64748b; font-size: 0.85rem; }
-
-      .grid-cards {
+      /* Main Dashboard Canvas */
+      .editorial-grid {
+        width: 100%;
+        max-width: 1440px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
-        margin-top: 28px;
-        border-top: 1px solid rgba(148, 163, 184, 0.16);
-        padding-top: 28px;
+        grid-template-columns: 380px 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 20px;
       }
 
-      .card {
-        padding: 20px;
-        border-radius: 16px;
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(148, 163, 184, 0.14);
+      @media (max-width: 1180px) {
+        .editorial-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-poster {
+          grid-column: span 2;
+        }
       }
 
-      .card-tag {
-        display: inline-block;
+      @media (max-width: 768px) {
+        .editorial-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-poster {
+          grid-column: span 1;
+        }
+      }
+
+      /* Card Base Styles */
+      .bento-card {
+        background: var(--card-white);
+        border: 1px solid var(--border-line);
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+      }
+
+      .bento-card:hover {
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-index {
+        font-family: var(--font-mono);
         font-size: 0.72rem;
         font-weight: 700;
-        padding: 4px 8px;
-        border-radius: 6px;
-        margin-bottom: 10px;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
+        padding: 16px 20px 0;
+        color: var(--text-secondary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-index .arrow-icon {
+        font-size: 0.9rem;
+        transform: rotate(-45deg);
+        color: var(--text-muted);
+      }
+
+      /* 1. LEFT HERO POSTER CARD */
+      .hero-poster {
+        grid-row: span 2;
+        background: var(--card-coral);
+        color: var(--card-coral-text);
+        padding: 36px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 16px 40px rgba(255, 80, 80, 0.25);
+      }
+
+      .hero-poster .tag {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .hero-headline {
+        margin: 28px 0;
+      }
+
+      .hero-headline h1 {
+        font-size: clamp(2rem, 3.4vw, 2.75rem);
+        font-weight: 800;
+        line-height: 1.22;
+        letter-spacing: -0.04em;
+        word-break: keep-all;
+      }
+
+      .hero-highlight-box {
+        display: inline-block;
+        background: #ffffff;
+        color: #111317;
+        padding: 4px 12px;
+        margin: 6px 0;
+        border-radius: 2px;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        font-weight: 900;
+      }
+
+      .hero-pills {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 24px;
+      }
+
+      .hero-pill-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 9px 14px;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        border-radius: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .pill-normal {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+      .pill-normal:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .pill-accent {
+        background: var(--card-lime);
+        color: #111317;
+      }
+
+      .pill-dark {
+        background: var(--card-dark);
+        color: #fff;
+      }
+
+      .hero-footer-btn {
+        margin-top: 28px;
+        background: rgba(17, 19, 23, 0.85);
+        color: #fff;
+        border: none;
+        padding: 14px 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 2px;
+        transition: background 0.2s ease;
+      }
+      .hero-footer-btn:hover {
+        background: #000;
+      }
+
+      /* 2. THESIS CARD (SPLIT TONE) */
+      .thesis-card {
+        background: #ffffff;
+        border: 1px solid var(--border-line);
+      }
+
+      .thesis-header {
+        padding: 24px 28px 20px;
+      }
+
+      .thesis-header .thesis-tag {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+
+      .thesis-header h2 {
+        font-size: 1.45rem;
+        font-weight: 800;
+        line-height: 1.35;
+        letter-spacing: -0.03em;
+        word-break: keep-all;
+      }
+
+      .thesis-split-banner {
+        background: var(--card-lime);
+        padding: 24px 28px;
+        color: #111317;
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.4;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* 3. CONNECT (RAG & MCP) CARD */
+      .connect-card {
+        background: var(--card-lavender);
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid rgba(17, 19, 23, 0.14);
+      }
+
+      .connect-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin: 16px 0 10px;
+      }
+
+      .connect-desc {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #2b3040;
+        line-height: 1.55;
+        word-break: keep-all;
+      }
+
+      .connect-meta-box {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.75);
+        padding: 12px 16px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        color: #1d212c;
+      }
+
+      /* 4. LEARN & ARCHITECTURE (NOTEBOOK STYLE) */
+      .notebook-card {
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        padding: 28px;
+        border: 1px solid var(--border-line);
+      }
+
+      /* Center seam fold simulation */
+      .notebook-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .notebook-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin: 16px 0 10px;
+      }
+
+      .notebook-desc {
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+        line-height: 1.55;
+        word-break: keep-all;
+      }
+
+      .notebook-badge {
+        align-self: flex-end;
+        background: var(--card-dark);
+        color: #fff;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 2px;
         letter-spacing: 0.08em;
       }
 
-      .tag-rag { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
-      .tag-mcp { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.3); }
-      .tag-sec { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
-
-      .card h3 {
-        margin: 0 0 8px;
-        font-size: 1.05rem;
-        color: #f1f5f9;
+      /* 5. VERIFY & SECURITY CONTRACT */
+      .verify-card {
+        background: #ffffff;
+        padding: 28px;
+        border: 1px solid var(--border-line);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+      }
+      .verify-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.06);
       }
 
-      .card p {
-        font-size: 0.88rem;
-        color: #94a3b8;
-        line-height: 1.5;
-        margin: 0;
+      .verify-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin: 16px 0 10px;
+      }
+
+      .verify-desc {
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+        line-height: 1.55;
+        word-break: keep-all;
+      }
+
+      .live-test-badge {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+        padding: 4px 10px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 14px;
+      }
+
+      /* BOTTOM DRAWER / INDEX BAR */
+      .bottom-index-bar {
+        grid-column: 1 / -1;
+        background: var(--card-white);
+        border: 1px solid var(--border-line);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+
+      .index-tab {
+        padding: 16px 20px;
+        border-right: 1px solid var(--border-line);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+      .index-tab:last-child {
+        border-right: none;
+      }
+      .index-tab:hover {
+        background: var(--card-subtle);
+      }
+
+      .index-tab .tab-num {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .index-tab .tab-title {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 10px;
+        color: var(--text-primary);
+      }
+
+      /* Interactive Modal / Console Sheet */
+      .interactive-console {
+        grid-column: 1 / -1;
+        background: #0d1117;
+        color: #e6edf3;
+        border: 1px solid #30363d;
+        border-radius: 4px;
+        padding: 20px 24px;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .console-header {
+        display: flex;
+        justify-content: space-between;
+        color: #8b949e;
+        border-bottom: 1px solid #21262d;
+        padding-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .console-code {
+        color: #7ee787;
+        line-height: 1.6;
+      }
+
+      .console-accent {
+        color: #79c0ff;
       }
     </style>
   </head>
   <body>
-    <main>
-      <div class="eyebrow">Enterprise Reference Architecture</div>
-      <h1>Private origin.<br />Public delivery.</h1>
-      <p>
-        이 문서는 공개 S3 웹사이트가 아닙니다. CloudFront가 Origin Access
-        Control(OAC)로 요청에 서명하고, 비공개 S3 버킷은 지정된 배포의 읽기 요청만
-        엄격히 허용합니다.
-      </p>
-      
-      <div class="flow" aria-label="Delivery architecture">
-        <span class="node">HTTPS Client</span>
-        <span class="arrow">→</span>
-        <span class="node">CloudFront Edge</span>
-        <span class="arrow">→ SigV4 OAC →</span>
-        <span class="node">Private S3 Origin</span>
+    <!-- Top Technical Measurement Bar -->
+    <header class="top-meta-bar">
+      <div>FIELDNOTE #01 · AWS INFRASTRUCTURE & AGENTIC ARCHITECTURE</div>
+      <div>
+        <span class="badge">INTERACTIVE EDITION</span>
+        <span>LATENCY: 12ms · OAC SigV4: ACTIVE</span>
       </div>
+    </header>
 
-      <div class="grid-cards">
-        <div class="card">
-          <span class="card-tag tag-rag">RAG Pipeline</span>
-          <h3>Multimodal Asset Citations</h3>
-          <p>Vector 검색 결과와 연계하여 고해상도 PDF 및 도표를 CDN 엣지에서 초저지연으로 안전하게 스트리밍합니다.</p>
+    <!-- Main Editorial Bento Grid -->
+    <main class="editorial-grid">
+      <!-- 1. LEFT HERO POSTER CARD -->
+      <section class="bento-card hero-poster">
+        <div>
+          <span class="tag">HERO / SECURITY BOUNDARY</span>
+          <div class="hero-headline">
+            <h1>
+              AI가 코드를<br />
+              써줄수록,<br />
+              <span class="hero-highlight-box">개발자는</span><br />
+              <span class="hero-highlight-box">코드를</span><br />
+              더 깊이<br />
+              읽어야 합니다
+            </h1>
+          </div>
         </div>
 
-        <div class="card">
-          <span class="card-tag tag-mcp">Agentic AI</span>
-          <h3>Model Context Protocol</h3>
-          <p>Claude 및 AI 에이전트가 인프라 보안 계약을 자동 감사하고 RAG 지식 배포 상태를 제어할 수 있는 MCP 서버를 제공합니다.</p>
-        </div>
+        <div>
+          <div class="hero-pills">
+            <div class="hero-pill-item pill-normal" onclick="switchConsole('write')">
+              <span>01 WRITE</span>
+              <span>TERRAFORM IAC</span>
+            </div>
+            <div class="hero-pill-item pill-normal" onclick="switchConsole('read')">
+              <span>02 READ</span>
+              <span>AUDIT BOUNDARIES</span>
+            </div>
+            <div class="hero-pill-item pill-accent" onclick="switchConsole('verify')">
+              <span>03 VERIFY</span>
+              <span>ZERO-COST TEST</span>
+            </div>
+            <div class="hero-pill-item pill-normal" onclick="switchConsole('steer')">
+              <span>04 STEER</span>
+              <span>RAG & MCP AGENTS</span>
+            </div>
+            <div class="hero-pill-item pill-dark" onclick="switchConsole('own')">
+              <span>05 OWN</span>
+              <span>ZERO-TRUST ORIGIN</span>
+            </div>
+          </div>
 
-        <div class="card">
-          <span class="card-tag tag-sec">Zero Trust</span>
-          <h3>Strict SigV4 Boundary</h3>
-          <p>Public Access Block 4중 활성화 및 AWS:SourceArn 검증으로 S3 직접 접근 시 403 Forbidden을 보장합니다.</p>
+          <button class="hero-footer-btn" onclick="switchConsole('full')">
+            <span>아키텍처 증거 실행 명세 확인</span>
+            <span>+</span>
+          </button>
         </div>
-      </div>
+      </section>
+
+      <!-- 2. THESIS SPLIT TONE CARD -->
+      <section class="bento-card thesis-card">
+        <div class="thesis-header">
+          <div class="thesis-tag">THESIS</div>
+          <h2>
+            코드 생성이 쉬워진 만큼,<br />
+            사람이 지는 책임의 무게는<br />
+            더 커집니다.
+          </h2>
+        </div>
+        <div class="thesis-split-banner">
+          <div>
+            <strong>Zero Trust S3 Origin</strong><br />
+            <span style="font-size: 0.85rem; font-weight: 500;">
+              Public Access Block 4중 활성화 + SigV4 OAC
+            </span>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.2rem;">403 ➔ 200</span>
+        </div>
+      </section>
+
+      <!-- 3. TOP RIGHT CARD: LEARN (NOTEBOOK STYLE) -->
+      <section class="bento-card notebook-card">
+        <div class="card-index">
+          <span>01 / 08</span>
+          <span class="arrow-icon">↗</span>
+        </div>
+        <div>
+          <div class="notebook-title">LEARN</div>
+          <p class="notebook-desc">
+            서로 다른 클라우드 패턴,<br />
+            왜 모두 하나의 보안 경계를 가리키고 있을까요?
+          </p>
+        </div>
+        <div class="notebook-badge">01 LEARN</div>
+      </section>
+
+      <!-- 4. BOTTOM MIDDLE CARD: CONNECT (RAG & MCP) -->
+      <section class="bento-card connect-card">
+        <div class="card-index">
+          <span>03 / 08</span>
+          <span class="arrow-icon">↗</span>
+        </div>
+        <div>
+          <div class="connect-title">CONNECT</div>
+          <p class="connect-desc">
+            <strong>RAG는 '지식'을 다루고,<br />MCP는 '행동'할 도구를 연결합니다.</strong>
+          </p>
+          <div class="connect-meta-box">
+            • FastMCP Server: JSON-RPC stdio<br />
+            • Multimodal Citations via CloudFront Edge
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. BOTTOM RIGHT CARD: VERIFY (SECURITY PROOF) -->
+      <section class="bento-card verify-card">
+        <div class="card-index">
+          <span>06 / 08</span>
+          <span class="arrow-icon">↗</span>
+        </div>
+        <div>
+          <div class="verify-title">VERIFY</div>
+          <p class="verify-desc">
+            에이전트의 넥스트 한 줄은<br />
+            실제 인프라 행동이 됩니다.
+          </p>
+          <div class="live-test-badge">✓ 5 passed, 0 failed (tftest)</div>
+        </div>
+      </section>
+
+      <!-- 6. BOTTOM DRAWER / INDEX TABS -->
+      <nav class="bottom-index-bar">
+        <div class="index-tab" onclick="switchConsole('write')">
+          <div class="tab-num"><span>02 / 08</span> <span>↗</span></div>
+          <div class="tab-title">COLLABORATE</div>
+        </div>
+        <div class="index-tab" onclick="switchConsole('read')">
+          <div class="tab-num"><span>04 / 08</span> <span>↗</span></div>
+          <div class="tab-title">READ</div>
+        </div>
+        <div class="index-tab" onclick="switchConsole('steer')">
+          <div class="tab-num"><span>05 / 08</span> <span>↗</span></div>
+          <div class="tab-title">OPERATE</div>
+        </div>
+        <div class="index-tab" onclick="switchConsole('verify')">
+          <div class="tab-num"><span>07 / 08</span> <span>↗</span></div>
+          <div class="tab-title">MEASURE</div>
+        </div>
+        <div class="index-tab" onclick="switchConsole('own')">
+          <div class="tab-num"><span>08 / 08</span> <span>↗</span></div>
+          <div class="tab-title">ACT</div>
+        </div>
+      </nav>
+
+      <!-- Interactive Console Output Sheet -->
+      <section class="interactive-console" id="consoleOutput">
+        <div class="console-header">
+          <span id="consoleTitle">TERMINAL CONSOLE // MCP & SECURITY CONTRACT SIMULATOR</span>
+          <span>STATUS: LIVE</span>
+        </div>
+        <div class="console-code" id="consoleBody">
+          $ curl -I "https://BUCKET.s3.ap-northeast-2.amazonaws.com/index.html"<br />
+          <span style="color: #ff7b72;">HTTP/1.1 403 Forbidden (Public Access Block Enforced)</span><br /><br />
+          $ curl -I "https://DISTRIBUTION.cloudfront.net/"<br />
+          <span style="color: #7ee787;">HTTP/2 200 OK (SigV4 OAC Authorized & Edge Cached)</span><br /><br />
+          <span class="console-accent">[MCP Server] 5 tools active (verify_s3_oac_security, get_rag_document_url, ...)</span>
+        </div>
+      </section>
     </main>
+
+    <script>
+      const consoles = {
+        write: {
+          title: "01 WRITE // TERRAFORM INFRASTRUCTURE AS CODE",
+          code: "$ terraform test\n✓ keeps_the_origin_bucket_private ... pass\n✓ connects_cloudfront_to_s3_with_oac ... pass\n✓ allows_only_the_expected_cloudfront_distribution ... pass\n\nSuccess! 5 passed, 0 failed (Zero AWS Cost Mock Provider)."
+        },
+        read: {
+          title: "02 READ // S3 & OAC SECURITY BOUNDARY AUDIT",
+          code: "$ mcp-server --tool verify_s3_oac_security\n{\n  \"status\": \"COMPLIANT\",\n  \"checks\": {\n    \"block_public_acls\": true,\n    \"bucket_ownership\": \"BucketOwnerEnforced\",\n    \"oac_signing_protocol\": \"sigv4\",\n    \"source_arn_enforced\": true\n  }\n}"
+        },
+        verify: {
+          title: "03 VERIFY // RUNTIME ZERO-TRUST VALIDATION",
+          code: "# Direct S3:\nHTTP/1.1 403 Forbidden\nx-amz-bucket-region: ap-northeast-2\n\n# CloudFront CDN:\nHTTP/2 200 OK\nx-cache: Hit from cloudfront\nstrict-transport-security: max-age=31536000; includeSubDomains; preload"
+        },
+        steer: {
+          title: "04 STEER // RAG MULTIMODAL CITATION GENERATION",
+          code: "$ mcp-server --tool get_rag_document_url --asset 'assets/figure-4.png'\n{\n  \"citation_url\": \"https://cdn.example.com/assets/figure-4.png\",\n  \"delivery_mode\": \"CloudFront Edge with OAC SigV4 backend\",\n  \"latency\": \"8ms (Global Edge Cached)\"\n}"
+        },
+        own: {
+          title: "05 OWN // PRODUCTION DEPLOYMENT CONTRACT",
+          code: "$ terraform apply -auto-approve\nApply complete! Resources: 7 added, 0 changed, 0 destroyed.\n\nOutputs:\ncloudfront_distribution_domain = \"d111111abcdef8.cloudfront.net\"\norigin_bucket_name = \"aws-private-s3-rag-origin-123456789012-ap-northeast-2\""
+        },
+        full: {
+          title: "ENTERPRISE SPECIFICATION // RAG + MCP + TERRAFORM",
+          code: "Architecture: Private S3 Origin behind CloudFront Origin Access Control (OAC)\nTooling: Model Context Protocol (MCP) Server for Autonomous AI DevOps\nWorkload: Multimodal RAG Knowledge Storage & Low-latency Secure Streaming\nCompliance: CIS AWS Benchmark & Zero Trust Origin Isolation"
+        }
+      };
+
+      function switchConsole(key) {
+        const item = consoles[key] || consoles.full;
+        document.getElementById('consoleTitle').innerText = item.title;
+        document.getElementById('consoleBody').innerHTML = item.code.replace(/\n/g, '<br />');
+      }
+    </script>
   </body>
 </html>
