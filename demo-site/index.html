@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <title>Private S3 × CloudFront OAC</title>
+    <title>Private S3 × CloudFront OAC | Enterprise RAG & MCP Reference</title>
     <style>
       :root {
-        font-family: Inter, Pretendard, system-ui, sans-serif;
+        font-family: Inter, Pretendard, system-ui, -apple-system, sans-serif;
         color: #f8fafc;
         background: #07111f;
       }
@@ -17,9 +17,11 @@
       body {
         min-height: 100vh;
         margin: 0;
-        display: grid;
-        place-items: center;
-        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
         background:
           radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18), transparent 34%),
           radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.16), transparent 36%),
@@ -27,33 +29,35 @@
       }
 
       main {
-        width: min(780px, 100%);
-        padding: clamp(28px, 6vw, 64px);
+        width: min(840px, 100%);
+        padding: clamp(28px, 6vw, 56px);
         border: 1px solid rgba(148, 163, 184, 0.22);
         border-radius: 28px;
-        background: rgba(15, 23, 42, 0.78);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+        background: rgba(15, 23, 42, 0.82);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
       }
 
       .eyebrow {
         color: #38bdf8;
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         font-weight: 800;
         letter-spacing: 0.16em;
         text-transform: uppercase;
       }
 
       h1 {
-        margin: 16px 0;
-        font-size: clamp(2.4rem, 8vw, 5.4rem);
-        line-height: 0.98;
-        letter-spacing: -0.055em;
+        margin: 16px 0 12px;
+        font-size: clamp(2.2rem, 6vw, 4.2rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
       }
 
       p {
         color: #cbd5e1;
-        font-size: clamp(1rem, 2vw, 1.18rem);
-        line-height: 1.75;
+        font-size: clamp(0.98rem, 1.8vw, 1.12rem);
+        line-height: 1.7;
+        margin-top: 0;
       }
 
       .flow {
@@ -61,37 +65,103 @@
         flex-wrap: wrap;
         gap: 10px;
         align-items: center;
-        margin-top: 30px;
+        margin-top: 24px;
+        margin-bottom: 36px;
       }
 
       .node {
-        padding: 10px 14px;
+        padding: 8px 14px;
         border: 1px solid rgba(56, 189, 248, 0.32);
         border-radius: 999px;
         background: rgba(14, 165, 233, 0.09);
         color: #e0f2fe;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         font-weight: 700;
       }
 
-      .arrow { color: #64748b; }
+      .arrow { color: #64748b; font-size: 0.85rem; }
+
+      .grid-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+        border-top: 1px solid rgba(148, 163, 184, 0.16);
+        padding-top: 28px;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 16px;
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+      }
+
+      .card-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .tag-rag { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
+      .tag-mcp { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.3); }
+      .tag-sec { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+        color: #f1f5f9;
+      }
+
+      .card p {
+        font-size: 0.88rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
     <main>
-      <div class="eyebrow">Verified delivery path</div>
+      <div class="eyebrow">Enterprise Reference Architecture</div>
       <h1>Private origin.<br />Public delivery.</h1>
       <p>
         이 문서는 공개 S3 웹사이트가 아닙니다. CloudFront가 Origin Access
-        Control로 요청에 서명하고, 비공개 S3 버킷은 지정된 배포의 읽기 요청만
-        허용합니다.
+        Control(OAC)로 요청에 서명하고, 비공개 S3 버킷은 지정된 배포의 읽기 요청만
+        엄격히 허용합니다.
       </p>
+      
       <div class="flow" aria-label="Delivery architecture">
         <span class="node">HTTPS Client</span>
         <span class="arrow">→</span>
-        <span class="node">CloudFront</span>
+        <span class="node">CloudFront Edge</span>
         <span class="arrow">→ SigV4 OAC →</span>
-        <span class="node">Private S3</span>
+        <span class="node">Private S3 Origin</span>
+      </div>
+
+      <div class="grid-cards">
+        <div class="card">
+          <span class="card-tag tag-rag">RAG Pipeline</span>
+          <h3>Multimodal Asset Citations</h3>
+          <p>Vector 검색 결과와 연계하여 고해상도 PDF 및 도표를 CDN 엣지에서 초저지연으로 안전하게 스트리밍합니다.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-tag tag-mcp">Agentic AI</span>
+          <h3>Model Context Protocol</h3>
+          <p>Claude 및 AI 에이전트가 인프라 보안 계약을 자동 감사하고 RAG 지식 배포 상태를 제어할 수 있는 MCP 서버를 제공합니다.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-tag tag-sec">Zero Trust</span>
+          <h3>Strict SigV4 Boundary</h3>
+          <p>Public Access Block 4중 활성화 및 AWS:SourceArn 검증으로 S3 직접 접근 시 403 Forbidden을 보장합니다.</p>
+        </div>
       </div>
     </main>
   </body>
