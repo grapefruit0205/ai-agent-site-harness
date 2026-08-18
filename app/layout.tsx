@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Gowun_Batang, Gowun_Dodum } from "next/font/google";
+import { Geist_Mono, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
-const editorialSans = Gowun_Dodum({
-  weight: "400",
-  variable: "--font-editorial-sans",
+const notoSansKr = Noto_Sans_KR({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-sans",
+  subsets: ["latin"],
   display: "swap",
-  preload: false,
-});
-
-const editorialSerif = Gowun_Batang({
-  weight: ["400", "700"],
-  variable: "--font-editorial-serif",
-  display: "swap",
-  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${editorialSans.variable} ${editorialSerif.variable} ${geistMono.variable}`}>
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin=""
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+        />
+      </head>
+      <body className={`${notoSansKr.variable} ${geistMono.variable}`}>
         {children}
       </body>
     </html>

@@ -36,7 +36,9 @@ body {
   background-image: radial-gradient(var(--ink-muted) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--ink);
-  font-family: var(--font-editorial-sans), "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -45,14 +47,14 @@ h3,
 blockquote,
 .board-thesis-panel p,
 .board-thesis-panel strong {
-  font-family: var(--font-editorial-serif), "Nanum Myeongjo", serif;
+  font-family: var(--font-sans);
   word-break: keep-all;
   overflow-wrap: break-word;
 }
 
 .story-section p,
 .book-page p {
-  font-family: var(--font-editorial-serif), "Nanum Myeongjo", serif;
+  font-family: var(--font-sans);
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: pretty;
@@ -497,7 +499,7 @@ main > .thesis {
 }
 
 .book-page-note strong {
-  font-family: var(--font-editorial-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.95rem;
   color: var(--ink);
 }
