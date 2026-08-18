@@ -2333,6 +2333,7 @@ blockquote strong {
     overflow-x: auto;
   }
   .chapter-nav { display: none; }
+  .course-grid,
   .definition-grid,
   .why-needed-grid,
   .split-content,
@@ -2340,8 +2341,17 @@ blockquote strong {
   .metric-grid,
   .usage-story,
   .audience-grid,
-  .source-list {
+  .source-list,
+  .failure-grid,
+  .operations-grid,
+  .skill-ladder {
     grid-template-columns: 1fr;
+  }
+  .skill-ladder div {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    min-height: auto;
+    gap: 0.4rem;
   }
   .system-diagram {
     grid-template-columns: 1fr;
@@ -2351,5 +2361,73 @@ blockquote strong {
   }
   .book-spread {
     display: block;
+  }
+
+  /* 01 LEARN Mobile */
+  .learning-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+  .learning-rail i {
+    text-align: center;
+    transform: rotate(90deg);
+  }
+  .editor-note {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  /* 02 COLLABORATE Mobile (2번 짤림 방지) */
+  .agent-map {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .map-node {
+    min-width: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .map-branch {
+    display: none;
+  }
+  .agent-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    width: 100%;
+  }
+  .concept-strip {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 2rem;
+  }
+  .concept-strip div {
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* 05 VERIFY Mobile */
+  .step-pills-bar {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .gate-matrix {
+    grid-template-columns: 1fr;
+  }
+  .audit-console span {
+    width: auto;
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 540px) {
+  .concept-strip {
+    grid-template-columns: 1fr;
+  }
+  .step-pills-bar {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
