@@ -20,7 +20,7 @@ const chapters = [
       "처음 배우는 사람은 문법 암기에 머물 필요가 없습니다. 작은 프로그램을 읽고 수정한 뒤, API와 데이터베이스를 연결하고, AI가 만든 코드를 테스트하는 흐름으로 연습하면 됩니다. 기초와 에이전트 활용을 한 프로젝트 안에서 익히는 방식입니다.",
     ],
     question: "내 에이전트가 읽는 데이터 구조와 실패 지점을 코드 수준에서 설명할 수 있는가?",
-    tone: "acid",
+    tone: "sage",
   },
   {
     id: "collaborate",
@@ -58,7 +58,7 @@ const chapters = [
       "개발자는 코드로 이 경계를 확인해야 합니다. 모델이 만든 인자를 그대로 넘기면 잘못된 검색어나 허용되지 않은 수정 요청이 실행될 수 있습니다. 입력 검증과 오류 처리가 모델과 외부 시스템 사이의 마지막 안전판이 됩니다.",
     ],
     question: "지금 발생한 오류가 지식 검색의 문제인지, 도구 호출의 문제인지 로그만 보고 구분할 수 있는가?",
-    tone: "blue",
+    tone: "lavender",
   },
   {
     id: "read",
@@ -96,7 +96,7 @@ const chapters = [
       "코딩을 알아야 안전 규칙이 문서에 머물지 않습니다. 타입과 스키마로 허용값을 좁히고, 권한 검사와 승인 흐름을 구현하고, 감사 로그로 누가 무엇을 실행했는지 남길 수 있습니다.",
     ],
     question: "에이전트가 잘못 판단했을 때 실제 행동을 막는 검증 코드와 승인 지점이 어디에 있는가?",
-    tone: "danger",
+    tone: "coral",
   },
   {
     id: "operate",
@@ -134,7 +134,7 @@ const chapters = [
       "측정 코드는 제품 기능과 함께 설계해야 합니다. 이벤트 이름과 성공 조건이 뒤늦게 바뀌면 이전 데이터를 비교하기 어렵습니다. 개발자가 로그와 평가 기준을 이해해야 경영 성과와 기술 지표를 같은 흐름에서 읽을 수 있습니다.",
     ],
     question: "사용자가 반복해서 쓰는지, 실패 후 복구되는지, 비용보다 큰 업무 가치를 만드는지 측정하고 있는가?",
-    tone: "mint",
+    tone: "sage",
   },
   {
     id: "act",
@@ -153,7 +153,7 @@ const chapters = [
       "현업 관리자는 에이전트 개수 대신 사용률·오류율·비용과 승인 지점을 봐야 합니다. 개발자는 이 지표를 남기는 코드를 구현하고 회고에서 개선 근거로 사용합니다. 한 프로젝트가 문제 정의부터 운영 책임까지 이어집니다.",
     ],
     question: "내 포트폴리오나 교육 결과물에 설계 판단, 실패 로그, 검증 기준과 복구 경험이 남아 있는가?",
-    tone: "acid",
+    tone: "sage",
   },
 ];
 
@@ -247,7 +247,11 @@ function EditorialBoard() {
             <span className="title-line">더 깊이 읽어야 합니다</span>
           </h1>
           <div className="board-skill-list" aria-label="개발 역량의 이동">
-            <span>01 WRITE</span><span>02 READ</span><b>03 VERIFY</b><b>04 STEER</b><strong>05 OWN</strong>
+            <span>01 WRITE</span>
+            <span>02 READ</span>
+            <b>03 VERIFY</b>
+            <b>04 STEER</b>
+            <strong>05 OWN</strong>
           </div>
           <a href="#learn">전체 칼럼 이어 읽기 ↓</a>
         </aside>
@@ -311,11 +315,6 @@ function EditorialBoard() {
             >
               CLOSE <span aria-hidden="true">×</span>
             </button>
-            <div className="book-cover" aria-hidden="true">
-              <span>{openChapter.eyebrow}</span>
-              <b>{openChapter.label}</b>
-              <i>OPEN FIELDNOTE</i>
-            </div>
             <div className="book-spread">
               <article className="book-page book-page-left">
                 <span>{openChapter.eyebrow}</span>
