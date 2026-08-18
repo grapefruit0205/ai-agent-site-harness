@@ -397,8 +397,14 @@ export default function Home() {
                 <p>현장 인터뷰에 따르면, 만들어진 모든 에이전트가 매일 활발하게 사용되는 것은 아닙니다.</p>
               </div>
               <div className="usage-chart" aria-label="상위 사용 에이전트에 성과가 집중되는 구조">
-                <div className="top-agents"><span>TOP 10–20% (핵심 활용)</span></div>
-                <div className="long-tail"><span>LONG TAIL (가끔 활용)</span></div>
+                <div className="top-agents">
+                  <span>TOP 10–20%</span>
+                  <span>(핵심 활용)</span>
+                </div>
+                <div className="long-tail">
+                  <span>LONG TAIL</span>
+                  <span>(가끔 활용)</span>
+                </div>
               </div>
             </div>
 
