@@ -101,8 +101,8 @@ test("renders the requested article copy as deliberate display lines", () => {
     ["#learn h2", ["서로 다른 교육 과정,", "왜 한 방향을 가리키고 있을까요?"]],
     ["#connect h2", ["RAG는 ‘지식’을 다루고,", "MCP는 ‘행동’할 도구를 연결합니다"]],
     ["#read h2", ["“AI가 다 작성해주는데,", "굳이 코딩을 배워야 할까요?”"]],
-    ["#operate h2", ["‘7 Layer AI Stack’ :", "구축보다 까다로운 것 '운영'"]],
-    ["#measure h2", ["'AI Agent'", "도입에 따른 기대 효과"]],
+    ["#operate h2", ["7 Layer AI Stack:", "구축보다 운영이 어려운 이유"]],
+    ["#measure h2", ["많이 만든 것과", "잘 쓰이는 것은 다릅니다"]],
   ] as const;
 
   for (const [selector, lines] of expectedLines) {

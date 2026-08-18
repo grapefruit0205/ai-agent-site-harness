@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { ArticleInteractions, PermissionDemo } from "./article-interactions";
+import {
+  ArticleInteractions,
+  ConnectFieldnoteCards,
+  PermissionDemo,
+} from "./article-interactions";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -227,26 +231,7 @@ export default function Home() {
               {" "}
               <span className="section-title-line">MCP는 ‘행동’할 도구를 연결합니다</span>
             </h2>
-            <div className="definition-grid">
-              <div className="definition-card rag-card">
-                <span>RAG · KNOWLEDGE GROUNDING</span>
-                <h3>검색 증강 생성</h3>
-                <p>
-                  IBM Technology가 설명하듯, LLM이 과거 학습 기억에만 의존하는 ‘비공개 시험’에서 벗어나
-                  실시간 검증 가능한 문서를 찾아보고 답하는 ‘오픈북 시험’ 구조를 만듭니다.
-                </p>
-                <div className="mini-flow"><i>1. 문서 검색(Retrieve)</i><b>→</b><i>2. 맥락 증강(Augment)</i><b>→</b><i>3. 신뢰 답변(Generate)</i></div>
-              </div>
-              <div className="definition-card mcp-card">
-                <span>MCP · THE USB-C OF AI AGENTS</span>
-                <h3>모델 컨텍스트 프로토콜</h3>
-                <p>
-                  모델마다 개별 연동 코드를 짜던 파편화를 해결하는 ‘AI의 USB-C’ 표준 규약입니다.
-                  Host-Client-Server 구조로 DB 조회(Resources)와 API 실행(Tools)을 단일 표준으로 연결합니다.
-                </p>
-                <div className="mini-flow"><i>MCP Host(AI 앱)</i><b>↔</b><i>MCP Server</i><b>↔</b><i>DB · API · 클라우드</i></div>
-              </div>
-            </div>
+            <ConnectFieldnoteCards />
 
             <div className="system-diagram" aria-label="RAG와 MCP가 연결된 서비스 구조">
               <div className="diagram-lane">
@@ -264,6 +249,62 @@ export default function Home() {
               <div><span>01</span><h3>검색 결과가 없을 때</h3><p>지식 베이스에 없는 질문에 대해 임의 추측(환각) 대신 ‘근거 없음’을 명시하거나 사람에게 되묻는 Fallback 규칙이 필수입니다.</p></div>
               <div><span>02</span><h3>도구 스키마 불일치</h3><p>MCP Server가 요구하는 인자 스키마와 모델의 출력이 다르면 실행이 즉시 실패하므로 타입 유효성 검증이 필수적입니다.</p></div>
               <div><span>03</span><h3>과도한 에이전트 권한</h3><p>단순 조회 요청이 데이터 수정·삭제로 오작동하지 않도록 리소스 읽기 전용과 승인 게이트를 엄격히 분리해야 합니다.</p></div>
+            </div>
+
+            {/* 왜 필요한가: 실무 비교 벤토 카드 */}
+            <div className="why-needed-bento" aria-label="RAG와 MCP가 실무에서 필요한 이유 비교">
+              <div className="why-needed-header">
+                <span className="why-badge">WHY WE NEED THIS</span>
+                <h3>“그래서 RAG와 MCP가 실무에서 왜 반드시 필요할까요?”</h3>
+                <p>
+                  단독 LLM 챗봇의 치명적 한계(환각, 연동 파편화, 침묵)를 극복하고,
+                  실제 기업 데이터와 업무 시스템을 안전하게 구동하는 엔터프라이즈 에이전트의 핵심 기둥입니다.
+                </p>
+              </div>
+
+              <div className="why-needed-grid">
+                <div className="why-column without-card">
+                  <div className="why-col-title">
+                    <span className="status-pill danger">WITHOUT RAG & MCP</span>
+                    <h4>단독 모델의 한계와 위험</h4>
+                  </div>
+                  <ul>
+                    <li>
+                      <b>🚫 환각(Hallucination)의 늪</b>
+                      <p>사내 최신 규정이나 DB를 알지 못해(Closed-book), 거짓 정보를 사실처럼 꾸며냄</p>
+                    </li>
+                    <li>
+                      <b>🚫 N×M 연동 파편화</b>
+                      <p>도구나 모델이 바뀔 때마다 맞춤 접착제 코드를 처음부터 다시 짜야 하는 유지보수 지옥</p>
+                    </li>
+                    <li>
+                      <b>🚫 텍스트에 갇힌 무기력함</b>
+                      <p>말로만 답변할 뿐, 실제 DB 조회나 클라우드 변경 등 어떤 업무 행동(Action)도 수행 불가</p>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="why-column with-card">
+                  <div className="why-col-title">
+                    <span className="status-pill success">WITH RAG & MCP</span>
+                    <h4>엔터프라이즈 에이전트의 완성</h4>
+                  </div>
+                  <ul>
+                    <li>
+                      <b>⚡ 100% 근거 기반 지식 접지</b>
+                      <p>사내 벡터 DB의 원문 문서를 실시간 참조(Open-book)하여 출처와 함께 정확하게 답변</p>
+                    </li>
+                    <li>
+                      <b>⚡ AI의 USB-C 표준화</b>
+                      <p>한 번 만든 MCP Server로 모든 에이전트가 데이터와 도구를 즉시 재사용 (N+M 확장성)</p>
+                    </li>
+                    <li>
+                      <b>⚡ 통제된 자율 행동(Governed Action)</b>
+                      <p>최소 권한 원칙과 사람의 승인 게이트(Human-in-the-Loop) 하에 실제 비즈니스 프로세스 자동화</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div className="video-sources" style={{ marginTop: "1.5rem" }}>
@@ -323,19 +364,19 @@ export default function Home() {
             <div className="split-content">
               <div>
                 <p className="lead-copy">
-                  일반적인 챗봇이 엉뚱한 말을 하면 어색한 문장으로 끝나지만,
-                  도구를 쥔 에이전트의 오류는 실제 데이터 변경, 결제 발생, 민감 정보 유출로 이어질 수 있습니다.
-                  단순 코딩 실력을 넘어 안전장치(Safety)를 제대로 설계하고 구현하는 능력이 더욱 중요해진 이유입니다.
+                  챗봇의 텍스트 오류는 대화 실패로 끝나지만,
+                  도구를 쥔 에이전트의 잘못된 선택은 실제 데이터 변조와 재무 손실로 직결됩니다.
+                  단순 프롬프트 작성을 넘어, <strong>실행 전 의도 대조(Policy Gate), 최소 권한 격리, 감사 로그</strong>를 코드로 구현하는 능력이 핵심입니다.
                 </p>
                 <div className="safety-points">
-                  <div><b>VALIDATE</b><p>입력과 출력 데이터를 실행 전에 한 번 더 검사합니다.</p></div>
-                  <div><b>LIMIT</b><p>꼭 필요한 도구와 최선의 권한만 허용합니다.</p></div>
-                  <div><b>TRACE</b><p>모든 로그를 남아 에러를 재현하고 원인을 추적할 수 있게 합니다.</p></div>
+                  <div><b>VALIDATE</b><p>입력과 출력 데이터를 실행 직전에 스키마로 검사합니다.</p></div>
+                  <div><b>LIMIT</b><p>조회와 수정을 엄격히 분리하고 최소 권한만 부여합니다.</p></div>
+                  <div><b>TRACE</b><p>모든 로그를 남겨 실패 원인을 추적하고 복구합니다.</p></div>
                 </div>
                 <p className="owasp-note">
                   OWASP(국제웹보안표준기구)에서도 LLM 활용 시
                   <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}> 출력값 검증 미흡</a>과
-                  <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 대표적 보안 위험으로 지목합니다.
+                  <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 최우선 보안 위험으로 지목합니다.
                 </p>
               </div>
               <PermissionDemo />
@@ -348,13 +389,13 @@ export default function Home() {
           <div className="section-content">
             <p className="section-kicker">THE OPERATING STACK</p>
             <h2>
-              <span className="section-title-line">‘7 Layer AI Stack’ :</span>
+              <span className="section-title-line">7 Layer AI Stack:</span>
               {" "}
-              <span className="section-title-line">구축보다 까다로운 것 &apos;운영&apos;</span>
+              <span className="section-title-line">구축보다 운영이 어려운 이유</span>
             </h2>
             <p className="lead-copy compact">
               베스핀글로벌의 ‘7 Layer AI Stack’에 따르면, 성공적인 AI 서비스는 모델 하나만 잘 만든다고 완성되지 않습니다.
-              모델을 배포하고 지속적으로 상태를 관찰하며, 평가와 교체가 원활히 이루어지는 운영 체계(LLMOps)가 뒷받침되어야 합니다.
+              모델 성능 저하, 프롬프트 드리프트, 토큰 비용을 지속적으로 관찰하고 평가·교체하는 운영 체계(LLMOps)가 뒷받침되어야 합니다.
             </p>
 
             <div className="operate-layout">
@@ -390,9 +431,9 @@ export default function Home() {
           <div className="section-content">
             <p className="section-kicker">BUILD COUNT ≠ BUSINESS VALUE</p>
             <h2>
-              <span className="section-title-line">&apos;AI Agent&apos;</span>
+              <span className="section-title-line">많이 만든 것과</span>
               {" "}
-              <span className="section-title-line">도입에 따른 기대 효과</span>
+              <span className="section-title-line">잘 쓰이는 것은 다릅니다</span>
             </h2>
 
             <div className="metric-grid">
