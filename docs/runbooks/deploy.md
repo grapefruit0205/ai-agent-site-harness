@@ -8,6 +8,8 @@ Pull request workflows do not deploy. The `Deploy production manually` workflow 
 - repository variables `AWS_ROLE_ARN`, `AWS_REGION`, `S3_BUCKET`, and `CLOUDFRONT_DISTRIBUTION_ID`
 - an AWS role that trusts GitHub OIDC and grants only the required S3 upload and CloudFront invalidation actions
 
+The bootstrap does not create the GitHub environment, its required reviewers, or the AWS OIDC role. Configure and review those controls before the first production run.
+
 The workflow builds `frontend/dist/client`, uploads it to the private origin bucket, then requests a CloudFront invalidation. It does not run Terraform.
 
 After deployment, verify both boundaries:

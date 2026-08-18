@@ -19,7 +19,7 @@ flowchart TD
 
 ## Trust boundaries
 
-The phase file limits scope and declares the commands that decide completion. The worker receives `workspace-write`; the reviewer receives `read-only`. Neither role merges or deploys. GitHub Actions repeats deterministic checks in a clean runner. The production workflow requires a manual input and a protected GitHub environment before AWS credentials become available.
+The phase file limits scope and declares the commands that decide completion. The worker receives `workspace-write`; the reviewer receives `read-only`. Neither role merges or deploys. GitHub Actions repeats deterministic checks in a clean runner. The production workflow requires a manual input and references a `production` environment. Repository administrators must configure that environment's required reviewers before treating it as an approval boundary.
 
 ## Evidence path
 

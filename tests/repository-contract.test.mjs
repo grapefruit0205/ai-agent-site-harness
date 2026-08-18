@@ -22,7 +22,7 @@ test("repository keeps the requested portfolio boundaries", () => {
   }
 });
 
-test("production workflow requires a manual input and protected environment", () => {
+test("production workflow requires a manual input and named environment", () => {
   const workflow = parse(
     readFileSync(resolve(".github/workflows/deploy-manual.yml"), "utf8")
   );

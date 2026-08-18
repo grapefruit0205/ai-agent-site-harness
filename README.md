@@ -133,7 +133,7 @@ The production path is:
 Browser → CloudFront → OAC-signed request → private S3 origin
 ```
 
-Pull request workflows never deploy. `deploy-manual.yml` requires a manual boolean input, the protected `production` environment, and short-lived AWS credentials through GitHub OIDC. The workflow builds and tests before it uploads static files. It does not run `terraform apply`.
+Pull request workflows never deploy. `deploy-manual.yml` requires a manual boolean input and short-lived AWS credentials through GitHub OIDC. It also references a `production` environment, but the bootstrap does not configure its protection rules. Add required reviewers before enabling production deployment. The workflow builds and tests before it uploads static files. It does not run `terraform apply`.
 
 ## Limitations
 
