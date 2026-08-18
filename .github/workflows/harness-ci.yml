@@ -1,0 +1,47 @@
+name: Harness contract
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/harness-ci.yml"
+      - "docs/**"
+      - "tests/**"
+      - "tools/**"
+      - "AGENTS.md"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/harness-ci.yml"
+      - "docs/**"
+      - "tests/**"
+      - "tools/**"
+      - "AGENTS.md"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install harness dependencies
+        run: npm ci
+
+      - name: Test code and validate phase contracts
+        run: npm run verify:harness

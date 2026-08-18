@@ -1,0 +1,12 @@
+{
+  "phaseId": "phase-00",
+  "firstPass": false,
+  "recoveryCount": 1,
+  "humanInterventions": 0,
+  "finalStatus": "accepted",
+  "finalTests": {
+    "total": 35,
+    "passed": 35,
+    "failed": 0
+  }
+}

@@ -1,0 +1,13 @@
+project_name = "ai-agent-article"
+aws_region   = "ap-northeast-2"
+
+# Leave both values null for the default *.cloudfront.net address.
+# For a Gabia-managed custom domain, first issue the certificate in us-east-1,
+# complete DNS validation in Gabia, and then uncomment both values.
+# custom_domain       = "lab.example.com"
+# acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/replace-me"
+
+tags = {
+  Environment = "portfolio"
+  Repository  = "aws-private-s3-cloudfront-oac"
+}

@@ -1,0 +1,5 @@
+# Standalone MCP Server dependencies
+# The server is implemented with zero mandatory third-party dependencies (standard Python library).
+# Optional packages for extending with FastMCP SDK or Boto3 live AWS audits:
+# mcp>=1.0.0
+# boto3>=1.34.0

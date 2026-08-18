@@ -1,5 +1,6 @@
 .worktrees/
 .harness/runs/raw/
+.harness/recovery/
 node_modules/
 .env
 .env.*

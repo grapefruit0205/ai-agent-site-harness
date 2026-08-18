@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-s3-cloudfront-oac-mcp"
+version = "1.0.0"
+description = "Model Context Protocol (MCP) server for AWS S3 OAC Security Audit and RAG Asset Management"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+s3-cloudfront-mcp = "server:main"
