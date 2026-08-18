@@ -73,32 +73,48 @@ export default function Home() {
 
         <div className="agent-comparison-diagram" aria-label="LLM과 Agent의 구조 비교">
           <div className="comparison-box llm-box">
-            <span className="box-badge">LLM (단독 모델)</span>
-            <div className="flow-steps">
-              <span>질문</span>
-              <i aria-hidden="true">→</i>
-              <b>LLM</b>
-              <i aria-hidden="true">→</i>
-              <span>답변</span>
+            <div className="box-top">
+              <span className="box-badge">LLM (단독 모델)</span>
+              <span className="box-desc">단방향 텍스트 생성</span>
             </div>
+            <div className="flow-steps-llm">
+              <span className="step-tag">질문</span>
+              <span className="step-arrow" aria-hidden="true">→</span>
+              <strong className="step-core">LLM</strong>
+              <span className="step-arrow" aria-hidden="true">→</span>
+              <span className="step-tag accent">답변</span>
+            </div>
+            <p className="box-caption">질문에 대한 텍스트 확률적 생성</p>
           </div>
 
           <div className="comparison-box agent-box">
-            <span className="box-badge">AI AGENT (수행 시스템)</span>
-            <div className="flow-steps-agent">
-              <span className="goal-tag">목표</span>
-              <div className="agent-loop-track">
-                <span>계획</span>
-                <i aria-hidden="true">→</i>
-                <span>정보 조회 (Context)</span>
-                <i aria-hidden="true">→</i>
-                <span>도구 실행 (Tools)</span>
-                <i aria-hidden="true">→</i>
-                <span>검증 (Guardrails)</span>
-              </div>
-              <i aria-hidden="true">→</i>
-              <strong className="result-tag">결과</strong>
+            <div className="box-top">
+              <span className="box-badge">AI AGENT (수행 시스템)</span>
+              <span className="box-desc">목표 지향 작업 루프</span>
             </div>
+            <div className="flow-steps-agent">
+              <div className="agent-goal-row">
+                <span className="step-tag goal">목표 (Goal)</span>
+              </div>
+              <span className="down-arrow" aria-hidden="true">↓</span>
+              <div className="agent-loop-box">
+                <span className="loop-label">AGENT EXECUTION LOOP</span>
+                <div className="loop-steps">
+                  <span>계획</span>
+                  <i aria-hidden="true">→</i>
+                  <span>정보 조회 (Context)</span>
+                  <i aria-hidden="true">→</i>
+                  <span>도구 실행 (Tools)</span>
+                  <i aria-hidden="true">→</i>
+                  <span>검증 (Guardrails)</span>
+                </div>
+              </div>
+              <span className="down-arrow" aria-hidden="true">↓</span>
+              <div className="agent-result-row">
+                <span className="step-tag result">결과 (Outcome)</span>
+              </div>
+            </div>
+            <p className="box-caption">도구와 사내 지식을 활용해 작업을 실제 완수</p>
           </div>
         </div>
 

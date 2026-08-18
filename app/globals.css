@@ -614,20 +614,30 @@ main > .hero {
 
 .agent-comparison-diagram {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 20px;
+  grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.5fr);
+  gap: 1.5rem;
   max-width: 1080px;
   margin: 0 auto 2.5rem;
+  align-items: stretch;
 }
 
 .comparison-box {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 1.8rem;
+  border-radius: 8px;
+  padding: 1.6rem 1.8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.box-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.8rem;
 }
 
 .box-badge {
@@ -635,25 +645,67 @@ main > .hero {
   font-size: 0.72rem;
   font-weight: 700;
   color: var(--sage);
-  margin-bottom: 1.2rem;
-  display: block;
 }
 
-.llm-box .flow-steps {
+.box-desc {
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+.flow-steps-llm {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 2.2rem 1rem;
+  gap: 0.8rem;
+  padding: 2.8rem 1rem;
   background: var(--paper-deep);
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
   font-size: 0.95rem;
 }
 
-.llm-box .flow-steps b {
-  color: var(--ink);
-  font-size: 1.1rem;
+.step-core {
   font-family: var(--font-geist-mono), monospace;
+  font-size: 1.15rem;
+  color: #ffffff;
+  background: var(--ink);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+}
+
+.step-tag {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+}
+
+.step-tag.accent {
+  background: var(--sage-bg);
+  border-color: var(--sage);
+  color: #2e5326;
+}
+
+.step-tag.goal {
+  background: #2b303c;
+  color: #ffffff;
+  border-color: #2b303c;
+}
+
+.step-tag.result {
+  background: var(--sage);
+  color: #ffffff;
+  border-color: var(--sage);
+}
+
+.step-arrow {
+  color: var(--ink-secondary);
+  font-weight: bold;
 }
 
 .agent-box {
@@ -663,43 +715,72 @@ main > .hero {
 .flow-steps-agent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.goal-tag,
-.result-tag {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.4rem 0.8rem;
-  border-radius: 3px;
-  display: inline-block;
-}
-
-.goal-tag {
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.2rem 1rem;
   background: var(--paper-deep);
-  color: var(--ink);
-  align-self: flex-start;
+  border-radius: 6px;
+  border: 1px solid var(--line);
 }
 
-.result-tag {
-  background: var(--sage);
-  color: #ffffff;
-  align-self: flex-end;
+.down-arrow {
+  font-family: var(--font-geist-mono), monospace;
+  color: var(--ink-secondary);
+  font-size: 0.9rem;
+  font-weight: bold;
+  line-height: 1;
 }
 
-.agent-loop-track {
+.agent-loop-box {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: 6px;
+  padding: 0.9rem 0.8rem 1rem;
+  text-align: center;
+}
+
+.loop-label {
+  display: block;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--sage);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+
+.loop-steps {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.45rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1.2rem;
-  background: var(--paper-deep);
-  border: 1px dashed var(--line-strong);
-  border-radius: 4px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  color: var(--ink);
+}
+
+.loop-steps span {
+  background: var(--paper-deep);
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+}
+
+.loop-steps i {
+  font-style: normal;
+  color: var(--ink-secondary);
+  font-size: 0.75rem;
+}
+
+.box-caption {
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  text-align: center;
+  margin: 0;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--line);
 }
 
 .agent-map-horizontal {
