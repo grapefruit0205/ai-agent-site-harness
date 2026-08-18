@@ -726,6 +726,45 @@ main > .thesis {
   color: var(--ink);
 }
 
+.course-reference-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 2.5rem;
+}
+
+.course-reference-list a {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.9rem 1.2rem;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.course-reference-list a:hover {
+  border-color: var(--line-strong);
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.course-reference-list b {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.course-reference-list span {
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  text-align: right;
+}
+
 .editor-note {
   background: var(--surface);
   border-left: 4px solid var(--sage);
@@ -822,6 +861,31 @@ main > .thesis {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+}
+
+.architecture-caption {
+  margin-top: 2.2rem;
+  padding: 1.2rem 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+.architecture-caption p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #c5cad3;
+  margin: 0;
+}
+
+.architecture-caption strong {
+  color: var(--sage);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.architecture-caption b {
+  color: #ffffff;
 }
 
 .concept-strip {
@@ -2172,6 +2236,101 @@ blockquote strong {
   color: var(--sage);
 }
 
+/* 결론 (CONCLUSION) */
+.section-conclusion {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+
+.conclusion-body {
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.conclusion-body p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink-secondary);
+}
+
+.next-fieldnote-banner {
+  background: var(--paper-deep);
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--sage);
+  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
+  margin: 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.next-fieldnote-banner p {
+  font-size: 0.92rem;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+.next-fieldnote-banner a,
+.next-fieldnote-link {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.next-fieldnote-banner a:hover,
+.next-fieldnote-link:hover {
+  color: var(--sage);
+}
+
+/* FIELDNOTE 002 독립 페이지 */
+.fieldnote-detail-page {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.fieldnote-detail-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.fieldnote-back-nav {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.back-link {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.fieldnote-detail-hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  line-height: 1.2;
+  margin: 1.2rem 0;
+  letter-spacing: -0.03em;
+}
+
+.fieldnote-detail-hero h1 span {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-secondary);
+}
+
 /* 푸터 */
 .site-footer {
   background: var(--ink);
@@ -2334,6 +2493,7 @@ blockquote strong {
   }
   .chapter-nav { display: none; }
   .course-grid,
+  .course-reference-list,
   .definition-grid,
   .why-needed-grid,
   .split-content,

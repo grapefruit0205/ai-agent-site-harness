@@ -51,7 +51,7 @@ const chapters = [
     leftBody: "문서를 검색하고 답변의 근거를 모델에 전달합니다.",
     factBody: [
       "IBM Technology 영상(What is RAG? & What is MCP?)은 RAG를 모델이 학습 기억에만 갇히지 않고 최신 문서를 찾아보는 '오픈북 시험'으로, MCP는 도구와 모델을 단일 규격으로 꽂는 'AI의 USB-C' 표준으로 설명합니다.",
-      "RAG는 질문과 관련된 지식을 검색(Retrieval)해 프롬프트에 증강(Augmentation)하여 환각 없는 답변(Generation)을 만듭니다. 반면 MCP는 Host-Client-Server 구조로 모델이 데이터베이스 조회나 업무 API 호출 같은 실제 행동(Action)을 안전하게 실행하도록 연결합니다.",
+      "RAG는 질문과 관련된 지식을 검색(Retrieval)해 프롬프트에 보강(Augmentation)하여 외부 근거에 기반한 답변(Generation)을 생성하도록 돕습니다. 반면 MCP는 Host-Client-Server 구조로 모델이 데이터베이스 조회나 업무 API 호출 같은 실제 행동(Action)을 안전하게 실행하도록 연결합니다.",
     ],
     interpretationBody: [
       "지식 검색층(RAG)과 도구 실행층(MCP)을 분리하면 장애 원인을 선명하게 진단할 수 있습니다. 팩트 오류는 청킹·임베딩·검색 적중률을 점검하고, 도구 실패는 MCP Server의 인자 스키마, 인증, API 응답을 확인합니다.",
@@ -98,63 +98,6 @@ const chapters = [
     question: "에이전트가 잘못 판단했을 때 실제 행동을 막는 검증 코드와 승인 지점이 어디에 있는가?",
     tone: "coral",
   },
-  {
-    id: "operate",
-    label: "OPERATE",
-    eyebrow: "THE OPERATING STACK",
-    title: "7 Layer AI Stack: 구축보다 운영이 어려운 이유",
-    summary: "인프라부터 모델·데이터·거버넌스까지 지속적인 모니터링과 변경 관리가 필요합니다.",
-    leftTitle: "7 LAYER",
-    leftBody: "INFRA → MODEL → DATA → MEAN → ACT → TRUST → VALUE",
-    factBody: [
-      "베스핀글로벌은 AI 서비스를 인프라, 모델·LLMOps, 데이터, 온톨로지, 에이전트, 거버넌스, 성과의 일곱 계층으로 체계화합니다. LLMOps는 모델 성능 저하, 프롬프트 드리프트, 토큰 비용을 지속적으로 관찰하고 교체하는 운영 체계입니다.",
-      "한국수력원자력의 약 2,500만 건 원전 문서 RAG 시스템 사례는 데모 구축 이후 사내 폐쇄망 인프라, 데이터 정제, 접근 권한 관리가 어떻게 지속적인 서비스 품질을 결정하는지 보여줍니다.",
-    ],
-    interpretationBody: [
-      "구축은 정해진 샘플로 한 번 동작하면 성공하지만, 운영은 비즈니스 규칙이 바뀌고 데이터가 늘어나도 시스템이 깨지지 않아야 합니다. 한 계층의 변화가 다른 계층으로 번지지 않도록 변경 경계를 관리해야 합니다.",
-      "개발자는 각 계층의 상태를 추적하는 관찰성(Observability) 코드를 갖춰야 합니다. 단순 응답 속도뿐 아니라 검색 적중률, 도구 실패율, 건당 토큰 비용을 추적하여 운영 안정성을 확보합니다.",
-    ],
-    question: "모델·데이터·권한 중 하나가 바뀌었을 때 영향을 받는 코드와 지표를 추적할 수 있는가?",
-    tone: "paper",
-  },
-  {
-    id: "measure",
-    label: "MEASURE",
-    eyebrow: "BUILD COUNT ≠ VALUE",
-    title: "많이 만든 것과 잘 쓰이는 것은 다릅니다",
-    summary: "단순 제작 수량이 아니라 반복 사용률, 파레토 집중도, 건당 처리 비용을 측정해야 합니다.",
-    leftTitle: "보이는 숫자",
-    leftBody: "PROJECTS · AGENTS · SAVED HOURS",
-    factBody: [
-      "기업 인터뷰에 따르면 500개 이상의 에이전트를 개발하더라도 실무 생산성 향상의 80% 이상은 '상위 10~20% 핵심 에이전트'에 집중됩니다. 제작 수량이 곧 비즈니스 가치를 의미하지는 않습니다.",
-      "진짜 성과는 도입 개수가 아니라 현업 사용자의 반복 사용률, 작업 완료율, 실패 후 복구 시간, 그리고 건당 처리 비용을 정량적으로 측정할 때 드러납니다.",
-    ],
-    interpretationBody: [
-      "에이전트가 방치되는 롱테일(Long Tail)을 방지하려면 사용 통계와 오류 패턴을 주기적으로 분석하여 실무에 맞게 개선하거나 정리해야 합니다.",
-      "측정 지표는 개발 초기부터 제품 코드와 함께 구현되어야 합니다. 이벤트 로깅과 성과 측정 코드를 통해 기술적 지표와 비즈니스 기여도를 일치시킵니다.",
-    ],
-    question: "사용자가 반복해서 쓰는지, 실패 후 복구되는지, 비용보다 큰 업무 가치를 만드는지 측정하고 있는가?",
-    tone: "sage",
-  },
-  {
-    id: "act",
-    label: "ACT",
-    eyebrow: "WHAT TO DO NEXT",
-    title: "에이전트 활용과 코딩을 하나의 역량으로 묶으세요",
-    summary: "문제 정의부터 평가, 운영과 회고까지 하나의 프로젝트로 증명합니다.",
-    leftTitle: "만드는 과정",
-    leftBody: "PROBLEM → SYSTEM → EVAL → LEARNING",
-    factBody: [
-      "공개 교육 과정은 개인 또는 팀 프로젝트를 통해 학습한 기술을 연결합니다. 산업 사례도 모델 선택만 설명하지 않고 데이터 정제, 보안 환경, 운영 지표와 현업 적용을 함께 다룹니다.",
-      "취업 준비생은 실행 화면과 소스 코드 외에도 문제 정의, 시스템 구조, 평가 기준과 실패 로그를 기록할 수 있습니다. 교육 담당자는 Python·SQL·클라우드와 RAG·MCP를 하나의 프로젝트 흐름으로 구성할 수 있습니다.",
-    ],
-    interpretationBody: [
-      "에이전트 활용과 코딩은 한 실무 역량으로 평가해야 합니다. 도구를 골라 결과를 만든 사람은 많아집니다. 결과가 맞는 이유를 설명하고, 오류를 재현하고, 운영 조건에 맞게 고친 기록이 작업자의 판단을 보여줍니다.",
-      "현업 관리자는 에이전트 개수 대신 사용률·오류율·비용과 승인 지점을 봐야 합니다. 개발자는 이 지표를 남기는 코드를 구현하고 회고에서 개선 근거로 사용합니다. 한 프로젝트가 문제 정의부터 운영 책임까지 이어집니다.",
-    ],
-    question: "내 포트폴리오나 교육 결과물에 설계 판단, 실패 로그, 검증 기준과 복구 경험이 남아 있는가?",
-    tone: "sage",
-  },
 ];
 
 type Chapter = (typeof chapters)[number];
@@ -183,7 +126,7 @@ function ChapterTrigger({
       onClick={() => onOpen(chapter.id)}
       ref={(element) => registerTrigger(chapter.id, element)}
     >
-      <span>{String(index + 1).padStart(2, "0")} / 08</span>
+      <span>{String(index + 1).padStart(2, "0")} / 05</span>
       <b>{chapter.label}</b>
       {featured ? <small>{chapter.title}</small> : null}
       <i aria-hidden="true">↗</i>
@@ -361,6 +304,15 @@ export function ArticleInteractions() {
 
   useEffect(() => {
     document.documentElement.classList.add("has-js");
+
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      if (!window.location.hash && typeof window.scrollTo === "function") {
+        window.scrollTo(0, 0);
+      }
+    }
 
     const updateProgress = () => {
       const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -673,22 +625,22 @@ const fieldnotesData = {
   rag: {
     badge: "FIELDNOTE #03-A · KNOWLEDGE GROUNDING",
     title: "RAG(검색 증강 생성) 심층 아키텍처",
-    subtitle: "왜 단순 LLM이 아니라 RAG가 실무에서 필수적인가?",
+    subtitle: "왜 단순 LLM이 아니라 RAG가 실무에서 필요한가?",
     points: [
       {
         tag: "01 · THE PROBLEM",
-        title: "Closed-book의 한계와 환각(Hallucination)",
-        desc: "LLM의 학습 데이터는 과거 특정 시점에 멈춰 있으며, 기업 내부의 비공개 데이터(Private Docs, 사내 DB)를 알지 못합니다. 이 상태에서 질문을 받으면 그럴듯한 거짓말을 꾸며내는 치명적인 환각이 발생합니다.",
+        title: "단독 모델의 지식 한계와 오류 가능성",
+        desc: "LLM의 사전 학습 데이터는 과거 특정 시점의 일반 정보에 머물러 있어, 기업 내부의 비공개 문서나 실시간 데이터를 직접 알지 못합니다. 이 상태에서 사내 규정이나 전문 질문을 받으면 잘못된 추론을 내놓을 위험이 있습니다.",
       },
       {
         tag: "02 · THE SOLUTION",
-        title: "Open-book 시험 방식의 지식 접지(Grounding)",
-        desc: "질문이 들어오는 순간 질문을 벡터로 변환하여 사내 벡터 데이터베이스에서 가장 연관성 높은 문서를 실시간 검색(Retrieve)하고, 이를 질문과 함께 프롬프트에 주입(Augment)하여 사실에 근거한 답변(Generate)을 생성합니다.",
+        title: "외부 지식 검색과 컨텍스트 보강(Grounding)",
+        desc: "질문이 들어오는 순간 질문을 벡터로 변환하여 사내 벡터 데이터베이스에서 관련도 높은 문서를 실시간 검색(Retrieve)하고, 이를 질문과 함께 프롬프트에 주입(Augment)하여 검증 가능한 근거에 기반한 답변(Generate)을 생성하도록 유도합니다.",
       },
       {
         tag: "03 · ENGINEERING",
         title: "엔지니어링 핵심 고려사항",
-        desc: "문서 분할(Chunking) 전략, 고품질 임베딩 모델 선택, 메타데이터 필터링, 그리고 검색 결과가 없을 때 거짓말 대신 '근거 없음'을 명시하는 Fallback 규칙이 실무 RAG 품질을 결정합니다.",
+        desc: "문서 분할(Chunking) 전략, 도메인에 적합한 임베딩 모델 선택, 메타데이터 필터링, 그리고 검색 결과가 불충분할 때 임의 생성 대신 '근거 없음'을 명시하거나 사람에게 되묻는 Fallback 규칙이 실무 RAG 품질을 결정합니다.",
       },
     ],
     videoUrl: "https://youtu.be/T-D1OfcDW1M",
@@ -697,22 +649,22 @@ const fieldnotesData = {
   mcp: {
     badge: "FIELDNOTE #03-B · ACTION PROTOCOL",
     title: "MCP(모델 컨텍스트 프로토콜) 심층 아키텍처",
-    subtitle: "왜 N×M 파편화를 끝내는 'AI의 USB-C'가 필요한가?",
+    subtitle: "왜 N×M 파편화를 줄이는 'AI의 USB-C' 규약이 필요한가?",
     points: [
       {
         tag: "01 · THE PROBLEM",
-        title: "N×M 커스텀 연동의 파편화와 유지보수 비용",
-        desc: "기존에는 모델(Claude, GPT, 로컬 모델)마다, 도구(DB, GitHub, Slack, AWS)마다 매번 전용 연동 코드를 새로 짜야 했습니다. 도구나 모델이 하나만 바뀌어도 전체 시스템을 뜯어고쳐야 했습니다.",
+        title: "개별 연동 코드(N×M)의 파편화와 관리 부담",
+        desc: "기존에는 모델(Claude, GPT, 로컬 모델)마다, 도구(DB, GitHub, Slack, AWS)마다 매번 전용 연동 코드를 새로 짜야 했습니다. 도구나 모델이 하나만 바뀌어도 전체 시스템을 뜯어고쳐야 하는 비효율이 존재했습니다.",
       },
       {
         tag: "02 · THE SOLUTION",
-        title: "AI 에이전트를 위한 단일 표준 규약 (The USB-C of AI)",
-        desc: "Anthropic이 제안하고 오픈 표준화된 MCP는 Host(에이전트 앱) - Client - Server 아키텍처를 통해, 개발자가 MCP Server를 한 번만 만들면 어떤 에이전트든 즉시 안전하게 도구를 연결할 수 있게 합니다.",
+        title: "도구와 데이터를 위한 단일 표준 연결 규약",
+        desc: "Host(에이전트 앱) - Client - Server 표준 구조를 통해, 개발자가 MCP Server를 한 번 구현하면 다양한 에이전트가 데이터와 도구를 일관된 방식으로 안전하게 재사용할 수 있습니다.",
       },
       {
         tag: "03 · ENGINEERING",
-        title: "Resources(조회)와 Tools(실행)의 엄격한 분리",
-        desc: "읽기 전용 데이터는 Resources로 제공해 조회만 허용하고, 실제 변경을 일으키는 기능은 Tools로 분리하며, 엄격한 스키마 검증과 Human-in-the-Loop 승인을 결합해 에이전트의 오작동을 원천 차단합니다.",
+        title: "Resources(조회)와 Tools(실행)의 명확한 분리",
+        desc: "읽기 전용 데이터는 Resources로 제공해 단순 조회를 보장하고, 실제 상태를 변경하는 작업은 Tools로 분리하며, 엄격한 스키마 검증과 권한 정책(Policy Gate)을 결합해 에이전트의 오작동 위험을 사전에 완화합니다.",
       },
     ],
     videoUrl: "https://youtu.be/eur8dUO9mvE",
@@ -739,11 +691,11 @@ export function ConnectFieldnoteCards() {
           </div>
           <h3>검색 증강 생성</h3>
           <p>
-            IBM Technology가 설명하듯, LLM이 과거 학습 기억에만 의존하는 ‘비공개 시험’에서 벗어나
-            실시간 검증 가능한 문서를 찾아보고 답하는 ‘오픈북 시험’ 구조를 만듭니다.
+            AI가 답변을 생성하기 전에 관련 내·외부 문서를 검색해 근거를 제공하는 방식입니다.
+            학습 기억에만 의존하지 않고 검증 가능한 최신 문서를 참조하여 답변 신뢰성을 보강합니다.
           </p>
           <div className="mini-flow">
-            <i>1. 문서 검색(Retrieve)</i><b>→</b><i>2. 맥락 증강(Augment)</i><b>→</b><i>3. 신뢰 답변(Generate)</i>
+            <i>1. 문서 검색(Retrieve)</i><b>→</b><i>2. 맥락 보강(Augment)</i><b>→</b><i>3. 근거 응답(Generate)</i>
           </div>
           <small className="fieldnote-hint">클릭하여 RAG 심층 아키텍처 필드노트 보기 →</small>
         </button>
@@ -760,7 +712,7 @@ export function ConnectFieldnoteCards() {
           </div>
           <h3>모델 컨텍스트 프로토콜</h3>
           <p>
-            모델마다 개별 연동 코드를 짜던 파편화를 해결하는 ‘AI의 USB-C’ 표준 규약입니다.
+            AI 모델이 외부 도구와 데이터에 표준화된 방식으로 접근하도록 연결하는 규약입니다.
             Host-Client-Server 구조로 DB 조회(Resources)와 API 실행(Tools)을 단일 표준으로 연결합니다.
           </p>
           <div className="mini-flow">

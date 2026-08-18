@@ -87,7 +87,7 @@ test("centers the article axis and gives every section title one balanced scale"
   const dom = new JSDOM(
     `<!doctype html><html><head><style>${css}</style></head><body>
       <section class="story-section">
-        <div class="section-index">01 / 08</div>
+        <div class="section-index">01 / 05</div>
         <div class="section-content">
           <p class="section-kicker">THE SHARED CURRICULUM</p>
           <h2>서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?</h2>

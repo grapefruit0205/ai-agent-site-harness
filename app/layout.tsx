@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Noto_Sans_KR } from "next/font/google";
+import { Geist_Mono, Gowun_Batang, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
+
+const editorialSerif = Gowun_Batang({
+  weight: ["400", "700"],
+  variable: "--font-editorial-serif",
+  display: "swap",
+  preload: false,
+});
 
 const notoSansKr = Noto_Sans_KR({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -35,8 +42,27 @@ export default function RootLayout({
           crossOrigin=""
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+              }
+              window.addEventListener('pageshow', function(event) {
+                if (!window.location.hash) {
+                  window.scrollTo(0, 0);
+                }
+              });
+              if (!window.location.hash) {
+                window.scrollTo(0, 0);
+              }
+            `,
+          }}
+        />
       </head>
-      <body className={`${notoSansKr.variable} ${geistMono.variable}`}>
+      <body
+        className={`${editorialSerif.variable} ${notoSansKr.variable} ${geistMono.variable}`}
+      >
         {children}
       </body>
     </html>
