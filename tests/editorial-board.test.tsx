@@ -31,6 +31,7 @@ const React = await import("react");
 const { cleanup, render, screen, waitFor } = await import("@testing-library/react");
 const userEvent = (await import("@testing-library/user-event")).default;
 const { ArticleInteractions } = await import("../app/article-interactions");
+const { default: Home } = await import("../app/page");
 
 after(() => dom.window.close());
 
@@ -63,6 +64,72 @@ test("opens each chapter as an accessible book and closes the selected book with
   assert.equal(document.activeElement, learnButton);
 });
 
+test("keeps the hero headline in four meaning-based display lines", () => {
+  render(React.createElement(ArticleInteractions));
+
+  const heading = screen.getByRole("heading", {
+    name: "AI가 코드를 써줄수록, 개발자는 코드를 더 깊이 읽어야 합니다",
+  });
+  const lines = Array.from(heading.querySelectorAll(":scope > .title-line"));
+
+  assert.deepEqual(
+    lines.map((line) => line.textContent?.trim()),
+    ["AI가 코드를", "써줄수록,", "개발자는 코드를", "더 깊이 읽어야 합니다"],
+  );
+});
+
+test("places the verify title above both content columns", () => {
+  render(React.createElement(Home));
+
+  const section = document.querySelector("#verify");
+  const content = section?.querySelector(":scope > .section-content");
+  const heading = content?.querySelector(":scope > h2");
+  const split = content?.querySelector(":scope > .split-content");
+
+  assert.ok(section && content && heading && split);
+  assert.match(heading.textContent ?? "", /에이전트의 텍스트 한 줄/);
+  assert.ok(
+    Boolean(heading.compareDocumentPosition(split) & Node.DOCUMENT_POSITION_FOLLOWING),
+    "the full-width title must come before the two-column body",
+  );
+});
+
+test("renders the requested article copy as deliberate display lines", () => {
+  render(React.createElement(Home));
+
+  const expectedLines = [
+    ["#learn h2", ["서로 다른 교육 과정,", "왜 한 방향을 가리키고 있을까요?"]],
+    ["#connect h2", ["RAG는 ‘지식’을 다루고,", "MCP는 ‘행동’할 도구를 연결합니다"]],
+    ["#read h2", ["“AI가 다 작성해주는데,", "굳이 코딩을 배워야 할까요?”"]],
+    ["#operate h2", ["‘7 Layer AI Stack’ :", "구축보다 까다로운 것 '운영'"]],
+    ["#measure h2", ["'AI Agent'", "도입에 따른 기대 효과"]],
+  ] as const;
+
+  for (const [selector, lines] of expectedLines) {
+    const heading = document.querySelector(selector);
+    assert.ok(heading, `${selector} must exist`);
+    assert.deepEqual(
+      Array.from(heading.querySelectorAll(":scope > .section-title-line")).map((line) =>
+        line.textContent?.trim(),
+      ),
+      lines,
+    );
+    assert.equal(
+      heading.textContent?.replace(/\s+/g, " ").trim(),
+      lines.join(" "),
+      "line breaks must preserve a readable space when copied or announced",
+    );
+  }
+
+  const learnCopy = document.querySelector("#learn .lead-copy");
+  const readCopy = document.querySelector("#read .lead-copy");
+  const editorCopy = document.querySelector("#learn .editor-note-copy");
+  assert.ok(learnCopy && readCopy && editorCopy);
+  assert.equal(learnCopy.querySelectorAll(":scope > .copy-line").length, 3);
+  assert.equal(readCopy.querySelectorAll(":scope > .copy-line").length, 3);
+  assert.equal(editorCopy.querySelectorAll(":scope > .copy-line").length, 2);
+});
+
 test("the close button dismisses a different chapter and restores its trigger", async () => {
   const user = userEvent.setup({ document });
   render(React.createElement(ArticleInteractions));
@@ -72,7 +139,7 @@ test("the close button dismisses a different chapter and restores its trigger", 
 
   assert.match(
     screen.getByRole("dialog", { name: "CONNECT 자세히 읽기" }).textContent ?? "",
-    /RAG는 지식을/,
+    /RAG는 ‘지식’을 다루고/,
   );
 
   await user.click(screen.getByRole("button", { name: "책 닫기" }));

@@ -123,12 +123,15 @@ export default function Home() {
           <div className="section-index">01 / 08</div>
           <div className="section-content">
             <p className="section-kicker">THE SHARED CURRICULUM</p>
-            <h2>서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?</h2>
+            <h2>
+              <span className="section-title-line">서로 다른 교육 과정,</span>
+              {" "}
+              <span className="section-title-line">왜 한 방향을 가리키고 있을까요?</span>
+            </h2>
             <p className="lead-copy">
-              서로 다른 분야를 다루는 대표 교육 프로그램 4곳을 살펴봤습니다.
-              흥미롭게도 수강생들의 성장 경로를 이어보면 하나의 흐름이 완성됩니다.
-              코드를 읽고 데이터를 다루는 법을 먼저 익히고, 그 위에 AI를 연결한 뒤,
-              마지막에는 시스템을 실제로 배포하고 운영해보는 과정입니다.
+              <span className="copy-line">서로 다른 분야를 다루는 대표 교육 프로그램 4곳을 살펴봤습니다.</span>
+              <span className="copy-line">흥미롭게도 수강생들의 성장 경로를 이어보면 하나의 흐름이 완성됩니다.</span>
+              <span className="copy-line">코드를 읽고 데이터를 다루는 법을 먼저 익히고, 그 위에 AI를 연결한 뒤, 마지막에는 시스템을 실제로 배포하고 운영해보는 과정입니다.</span>
             </p>
 
             <div className="learning-rail" aria-label="공통 학습 순서">
@@ -171,9 +174,11 @@ export default function Home() {
             </div>
 
             <p className="editor-note">
-              <span>에디터의 한 줄 생각</span>
-              교육 과정이 달라도 배우는 순서는 비슷합니다. AI 에이전트는 기초를
-              대체하는 지름길이 아니라, 확실한 기초 위에 올라가는 새로운 시스템 레이어이기 때문입니다.
+              <span className="editor-note-label">에디터의 한 줄 생각</span>
+              <span className="editor-note-copy">
+                <span className="copy-line">교육 과정이 달라도 배우는 순서는 비슷합니다.</span>
+                <span className="copy-line">AI 에이전트는 기초를 대체하는 지름길이 아니라, 확실한 기초 위에 올라가는 새로운 시스템 레이어이기 때문입니다.</span>
+              </span>
             </p>
           </div>
         </section>
@@ -217,7 +222,11 @@ export default function Home() {
           <div className="section-index">03 / 08</div>
           <div className="section-content">
             <p className="section-kicker">TWO CONNECTION LAYERS</p>
-            <h2>RAG는 ‘지식’을 다루고, MCP는 ‘행동’할 도구를 연결합니다</h2>
+            <h2>
+              <span className="section-title-line">RAG는 ‘지식’을 다루고,</span>
+              {" "}
+              <span className="section-title-line">MCP는 ‘행동’할 도구를 연결합니다</span>
+            </h2>
             <div className="definition-grid">
               <div className="definition-card rag-card">
                 <span>RAG</span>
@@ -257,7 +266,11 @@ export default function Home() {
           <div className="section-index">04 / 08</div>
           <div className="section-content">
             <p className="section-kicker">THE COUNTERARGUMENT</p>
-            <h2>“AI가 다 작성해주는데, 굳이 코딩을 배워야 할까요?”</h2>
+            <h2>
+              <span className="section-title-line">“AI가 다 작성해주는데,</span>
+              {" "}
+              <span className="section-title-line">굳이 코딩을 배워야 할까요?”</span>
+            </h2>
             <div className="counter-grid">
               <div className="counter-claim">
                 <span>흔히 하는 생각</span>
@@ -269,9 +282,9 @@ export default function Home() {
               </div>
             </div>
             <p className="lead-copy compact">
-              AI가 만들어준 코드가 당장 잘 돌아간다고 해서 끝이 아닙니다.
-              어떤 데이터를 어떻게 바꾸는지, 문제가 생겼을 때 어떻게 되돌릴 수 있는지,
-              보안 지침을 잘 따르고 있는지 개발자가 직접 설명할 수 있어야 합니다.
+              <span className="copy-line">AI가 만들어준 코드가 당장 잘 돌아간다고 해서 끝이 아닙니다.</span>
+              <span className="copy-line">어떤 데이터를 어떻게 바꾸는지, 문제가 생겼을 때 어떻게 되돌릴 수 있는지,</span>
+              <span className="copy-line">보안 지침을 잘 따르고 있는지 개발자가 직접 설명할 수 있어야 합니다.</span>
             </p>
 
             <div className="skill-ladder" aria-label="Jason Ku가 설명한 코딩 역량의 이동">
@@ -292,27 +305,29 @@ export default function Home() {
 
         <section className="story-section section-verify" id="verify" data-reveal>
           <div className="section-index">05 / 08</div>
-          <div className="section-content split-content">
-            <div>
-              <p className="section-kicker">FROM TEXT TO ACTION</p>
-              <h2>에이전트의 텍스트 한 줄은 실제 시스템의 행동이 됩니다</h2>
-              <p className="lead-copy">
-                일반적인 챗봇이 엉뚱한 말을 하면 어색한 문장으로 끝나지만,
-                도구를 쥔 에이전트의 오류는 실제 데이터 변경, 결제 발생, 민감 정보 유출로 이어질 수 있습니다.
-                단순 코딩 실력을 넘어 안전장치(Safety)를 제대로 설계하고 구현하는 능력이 더욱 중요해진 이유입니다.
-              </p>
-              <div className="safety-points">
-                <div><b>VALIDATE</b><p>입력과 출력 데이터를 실행 전에 한 번 더 검사합니다.</p></div>
-                <div><b>LIMIT</b><p>꼭 필요한 도구와 최선의 권한만 허용합니다.</p></div>
-                <div><b>TRACE</b><p>모든 로그를 남아 에러를 재현하고 원인을 추적할 수 있게 합니다.</p></div>
+          <div className="section-content">
+            <p className="section-kicker">FROM TEXT TO ACTION</p>
+            <h2>에이전트의 텍스트 한 줄은 실제 시스템의 행동이 됩니다</h2>
+            <div className="split-content">
+              <div>
+                <p className="lead-copy">
+                  일반적인 챗봇이 엉뚱한 말을 하면 어색한 문장으로 끝나지만,
+                  도구를 쥔 에이전트의 오류는 실제 데이터 변경, 결제 발생, 민감 정보 유출로 이어질 수 있습니다.
+                  단순 코딩 실력을 넘어 안전장치(Safety)를 제대로 설계하고 구현하는 능력이 더욱 중요해진 이유입니다.
+                </p>
+                <div className="safety-points">
+                  <div><b>VALIDATE</b><p>입력과 출력 데이터를 실행 전에 한 번 더 검사합니다.</p></div>
+                  <div><b>LIMIT</b><p>꼭 필요한 도구와 최선의 권한만 허용합니다.</p></div>
+                  <div><b>TRACE</b><p>모든 로그를 남아 에러를 재현하고 원인을 추적할 수 있게 합니다.</p></div>
+                </div>
+                <p className="owasp-note">
+                  OWASP(국제웹보안표준기구)에서도 LLM 활용 시
+                  <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}> 출력값 검증 미흡</a>과
+                  <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 대표적 보안 위험으로 지목합니다.
+                </p>
               </div>
-              <p className="owasp-note">
-                OWASP(국제웹보안표준기구)에서도 LLM 활용 시
-                <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}> 출력값 검증 미흡</a>과
-                <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 대표적 보안 위험으로 지목합니다.
-              </p>
+              <PermissionDemo />
             </div>
-            <PermissionDemo />
           </div>
         </section>
 
@@ -320,7 +335,11 @@ export default function Home() {
           <div className="section-index">06 / 08</div>
           <div className="section-content">
             <p className="section-kicker">THE OPERATING STACK</p>
-            <h2>만드는 것보다 ‘운영’이 까다로운 이유, 7가지 계층 때문입니다</h2>
+            <h2>
+              <span className="section-title-line">‘7 Layer AI Stack’ :</span>
+              {" "}
+              <span className="section-title-line">구축보다 까다로운 것 &apos;운영&apos;</span>
+            </h2>
             <p className="lead-copy compact">
               베스핀글로벌의 ‘7 Layer AI Stack’에 따르면, 성공적인 AI 서비스는 모델 하나만 잘 만든다고 완성되지 않습니다.
               모델을 배포하고 지속적으로 상태를 관찰하며, 평가와 교체가 원활히 이루어지는 운영 체계(LLMOps)가 뒷받침되어야 합니다.
@@ -358,7 +377,11 @@ export default function Home() {
           <div className="section-index">07 / 08</div>
           <div className="section-content">
             <p className="section-kicker">BUILD COUNT ≠ BUSINESS VALUE</p>
-            <h2>‘많이 만든 것’과 ‘실제로 잘 쓰이는 것’은 다릅니다</h2>
+            <h2>
+              <span className="section-title-line">&apos;AI Agent&apos;</span>
+              {" "}
+              <span className="section-title-line">도입에 따른 기대 효과</span>
+            </h2>
 
             <div className="metric-grid">
               <div><span>AX PROJECTS</span><strong>200+</strong><small>다양한 프로젝트 경험</small></div>

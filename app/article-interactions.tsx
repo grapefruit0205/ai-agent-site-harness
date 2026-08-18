@@ -7,7 +7,7 @@ const chapters = [
     id: "learn",
     label: "LEARN",
     eyebrow: "THE SHARED CURRICULUM",
-    title: "서로 다른 교육 과정, 왜 한 방향을 가리킬까요?",
+    title: "서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?",
     summary: "공개된 교육 과정은 프로그래밍과 데이터를 익힌 뒤 AI를 연결하고, 프로젝트를 배포하고 운영하는 순서로 나아갑니다.",
     leftTitle: "공통 학습 순서",
     leftBody: "기초 → 연결 → 에이전트 → 운영",
@@ -45,7 +45,7 @@ const chapters = [
     id: "connect",
     label: "CONNECT",
     eyebrow: "TWO CONNECTION LAYERS",
-    title: "RAG는 지식을, MCP는 행동을 연결합니다",
+    title: "RAG는 ‘지식’을 다루고, MCP는 ‘행동’할 도구를 연결합니다",
     summary: "검색할 근거와 실행할 도구를 구분하면 에이전트 시스템의 경계가 선명해집니다.",
     leftTitle: "RAG / KNOW",
     leftBody: "문서를 검색하고 답변의 근거를 모델에 전달합니다.",
@@ -64,7 +64,7 @@ const chapters = [
     id: "read",
     label: "READ",
     eyebrow: "THE COUNTERARGUMENT",
-    title: "AI가 작성해도 코드를 배워야 하는 이유",
+    title: "AI가 다 작성해주는데, 굳이 코딩을 배워야 할까요?",
     summary: "작성 속도와 별개로 채택, 검증, 통합과 복구 책임은 사람에게 남습니다.",
     leftTitle: "생성된 코드",
     leftBody: "빠르게 실행되는 결과는 출발점일 뿐입니다.",
@@ -102,7 +102,7 @@ const chapters = [
     id: "operate",
     label: "OPERATE",
     eyebrow: "THE OPERATING STACK",
-    title: "구축보다 운영이 어려운 이유",
+    title: "‘7 Layer AI Stack’ : 구축보다 까다로운 것 '운영'",
     summary: "인프라부터 성과까지 일곱 계층을 지속적으로 관찰하고 조정해야 합니다.",
     leftTitle: "7 LAYER",
     leftBody: "INFRA → MODEL → DATA → MEAN → ACT → TRUST → VALUE",
@@ -121,7 +121,7 @@ const chapters = [
     id: "measure",
     label: "MEASURE",
     eyebrow: "BUILD COUNT ≠ VALUE",
-    title: "많이 만든 것과 실제로 쓰이는 것은 다릅니다",
+    title: "'AI Agent' 도입에 따른 기대 효과",
     summary: "에이전트 수보다 사용률, 오류율, 처리 비용과 업무 기여도를 봐야 합니다.",
     leftTitle: "보이는 숫자",
     leftBody: "PROJECTS · AGENTS · SAVED HOURS",
@@ -237,11 +237,14 @@ function EditorialBoard() {
 
         <aside className="board-hero-panel">
           <span className="board-panel-label">HERO</span>
-          <h1 id="board-title">
-            AI가 코드를
-            <strong>써줄수록,</strong>
-            <em>개발자는 코드를</em>
-            더 깊이 읽어야 합니다
+          <h1
+            id="board-title"
+            aria-label="AI가 코드를 써줄수록, 개발자는 코드를 더 깊이 읽어야 합니다"
+          >
+            <span className="title-line">AI가 코드를</span>
+            <strong className="title-line">써줄수록,</strong>
+            <em className="title-line">개발자는 코드를</em>
+            <span className="title-line">더 깊이 읽어야 합니다</span>
           </h1>
           <div className="board-skill-list" aria-label="개발 역량의 이동">
             <span>01 WRITE</span><span>02 READ</span><b>03 VERIFY</b><b>04 STEER</b><strong>05 OWN</strong>
