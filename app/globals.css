@@ -1027,7 +1027,7 @@ blockquote > span {
 
 .rag-card { background: var(--acid); }
 .mcp-card { background: var(--blue); color: white; }
-.definition-card h3 { margin: auto 0 1rem; font-size: clamp(2rem, 3vw, 3.8rem); letter-spacing: -0.05em; }
+.definition-card h3 { margin: auto 0 1rem; font-size: clamp(2rem, 3vw, 3.8rem); letter-spacing: -0.05em; word-break: keep-all; }
 .definition-card p { max-width: 520px; margin: 0; font-size: 1.12rem; line-height: 1.65; }
 .mini-flow { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; }
 .mini-flow i { border: 1px solid currentColor; padding: 0.4rem 0.7rem; font-style: normal; font-size: 0.72rem; }
