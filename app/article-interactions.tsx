@@ -8,12 +8,12 @@ const chapters = [
     label: "LEARN",
     eyebrow: "THE SHARED CURRICULUM",
     title: "서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?",
-    summary: "공개된 교육 과정은 프로그래밍과 데이터를 익힌 뒤 AI를 연결하고, 프로젝트를 배포하고 검증하는 순서로 나아갑니다.",
+    summary: "공개된 교육 과정은 프로그래밍과 데이터를 익힌 뒤 AI를 연결하고, 프로젝트를 배포하고 운영하는 순서로 나아갑니다.",
     leftTitle: "공통 학습 순서",
     leftBody: "기초 → 연결 → 에이전트 → 운영",
     factBody: [
       "메가존클라우드 AI 캠퍼스와 SK네트웍스 Family AI 캠프는 프로그래밍·데이터 처리에서 생성형 AI 프로젝트로 학습 범위를 넓힙니다. 한화시스템 과정은 RAG와 에이전트 구현을 다루고, SeSAC 과정은 Python·SQL·클라우드·데이터 파이프라인을 한 과정에 묶습니다.",
-      "교육 기관마다 강조점은 다릅니다. 수강생은 데이터를 다루는 코드, 모델과 외부 시스템의 연결, 팀 프로젝트, 배포와 검증을 차례로 경험합니다. 네 과정이 비슷한 순서를 택했다는 점은 공개된 커리큘럼에서 확인할 수 있습니다.",
+      "교육 기관마다 강조점은 다릅니다. 그래도 수강생은 데이터를 다루는 코드, 모델과 외부 시스템의 연결, 팀 프로젝트, 배포와 운영을 차례로 경험합니다. 네 과정이 비슷한 순서를 택했다는 점은 공개된 커리큘럼에서 확인할 수 있습니다.",
     ],
     interpretationBody: [
       "이 순서는 에이전트가 프로그래밍 기초를 대체하지 않는다는 뜻입니다. 에이전트는 코드와 데이터 위에서 움직입니다. 개발자가 그 기반을 읽지 못하면 모델의 답변이 틀렸는지, 연결 코드가 깨졌는지 구분하기 어렵습니다.",
@@ -23,42 +23,42 @@ const chapters = [
     tone: "sage",
   },
   {
-    id: "connect",
-    label: "CONNECT",
-    eyebrow: "WHY CONTEXT AND TOOLS",
-    title: "모델의 학습 데이터만으로는 최신 정보와 업무 도구에 접근할 수 없습니다",
-    summary: "RAG는 필요한 근거를 찾고, MCP는 외부 도구와 연결되는 인터페이스를 표준화합니다.",
-    leftTitle: "CONTEXT / TOOLS",
-    leftBody: "RAG로 근거 보강 · MCP로 도구 연결 · 정책은 별도 설계",
-    factBody: [
-      "IBM Technology 영상은 RAG를 모델이 관련 문서를 찾아 답변의 근거로 사용하는 방식으로, MCP를 모델과 외부 도구 사이의 연결 규약으로 설명합니다.",
-      "RAG는 질문과 관련된 지식을 검색(Retrieval)해 프롬프트에 보강(Augmentation)하고 답변 생성(Generation)에 사용합니다. MCP는 Host-Client-Server 구조로 데이터베이스 조회나 업무 API 호출을 일관된 인터페이스에 연결합니다.",
-    ],
-    interpretationBody: [
-      "지식 검색층과 도구 실행층을 분리하면 장애 원인을 구분하기 쉽습니다. 사실 오류는 청킹·임베딩·검색 적중률을 점검하고, 도구 실패는 MCP Server의 인자 스키마, 인증과 API 응답을 확인합니다.",
-      "MCP가 실행 안전성을 보장하지는 않습니다. 개발자는 스키마 검증, 최소 권한, 승인 절차와 예외 처리를 별도 정책과 코드로 구현해야 합니다.",
-    ],
-    question: "지금 발생한 오류가 지식 검색의 문제인지, 도구 호출의 문제인지 로그만 보고 구분할 수 있는가?",
-    tone: "lavender",
-  },
-  {
     id: "collaborate",
     label: "COLLABORATE",
     eyebrow: "COLLABORATION IS ARCHITECTURE",
     title: "에이전트 협업은 대화보다 시스템 설계에 가깝습니다",
-    summary: "긴 업무를 나눈다면 역할, 상태, 권한, 종료 조건과 사람에게 넘길 지점을 함께 설계해야 합니다.",
+    summary: "역할, 상태, 권한, 종료 조건과 사람에게 넘길 지점을 함께 설계해야 합니다.",
     leftTitle: "업무를 나누는 법",
     leftBody: "PLANNER → RESEARCH → TOOL → REVIEW",
     factBody: [
-      "한화시스템 과정은 AI 에이전트와 멀티에이전트 구현을 학습 주제로 제시합니다. 여러 에이전트가 함께 일하려면 한 에이전트가 만든 결과를 다음 에이전트가 읽을 형식, 사용할 도구와 작업을 멈출 조건을 정해야 합니다.",
-      "실제 시스템에서는 조사 에이전트에 읽기 권한을 주고, 실행 에이전트에는 제한된 API만 허용할 수 있습니다. 검토 에이전트는 별도의 평가 기준으로 결과를 확인하고, 사람은 승인·수정·중단을 결정합니다.",
+      "한화시스템 과정은 AI 에이전트와 멀티에이전트 구현을 학습 주제로 제시합니다. 여러 에이전트가 함께 일하려면 한 에이전트가 만든 결과를 다음 에이전트가 읽을 형식, 사용할 도구, 작업을 멈출 조건을 정해야 합니다.",
+      "실제 시스템에서는 조사 에이전트에 읽기 권한을 주고, 실행 에이전트에는 제한된 API만 허용할 수 있습니다. 검토 에이전트는 별도의 평가 기준으로 결과를 확인합니다. 사람은 승인·수정·중단을 결정하는 지점에 남습니다.",
     ],
     interpretationBody: [
-      "업무가 길어질수록 하나의 에이전트가 계획, 실행과 검토를 모두 안정적으로 맡기 어렵습니다. 여러 에이전트를 사용한다면 개발자는 모호한 요청을 작은 작업으로 나누고 각 작업의 입력과 출력을 코드로 고정해야 합니다.",
-      "상태 저장 위치, 반복 한도, 재시도 시 중복 실행 여부와 사람에게 넘길 조건도 사람이 정합니다. 작업을 나눌 이유가 없다면 단일 에이전트가 더 단순합니다.",
+      "협업 능력은 에이전트와 말을 잘 주고받는 요령보다 업무를 구조화하는 힘에 가깝습니다. 개발자는 모호한 요청을 작은 작업으로 나누고, 각 작업의 입력과 출력을 코드로 고정해야 합니다.",
+      "상태가 어디에 저장되는지, 재시도하면 같은 작업이 두 번 실행되는지, 어느 로그로 실패 원인을 찾을지도 사람이 정합니다. 이 설계는 프롬프트만으로 끝나지 않습니다. 스키마, 예외 처리, 권한 검사와 테스트 코드가 협업 규칙을 실행 가능한 형태로 만듭니다.",
     ],
     question: "각 에이전트의 권한과 종료 조건, 사람에게 넘길 시점을 한 장의 흐름도로 그릴 수 있는가?",
     tone: "ink",
+  },
+  {
+    id: "connect",
+    label: "CONNECT",
+    eyebrow: "TWO CONNECTION LAYERS",
+    title: "RAG는 ‘지식’을 다루고, MCP는 ‘행동’할 도구를 연결합니다",
+    summary: "검색할 근거와 실행할 도구를 구분하면 에이전트 시스템의 경계가 선명해집니다.",
+    leftTitle: "RAG / KNOW",
+    leftBody: "문서를 검색하고 답변의 근거를 모델에 전달합니다.",
+    factBody: [
+      "IBM Technology 영상(What is RAG? & What is MCP?)은 RAG를 모델이 학습 기억에만 갇히지 않고 최신 문서를 찾아보는 '오픈북 시험'으로, MCP는 도구와 모델을 단일 규격으로 꽂는 'AI의 USB-C' 표준으로 설명합니다.",
+      "RAG는 질문과 관련된 지식을 검색(Retrieval)해 프롬프트에 보강(Augmentation)하여 외부 근거에 기반한 답변(Generation)을 생성하도록 돕습니다. 반면 MCP는 Host-Client-Server 구조로 모델이 데이터베이스 조회나 업무 API 호출 같은 실제 행동(Action)을 안전하게 실행하도록 연결합니다.",
+    ],
+    interpretationBody: [
+      "지식 검색층(RAG)과 도구 실행층(MCP)을 분리하면 장애 원인을 선명하게 진단할 수 있습니다. 팩트 오류는 청킹·임베딩·검색 적중률을 점검하고, 도구 실패는 MCP Server의 인자 스키마, 인증, API 응답을 확인합니다.",
+      "개발자는 이 경계를 코드로 방어해야 합니다. 모델이 만든 인자를 무검증 상태로 넘기면 엉뚱한 검색이나 위험한 데이터 수정이 발생할 수 있습니다. 스키마 검증, 최소 권한 원칙, 예외 처리가 신뢰성 있는 AI 시스템의 핵심 안전판입니다.",
+    ],
+    question: "지금 발생한 오류가 지식 검색의 문제인지, 도구 호출의 문제인지 로그만 보고 구분할 수 있는가?",
+    tone: "lavender",
   },
   {
     id: "read",
@@ -69,7 +69,7 @@ const chapters = [
     leftTitle: "생성된 코드",
     leftBody: "빠르게 실행되는 결과는 출발점일 뿐입니다.",
     factBody: [
-      "Jason Ku는 AI 시대의 개발자가 코드 작성(Typing)보다 코드 읽기(Reading), 제어 흐름 분석과 의도 전달에 더 많은 시간을 쓰게 된다고 설명합니다. 교육 과정도 프로그래밍 기초 실습과 AI 에이전트 프로젝트를 함께 배치합니다.",
+      "Jason Ku는 AI 시대의 개발자가 코드 작성(Typing)보다 코드 읽기(Reading), 제어 흐름 분석, 의도 전달에 대부분의 시간을 쓰게 된다고 강조합니다. 교육 과정 역시 프로그래밍 기초 실습과 AI 에이전트 프로젝트를 함께 배치해 판독 훈련을 강화하고 있습니다.",
       "AI가 생성한 함수는 문법상 맞더라도 내부 상태를 어떻게 변경하는지, 비동기 호출이나 외부 DB와 만났을 때 예외가 어떻게 전파되는지 개발자가 직접 추적해야 안전하게 통합될 수 있습니다.",
     ],
     interpretationBody: [
@@ -88,7 +88,7 @@ const chapters = [
     leftTitle: "위험한 기본값",
     leftBody: "조회 요청이 수정 호출로 바뀌면 데이터와 비용에 즉시 영향을 줍니다.",
     factBody: [
-      "OWASP GenAI Security Project는 '출력값 검증 미흡(Improper Output Handling)'과 '에이전트의 과도한 권한 보유(Excessive Agency)'를 주요 위험 항목으로 다룹니다. 도구를 쥔 에이전트의 오류는 실제 데이터 변경이나 재무 손실로 이어질 수 있습니다.",
+      "OWASP GenAI Top 10 보안 가이드는 '출력값 검증 미흡(Improper Output Handling)'과 '에이전트의 과도한 권한 보유(Excessive Agency)'를 가장 위험한 취약점으로 규정합니다. 텍스트 오류는 대화 실패로 끝나지만, 도구를 쥔 에이전트의 오류는 실제 DB 변조와 재무 손실로 이어집니다.",
       "개발팀은 실행 직전에 요청 의도와 도구 권한을 대조하는 'Policy Gate'를 구현하고, 각 도구에 '최소 권한'만 부여하며, 모든 실행 내역을 감사 로그로 남겨 실패 원인을 추적해야 합니다.",
     ],
     interpretationBody: [
@@ -196,14 +196,14 @@ function EditorialBoard() {
             <b>04 STEER</b>
             <strong>05 OWN</strong>
           </div>
-          <a href="#agent-primer">전체 칼럼 이어 읽기 ↓</a>
+          <a href="#learn">전체 칼럼 이어 읽기 ↓</a>
         </aside>
 
         <div className="board-workspace">
           <article className="board-thesis-panel">
-            <span className="board-panel-label">AGENT / DEFINITION</span>
-            <p>LLM은 질문에 답을 생성합니다.</p>
-            <strong>AI Agent는 목표를 받아 정보를 찾고 도구를 사용해 작업을 수행합니다.</strong>
+            <span className="board-panel-label">THESIS</span>
+            <p>코드 생성이 쉬워진 만큼,</p>
+            <strong>사람이 지는 책임의 무게는 더 커집니다.</strong>
           </article>
 
           {chapters.map((chapter, index) =>
@@ -613,7 +613,7 @@ export function PermissionDemo() {
         ) : (
           <p className="danger-text">
             <strong>권한 남용의 위험</strong>: 입력값과 도구 권한을 검증하지 않으면,
-            잘못된 도구 호출이 실제 운영 데이터를 변경할 수 있습니다.
+            텍스트 한 줄이 실제 운영 데이터를 망가뜨립니다.
           </p>
         )}
       </div>
@@ -635,7 +635,7 @@ const fieldnotesData = {
       {
         tag: "02 · THE SOLUTION",
         title: "외부 지식 검색과 컨텍스트 보강(Grounding)",
-        desc: "질문을 벡터로 변환해 사내 벡터 데이터베이스에서 관련 문서를 검색(Retrieve)하고, 이를 질문과 함께 프롬프트에 넣어(Augment) 외부 근거에 기반한 답변(Generate)을 생성하도록 돕습니다.",
+        desc: "질문이 들어오는 순간 질문을 벡터로 변환하여 사내 벡터 데이터베이스에서 관련도 높은 문서를 실시간 검색(Retrieve)하고, 이를 질문과 함께 프롬프트에 주입(Augment)하여 검증 가능한 근거에 기반한 답변(Generate)을 생성하도록 유도합니다.",
       },
       {
         tag: "03 · ENGINEERING",
@@ -654,17 +654,17 @@ const fieldnotesData = {
       {
         tag: "01 · THE PROBLEM",
         title: "개별 연동 코드(N×M)의 파편화와 관리 부담",
-        desc: "모델과 도구마다 전용 연동 코드를 만들면 연결 수가 늘수록 인증, 인자 형식과 오류 처리를 따로 관리해야 합니다. MCP는 이 연결부의 공통 인터페이스를 제공합니다.",
+        desc: "기존에는 모델(Claude, GPT, 로컬 모델)마다, 도구(DB, GitHub, Slack, AWS)마다 매번 전용 연동 코드를 새로 짜야 했습니다. 도구나 모델이 하나만 바뀌어도 전체 시스템을 뜯어고쳐야 하는 비효율이 존재했습니다.",
       },
       {
         tag: "02 · THE SOLUTION",
         title: "도구와 데이터를 위한 단일 표준 연결 규약",
-        desc: "Host(에이전트 앱)-Client-Server 구조를 통해 여러 에이전트가 데이터와 도구를 일관된 방식으로 호출할 수 있습니다. 인증, 권한과 실행 검증은 연결 규약과 별도로 설계해야 합니다.",
+        desc: "Host(에이전트 앱) - Client - Server 표준 구조를 통해, 개발자가 MCP Server를 한 번 구현하면 다양한 에이전트가 데이터와 도구를 일관된 방식으로 안전하게 재사용할 수 있습니다.",
       },
       {
         tag: "03 · ENGINEERING",
-        title: "Resources와 Tools의 역할 구분",
-        desc: "애플리케이션이 제공하는 컨텍스트는 Resources로, 모델이 호출할 수 있는 동작은 Tools로 구분할 수 있습니다. 상태를 바꾸는 Tool에는 스키마 검증과 권한 정책(Policy Gate)을 결합해 오작동 위험을 완화합니다.",
+        title: "Resources(조회)와 Tools(실행)의 명확한 분리",
+        desc: "읽기 전용 데이터는 Resources로 제공해 단순 조회를 보장하고, 실제 상태를 변경하는 작업은 Tools로 분리하며, 엄격한 스키마 검증과 권한 정책(Policy Gate)을 결합해 에이전트의 오작동 위험을 사전에 완화합니다.",
       },
     ],
     videoUrl: "https://youtu.be/eur8dUO9mvE",
@@ -692,7 +692,7 @@ export function ConnectFieldnoteCards() {
           <h3>검색 증강 생성</h3>
           <p>
             AI가 답변을 생성하기 전에 관련 내·외부 문서를 검색해 근거를 제공하는 방식입니다.
-            학습 기억에만 의존하지 않고 출처를 확인할 수 있는 문서를 참조해 답변의 근거를 보강합니다.
+            학습 기억에만 의존하지 않고 검증 가능한 최신 문서를 참조하여 답변 신뢰성을 보강합니다.
           </p>
           <div className="mini-flow">
             <i>1. 문서 검색(Retrieve)</i><b>→</b><i>2. 맥락 보강(Augment)</i><b>→</b><i>3. 근거 응답(Generate)</i>
