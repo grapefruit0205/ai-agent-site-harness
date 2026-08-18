@@ -612,175 +612,193 @@ main > .hero {
   margin: 0 auto;
 }
 
-.agent-comparison-diagram {
+.comparison-container {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.5fr);
-  gap: 1.5rem;
-  max-width: 1080px;
-  margin: 0 auto 2.5rem;
-  align-items: stretch;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 1040px;
+  margin: 2rem auto 2.5rem;
 }
 
-.comparison-box {
+@media (max-width: 768px) {
+  .comparison-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comp-card {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 1.6rem 1.8rem;
+  padding: 24px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  min-height: 340px;
 }
 
-.box-top {
+.comp-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 0.8rem;
 }
 
-.box-badge {
+.comp-title {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--sage);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.box-desc {
-  font-size: 0.78rem;
+.comp-title-sub {
+  font-weight: 500;
   color: var(--ink-secondary);
-  margin: 0;
 }
 
-.flow-steps-llm {
+.comp-tag {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  background: var(--paper-deep);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.comp-tag.agent-tag {
+  background: var(--sage-bg);
+  color: #3b6033;
+}
+
+/* 중앙 파이프라인 비주얼 */
+.comp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 0;
+}
+
+/* 좌측: LLM 선형 플로우 */
+.linear-flow {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  padding: 2.8rem 1rem;
+  gap: 12px;
+}
+
+.flow-node {
   background: var(--paper-deep);
-  border-radius: 6px;
   border: 1px solid var(--line);
-  font-size: 0.95rem;
-}
-
-.step-core {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 1.15rem;
-  color: #ffffff;
-  background: var(--ink);
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-}
-
-.step-tag {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.82rem;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 0.88rem;
   font-weight: 700;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
   color: var(--ink);
-}
-
-.step-tag.accent {
-  background: var(--sage-bg);
-  border-color: var(--sage);
-  color: #2e5326;
-}
-
-.step-tag.goal {
-  background: #2b303c;
-  color: #ffffff;
-  border-color: #2b303c;
-}
-
-.step-tag.result {
-  background: var(--sage);
-  color: #ffffff;
-  border-color: var(--sage);
-}
-
-.step-arrow {
-  color: var(--ink-secondary);
-  font-weight: bold;
-}
-
-.agent-box {
-  border-color: var(--line-strong);
-}
-
-.flow-steps-agent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 1.2rem 1rem;
-  background: var(--paper-deep);
-  border-radius: 6px;
-  border: 1px solid var(--line);
-}
-
-.down-arrow {
-  font-family: var(--font-geist-mono), monospace;
-  color: var(--ink-secondary);
-  font-size: 0.9rem;
-  font-weight: bold;
-  line-height: 1;
-}
-
-.agent-loop-box {
-  width: 100%;
-  background: var(--surface);
-  border: 1.5px dashed var(--line-strong);
-  border-radius: 6px;
-  padding: 0.9rem 0.8rem 1rem;
   text-align: center;
 }
 
-.loop-label {
-  display: block;
+.flow-node.core-llm {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+  padding: 12px 24px;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--sage);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(27, 30, 36, 0.15);
 }
 
-.loop-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  flex-wrap: wrap;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.loop-steps span {
-  background: var(--paper-deep);
-  padding: 0.35rem 0.6rem;
-  border-radius: 3px;
-  border: 1px solid var(--line);
-}
-
-.loop-steps i {
-  font-style: normal;
+.flow-arrow {
   color: var(--ink-secondary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+}
+
+.flow-arrow.small {
   font-size: 0.75rem;
 }
 
-.box-caption {
-  font-size: 0.78rem;
-  color: var(--ink-secondary);
+/* 우측: Agent 루프 구조 */
+.agent-architecture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.agent-goal,
+.agent-outcome {
+  width: 100%;
+  max-width: 280px;
   text-align: center;
-  margin: 0;
-  padding-top: 0.6rem;
+  padding: 7px 14px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.agent-goal {
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.agent-outcome {
+  background: var(--sage);
+  color: #ffffff;
+}
+
+.loop-track {
+  width: 100%;
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  align-items: center;
+  position: relative;
+}
+
+.loop-step {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 8px 4px;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loop-step span {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--ink-secondary);
+  font-family: var(--font-geist-mono), monospace;
+  margin-bottom: 2px;
+}
+
+/* 하단 설명 카피 */
+.comp-footer {
+  padding-top: 14px;
   border-top: 1px dashed var(--line);
+  font-size: 0.82rem;
+  color: var(--ink-secondary);
+  line-height: 1.5;
+  word-break: keep-all;
 }
 
 .agent-map-horizontal {
@@ -2858,7 +2876,7 @@ blockquote strong {
   .source-list,
   .failure-grid,
   .operations-grid,
-  .agent-comparison-diagram,
+  .comparison-container,
   .skill-ladder {
     grid-template-columns: 1fr;
   }
@@ -2949,6 +2967,9 @@ blockquote strong {
     grid-template-columns: repeat(2, 1fr);
   }
   .step-pills-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .loop-track {
     grid-template-columns: repeat(2, 1fr);
   }
 }

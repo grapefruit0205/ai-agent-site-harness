@@ -71,50 +71,62 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="agent-comparison-diagram" aria-label="LLM과 Agent의 구조 비교">
-          <div className="comparison-box llm-box">
-            <div className="box-top">
-              <span className="box-badge">LLM (단독 모델)</span>
-              <span className="box-desc">단방향 텍스트 생성</span>
+        <div className="comparison-container" aria-label="LLM과 Agent의 구조 비교">
+          {/* 1. LLM 단독 모델 */}
+          <div className="comp-card">
+            <div className="comp-header">
+              <div className="comp-title">
+                <span>LLM</span>
+                <span className="comp-title-sub">단독 모델</span>
+              </div>
+              <span className="comp-tag">단방향 텍스트 생성</span>
             </div>
-            <div className="flow-steps-llm">
-              <span className="step-tag">질문</span>
-              <span className="step-arrow" aria-hidden="true">→</span>
-              <strong className="step-core">LLM</strong>
-              <span className="step-arrow" aria-hidden="true">→</span>
-              <span className="step-tag accent">답변</span>
+
+            <div className="comp-body">
+              <div className="linear-flow">
+                <div className="flow-node">질문</div>
+                <span className="flow-arrow">→</span>
+                <div className="flow-node core-llm">LLM</div>
+                <span className="flow-arrow">→</span>
+                <div className="flow-node">답변</div>
+              </div>
             </div>
-            <p className="box-caption">질문에 대한 텍스트 확률적 생성</p>
+
+            <div className="comp-footer">
+              사전 학습된 통계적 확률에 기반해 질문에 대한 텍스트를 즉시 1회성으로 생성합니다.
+            </div>
           </div>
 
-          <div className="comparison-box agent-box">
-            <div className="box-top">
-              <span className="box-badge">AI AGENT (수행 시스템)</span>
-              <span className="box-desc">목표 지향 작업 루프</span>
-            </div>
-            <div className="flow-steps-agent">
-              <div className="agent-goal-row">
-                <span className="step-tag goal">목표 (Goal)</span>
+          {/* 2. AI AGENT 시스템 */}
+          <div className="comp-card">
+            <div className="comp-header">
+              <div className="comp-title">
+                <span>AI AGENT</span>
+                <span className="comp-title-sub">수행 시스템</span>
               </div>
-              <span className="down-arrow" aria-hidden="true">↓</span>
-              <div className="agent-loop-box">
-                <span className="loop-label">AGENT EXECUTION LOOP</span>
-                <div className="loop-steps">
-                  <span>계획</span>
-                  <i aria-hidden="true">→</i>
-                  <span>정보 조회 (Context)</span>
-                  <i aria-hidden="true">→</i>
-                  <span>도구 실행 (Tools)</span>
-                  <i aria-hidden="true">→</i>
-                  <span>검증 (Guardrails)</span>
+              <span className="comp-tag agent-tag">목표 지향 작업 루프</span>
+            </div>
+
+            <div className="comp-body">
+              <div className="agent-architecture">
+                <div className="agent-goal">GOAL · 목표 정의</div>
+                <span className="flow-arrow small">↓</span>
+
+                <div className="loop-track">
+                  <div className="loop-step"><span>01 PLAN</span>계획 수립</div>
+                  <div className="loop-step"><span>02 CONTEXT</span>정보 조회</div>
+                  <div className="loop-step"><span>03 TOOL</span>도구 실행</div>
+                  <div className="loop-step"><span>04 GUARD</span>검증 완료</div>
                 </div>
-              </div>
-              <span className="down-arrow" aria-hidden="true">↓</span>
-              <div className="agent-result-row">
-                <span className="step-tag result">결과 (Outcome)</span>
+
+                <span className="flow-arrow small">↓</span>
+                <div className="agent-outcome">OUTCOME · 작업 완수</div>
               </div>
             </div>
-            <p className="box-caption">도구와 사내 지식을 활용해 작업을 실제 완수</p>
+
+            <div className="comp-footer">
+              사내 지식(RAG)과 외부 도구(MCP)를 순환 호출하고 자체 검증을 거쳐 최종 결과를 도출합니다.
+            </div>
           </div>
         </div>
 
