@@ -62,6 +62,6 @@ test("renders accessible navigation and the permission experiment", async () => 
   assert.match(html, /aria-pressed="true"/);
   assert.match(html, /권한 넓게/);
   assert.match(html, /최소 권한/);
-  assert.match(html, /11 SOURCES/);
+  assert.match(html, /13 SOURCES/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/i);
 });

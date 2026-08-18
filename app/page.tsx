@@ -48,7 +48,7 @@ export default function Home() {
         </a>
         <div className="header-meta" aria-label="읽기 정보">
           <span>9 MIN READ</span>
-          <span>11 SOURCES</span>
+          <span>13 SOURCES</span>
           <span>2026.08.18</span>
         </div>
       </header>
@@ -229,35 +229,47 @@ export default function Home() {
             </h2>
             <div className="definition-grid">
               <div className="definition-card rag-card">
-                <span>RAG</span>
+                <span>RAG · KNOWLEDGE GROUNDING</span>
                 <h3>검색 증강 생성</h3>
-                <p>AI가 답변을 생성하기 전에, 연관된 사내/외부 문서를 찾아보고 정확한 근거를 바탕으로 답하게 만드는 방식입니다.</p>
-                <div className="mini-flow"><i>관련 문서</i><b>→</b><i>검색</i><b>→</b><i>근거 기반 답변</i></div>
+                <p>
+                  IBM Technology가 설명하듯, LLM이 과거 학습 기억에만 의존하는 ‘비공개 시험’에서 벗어나
+                  실시간 검증 가능한 문서를 찾아보고 답하는 ‘오픈북 시험’ 구조를 만듭니다.
+                </p>
+                <div className="mini-flow"><i>1. 문서 검색(Retrieve)</i><b>→</b><i>2. 맥락 증강(Augment)</i><b>→</b><i>3. 신뢰 답변(Generate)</i></div>
               </div>
               <div className="definition-card mcp-card">
-                <span>MCP</span>
+                <span>MCP · THE USB-C OF AI AGENTS</span>
                 <h3>모델 컨텍스트 프로토콜</h3>
-                <p>AI가 혼자 말로 끝내지 않고, 실제 외부 앱이나 DB 같은 도구를 직접 조작할 수 있도록 연결해주는 표준 규약입니다.</p>
-                <div className="mini-flow"><i>AI 모델</i><b>↔</b><i>외부 도구</i><b>↔</b><i>실제 업무 실행</i></div>
+                <p>
+                  모델마다 개별 연동 코드를 짜던 파편화를 해결하는 ‘AI의 USB-C’ 표준 규약입니다.
+                  Host-Client-Server 구조로 DB 조회(Resources)와 API 실행(Tools)을 단일 표준으로 연결합니다.
+                </p>
+                <div className="mini-flow"><i>MCP Host(AI 앱)</i><b>↔</b><i>MCP Server</i><b>↔</b><i>DB · API · 클라우드</i></div>
               </div>
             </div>
 
             <div className="system-diagram" aria-label="RAG와 MCP가 연결된 서비스 구조">
               <div className="diagram-lane">
-                <span>KNOWLEDGE LANE (지식)</span>
-                <div><b>사내 문서</b><i>→</i><b>임베딩</b><i>→</i><b>벡터 검색</b></div>
+                <span>KNOWLEDGE LANE (지식 접지: RAG)</span>
+                <div><b>사내 문서·DB</b><i>→</i><b>임베딩·벡터 검색</b><i>→</i><b>검증된 컨텍스트</b></div>
               </div>
-              <div className="diagram-core"><span>LLM</span><strong>판단하고 답변을 생성합니다</strong></div>
+              <div className="diagram-core"><span>LLM</span><strong>판단 및 도구 실행 결정</strong></div>
               <div className="diagram-lane">
-                <span>ACTION LANE (행동)</span>
-                <div><b>MCP Client</b><i>→</i><b>Tool Server</b><i>→</i><b>DB · API 실행</b></div>
+                <span>ACTION LANE (행동 실행: MCP)</span>
+                <div><b>MCP Host</b><i>→</i><b>MCP Server</b><i>→</i><b>DB 쿼리 · API 호출</b></div>
               </div>
             </div>
 
             <div className="failure-grid">
-              <div><span>01</span><h3>검색 결과가 없을 때</h3><p>‘모른다’고 할지, 사람에게 되물어볼지 처리 규칙을 정해야 합니다.</p></div>
-              <div><span>02</span><h3>데이터 형식이 다를 때</h3><p>도구가 원하는 인자값과 AI가 생성한 인자가 다르면 호출이 바로 깨집니다.</p></div>
-              <div><span>03</span><h3>권한 범위를 넘어섰을 때</h3><p>단순 조회 요청이 데이터 수정/삭제로 이어지지 않게 안전장치가 필요합니다.</p></div>
+              <div><span>01</span><h3>검색 결과가 없을 때</h3><p>지식 베이스에 없는 질문에 대해 임의 추측(환각) 대신 ‘근거 없음’을 명시하거나 사람에게 되묻는 Fallback 규칙이 필수입니다.</p></div>
+              <div><span>02</span><h3>도구 스키마 불일치</h3><p>MCP Server가 요구하는 인자 스키마와 모델의 출력이 다르면 실행이 즉시 실패하므로 타입 유효성 검증이 필수적입니다.</p></div>
+              <div><span>03</span><h3>과도한 에이전트 권한</h3><p>단순 조회 요청이 데이터 수정·삭제로 오작동하지 않도록 리소스 읽기 전용과 승인 게이트를 엄격히 분리해야 합니다.</p></div>
+            </div>
+
+            <div className="video-sources" style={{ marginTop: "1.5rem" }}>
+              <p>IBM Technology의 RAG 및 MCP 아키텍처 설명을 바탕으로 지식(Knowledge)과 행동(Action)의 연결 표준을 정리했습니다.</p>
+              <a href="https://youtu.be/T-D1OfcDW1M" {...sourceProps}>IBM RAG 영상 보기 ↗</a>
+              <a href="https://youtu.be/eur8dUO9mvE" {...sourceProps}>IBM MCP 영상 보기 ↗</a>
             </div>
           </div>
         </section>
@@ -463,7 +475,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="footer-title">
-          <span>SOURCES / 11</span>
+          <span>SOURCES / 13</span>
           <h2>참고 자료 둘러보기</h2>
         </div>
         <div className="source-list">
@@ -478,6 +490,8 @@ export default function Home() {
           <a href="https://youtu.be/sq67daxRZ6c" {...sourceProps}><span>09</span>Jason Ku: Learn to code? ↗</a>
           <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}><span>10</span>OWASP: Improper Output Handling ↗</a>
           <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}><span>11</span>OWASP: Excessive Agency ↗</a>
+          <a href="https://youtu.be/T-D1OfcDW1M" {...sourceProps}><span>12</span>IBM Technology: What is RAG? ↗</a>
+          <a href="https://youtu.be/eur8dUO9mvE" {...sourceProps}><span>13</span>IBM Technology: What is MCP? ↗</a>
         </div>
         <div className="footer-end">
           <p>FIELDNOTE 001 · SOURCE-BACKED DIGITAL ESSAY</p>
