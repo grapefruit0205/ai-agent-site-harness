@@ -13,6 +13,10 @@ export function parsePhase(markdown) {
     throw new Error("acceptance must contain at least one item");
   }
 
+  if (!Array.isArray(metadata.verify) || metadata.verify.length === 0) {
+    throw new Error("verify must contain at least one command");
+  }
+
   if (typeof metadata.branch !== "string" || !metadata.branch.startsWith("codex/")) {
     throw new Error("branch must start with codex/");
   }

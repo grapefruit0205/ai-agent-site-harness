@@ -55,3 +55,12 @@ test("parsePhase rejects a worker branch outside the codex namespace", () => {
 
   assert.throws(() => parsePhase(unsafePhase), /branch must start with codex\//);
 });
+
+test("parsePhase rejects a phase without verification commands", () => {
+  const unverifiablePhase = validPhase.replace("verify:\n  - npm test\n", "");
+
+  assert.throws(
+    () => parsePhase(unverifiablePhase),
+    /verify must contain at least one command/
+  );
+});

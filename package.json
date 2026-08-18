@@ -4,7 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "validate:phases": "node tools/orchestration/validate-phases.mjs",
+    "verify:harness": "npm test && npm run validate:phases",
+    "verify:frontend": "npm --prefix frontend run lint && npm --prefix frontend test",
+    "verify:infra": "terraform -chdir=infra/terraform fmt -check -recursive && terraform -chdir=infra/terraform init -backend=false -input=false && terraform -chdir=infra/terraform validate && terraform -chdir=infra/terraform test",
+    "verify": "npm run verify:harness && npm run verify:frontend && npm run verify:infra"
   },
   "dependencies": {
     "yaml": "2.9.0"

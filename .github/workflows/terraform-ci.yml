@@ -1,0 +1,43 @@
+name: Terraform security contract
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/terraform-ci.yml"
+      - "infra/terraform/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/terraform-ci.yml"
+      - "infra/terraform/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.15.8
+
+      - name: Check formatting
+        run: terraform fmt -check -recursive
+
+      - name: Initialize without a backend
+        run: terraform init -backend=false -input=false
+
+      - name: Validate configuration
+        run: terraform validate
+
+      - name: Test security contracts
+        run: terraform test
