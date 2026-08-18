@@ -16,18 +16,37 @@ const chapters = [
       "교육 기관마다 강조점은 다릅니다. 그래도 수강생은 데이터를 다루는 코드, 모델과 외부 시스템의 연결, 팀 프로젝트, 배포와 운영을 차례로 경험합니다. 네 과정이 비슷한 순서를 택했다는 점은 공개된 커리큘럼에서 확인할 수 있습니다.",
     ],
     interpretationBody: [
-      "이 순서는 에이전트가 프로그래밍 기초를 대체하지 않는다는 뜻입니다. 에이전트는 코드와 데이터 위에서 움직입니다. 개발자가 그 기반을 읽지 못하면 모델의 답변이 틀렸는지, 연결 코드가 깨졌는지 구분하기 어렵습니다.",
+      "교육과정이 기초부터 시작하는 이유는 Agent가 코드와 데이터 위에서 움직이기 때문입니다. 개발자가 그 기반을 읽지 못하면 모델의 답변이 틀렸는지, 연결 코드가 깨졌는지 구분하기 어렵습니다.",
       "처음 배우는 사람은 문법 암기에 머물 필요가 없습니다. 작은 프로그램을 읽고 수정한 뒤, API와 데이터베이스를 연결하고, AI가 만든 코드를 테스트하는 흐름으로 연습하면 됩니다. 기초와 에이전트 활용을 한 프로젝트 안에서 익히는 방식입니다.",
     ],
     question: "내 에이전트가 읽는 데이터 구조와 실패 지점을 코드 수준에서 설명할 수 있는가?",
     tone: "sage",
   },
   {
+    id: "connect",
+    label: "CONNECT",
+    eyebrow: "TWO CONNECTION LAYERS",
+    title: "모델의 학습 데이터만으로는 회사의 최신 정보와 업무 도구에 접근할 수 없습니다",
+    summary: "RAG는 관련 문서를 찾아 Context를 보강하고, MCP는 에이전트와 도구를 표준 규약으로 연결합니다.",
+    leftTitle: "RAG & MCP",
+    leftBody: "지식(Context) 보강과 행동(Tools) 연결",
+    factBody: [
+      "IBM Technology 해설에 따르면, RAG는 모델이 사전 학습 데이터에만 갇히지 않고 최신 문서를 찾아보는 '오픈북 시험' 방식을 만듭니다. MCP는 도구와 모델을 단일 규격으로 꽂는 'AI의 USB-C' 표준 규약입니다.",
+      "RAG는 질문과 관련된 사내 지식을 검색(Retrieval)해 프롬프트에 보강(Augmentation)하여 외부 근거에 기반한 답변(Generation)을 생성하도록 돕습니다. 반면 MCP는 Host-Client-Server 구조로 모델이 데이터베이스 조회나 업무 API 호출 같은 실제 도구(Tools)를 안전하게 실행하도록 연결합니다.",
+    ],
+    interpretationBody: [
+      "RAG는 Context를 보강하는 한 가지 방식이고, MCP는 Tools를 연결하는 표준 규약입니다. 하지만 RAG와 MCP만으로 Agent 시스템이 완성되는 것은 아닙니다.",
+      "MCP가 실행 안전성을 보장하는 것은 아니며, 권한 격리와 스키마 검증, 예외 처리는 별도의 보안 정책과 코드로 강제해야 합니다.",
+    ],
+    question: "지금 발생한 오류가 지식 검색의 문제인지, 도구 호출의 문제인지 로그만 보고 구분할 수 있는가?",
+    tone: "lavender",
+  },
+  {
     id: "collaborate",
     label: "COLLABORATE",
     eyebrow: "COLLABORATION IS ARCHITECTURE",
     title: "에이전트 협업은 대화보다 시스템 설계에 가깝습니다",
-    summary: "역할, 상태, 권한, 종료 조건과 사람에게 넘길 지점을 함께 설계해야 합니다.",
+    summary: "업무가 길어질수록 하나의 Agent가 계획, 실행과 검토를 모두 안정적으로 맡기 어렵습니다.",
     leftTitle: "업무를 나누는 법",
     leftBody: "PLANNER → RESEARCH → TOOL → REVIEW",
     factBody: [
@@ -35,37 +54,18 @@ const chapters = [
       "실제 시스템에서는 조사 에이전트에 읽기 권한을 주고, 실행 에이전트에는 제한된 API만 허용할 수 있습니다. 검토 에이전트는 별도의 평가 기준으로 결과를 확인합니다. 사람은 승인·수정·중단을 결정하는 지점에 남습니다.",
     ],
     interpretationBody: [
-      "협업 능력은 에이전트와 말을 잘 주고받는 요령보다 업무를 구조화하는 힘에 가깝습니다. 개발자는 모호한 요청을 작은 작업으로 나누고, 각 작업의 입력과 출력을 코드로 고정해야 합니다.",
-      "상태가 어디에 저장되는지, 재시도하면 같은 작업이 두 번 실행되는지, 어느 로그로 실패 원인을 찾을지도 사람이 정합니다. 이 설계는 프롬프트만으로 끝나지 않습니다. 스키마, 예외 처리, 권한 검사와 테스트 코드가 협업 규칙을 실행 가능한 형태로 만듭니다.",
+      "업무가 길어질수록 하나의 Agent가 계획, 실행과 검토를 모두 안정적으로 맡기 어렵습니다. 여러 Agent를 사용한다면 역할, 공유 상태, 반복 한도와 사람에게 넘길 조건을 코드로 정해야 합니다.",
+      "작업을 나눌 이유가 없다면 단일 Agent가 더 단순하고 안전합니다. 협업 규칙을 분산 시스템 아키텍처로 설계할 때만 멀티에이전트가 가치를 발휘합니다.",
     ],
     question: "각 에이전트의 권한과 종료 조건, 사람에게 넘길 시점을 한 장의 흐름도로 그릴 수 있는가?",
     tone: "ink",
   },
   {
-    id: "connect",
-    label: "CONNECT",
-    eyebrow: "TWO CONNECTION LAYERS",
-    title: "RAG는 ‘지식’을 다루고, MCP는 ‘행동’할 도구를 연결합니다",
-    summary: "검색할 근거와 실행할 도구를 구분하면 에이전트 시스템의 경계가 선명해집니다.",
-    leftTitle: "RAG / KNOW",
-    leftBody: "문서를 검색하고 답변의 근거를 모델에 전달합니다.",
-    factBody: [
-      "IBM Technology 영상(What is RAG? & What is MCP?)은 RAG를 모델이 학습 기억에만 갇히지 않고 최신 문서를 찾아보는 '오픈북 시험'으로, MCP는 도구와 모델을 단일 규격으로 꽂는 'AI의 USB-C' 표준으로 설명합니다.",
-      "RAG는 질문과 관련된 지식을 검색(Retrieval)해 프롬프트에 보강(Augmentation)하여 외부 근거에 기반한 답변(Generation)을 생성하도록 돕습니다. 반면 MCP는 Host-Client-Server 구조로 모델이 데이터베이스 조회나 업무 API 호출 같은 실제 행동(Action)을 안전하게 실행하도록 연결합니다.",
-    ],
-    interpretationBody: [
-      "지식 검색층(RAG)과 도구 실행층(MCP)을 분리하면 장애 원인을 선명하게 진단할 수 있습니다. 팩트 오류는 청킹·임베딩·검색 적중률을 점검하고, 도구 실패는 MCP Server의 인자 스키마, 인증, API 응답을 확인합니다.",
-      "개발자는 이 경계를 코드로 방어해야 합니다. 모델이 만든 인자를 무검증 상태로 넘기면 엉뚱한 검색이나 위험한 데이터 수정이 발생할 수 있습니다. 스키마 검증, 최소 권한 원칙, 예외 처리가 신뢰성 있는 AI 시스템의 핵심 안전판입니다.",
-    ],
-    question: "지금 발생한 오류가 지식 검색의 문제인지, 도구 호출의 문제인지 로그만 보고 구분할 수 있는가?",
-    tone: "lavender",
-  },
-  {
     id: "read",
     label: "READ",
     eyebrow: "THE COUNTERARGUMENT",
-    title: "AI가 다 작성해주는데, 굳이 코딩을 배워야 할까요?",
-    summary: "코드 판독, 상태 변화 추적, 부수 효과와 복구 흐름을 이해해야 AI 코드를 채택할 수 있습니다.",
+    title: "“AI가 다 작성해주는데, 굳이 코딩을 배워야 할까요?”",
+    summary: "코드 생성은 AI가 해도, 실행 흐름 판독과 결과 책임은 개발자에게 남습니다.",
     leftTitle: "생성된 코드",
     leftBody: "빠르게 실행되는 결과는 출발점일 뿐입니다.",
     factBody: [
@@ -83,12 +83,12 @@ const chapters = [
     id: "verify",
     label: "VERIFY",
     eyebrow: "FROM TEXT TO ACTION",
-    title: "에이전트의 텍스트 한 줄은 실제 행동이 됩니다",
+    title: "에이전트의 텍스트 한 줄은 실제 시스템의 행동이 됩니다",
     summary: "최소 권한 정책, 입력 스키마 검증, 실행 전 Policy Gate와 감사 로그로 오작동을 차단합니다.",
-    leftTitle: "위험한 기본값",
-    leftBody: "조회 요청이 수정 호출로 바뀌면 데이터와 비용에 즉시 영향을 줍니다.",
+    leftTitle: "행동의 위험",
+    leftBody: "조회 요청이 수정 호출로 바뀌면 데이터 변경이나 재무 손실로 이어질 수 있습니다.",
     factBody: [
-      "OWASP GenAI Top 10 보안 가이드는 '출력값 검증 미흡(Improper Output Handling)'과 '에이전트의 과도한 권한 보유(Excessive Agency)'를 가장 위험한 취약점으로 규정합니다. 텍스트 오류는 대화 실패로 끝나지만, 도구를 쥔 에이전트의 오류는 실제 DB 변조와 재무 손실로 이어집니다.",
+      "웹 애플리케이션 보안 프로젝트 OWASP는 '출력값 검증 미흡(Improper Output Handling)'과 '에이전트의 과도한 권한 보유(Excessive Agency)'를 주요 위험 항목으로 다룹니다. 텍스트 오류는 대화 실패로 끝나지만, 도구를 쥔 에이전트의 오류는 실제 DB 변조와 손실로 이어집니다.",
       "개발팀은 실행 직전에 요청 의도와 도구 권한을 대조하는 'Policy Gate'를 구현하고, 각 도구에 '최소 권한'만 부여하며, 모든 실행 내역을 감사 로그로 남겨 실패 원인을 추적해야 합니다.",
     ],
     interpretationBody: [
@@ -196,14 +196,14 @@ function EditorialBoard() {
             <b>04 STEER</b>
             <strong>05 OWN</strong>
           </div>
-          <a href="#learn">전체 칼럼 이어 읽기 ↓</a>
+          <a href="#agent-primer">전체 칼럼 이어 읽기 ↓</a>
         </aside>
 
         <div className="board-workspace">
           <article className="board-thesis-panel">
-            <span className="board-panel-label">THESIS</span>
-            <p>코드 생성이 쉬워진 만큼,</p>
-            <strong>사람이 지는 책임의 무게는 더 커집니다.</strong>
+            <span className="board-panel-label">AGENT DEFINITION</span>
+            <p>LLM은 질문에 답을 생성합니다.</p>
+            <strong>AI Agent는 목표를 받아 정보를 찾고 도구를 사용해 작업을 수행합니다.</strong>
           </article>
 
           {chapters.map((chapter, index) =>

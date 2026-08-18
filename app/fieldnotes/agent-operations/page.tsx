@@ -73,11 +73,11 @@ export default function AgentOperationsPage() {
         <section className="story-section section-operate" id="stack" data-reveal>
           <div className="section-index">01 / 03</div>
           <div className="section-content">
-            <p className="section-kicker">THE 7 LAYER ARCHITECTURE</p>
+            <p className="section-kicker">01 STACK</p>
             <h2>
-              <span className="section-title-line">7 Layer AI Stack:</span>
+              <span className="section-title-line">Agent는 모델 하나로</span>
               {" "}
-              <span className="section-title-line">인프라부터 성과까지의 운영 체계</span>
+              <span className="section-title-line">운영되지 않습니다</span>
             </h2>
             <p className="lead-copy">
               베스핀글로벌의 ‘7 Layer AI Stack’에 따르면, 성공적인 AI 서비스는 모델 하나만으로 완성되지 않습니다.
@@ -135,53 +135,16 @@ export default function AgentOperationsPage() {
           </div>
         </section>
 
-        {/* SECTION 2: USAGE GAP & METRICS */}
-        <section className="story-section section-measure" id="metrics" data-reveal>
+        {/* SECTION 2: OPERATIONAL RISKS & OBSERVABILITY */}
+        <section className="story-section section-risks" id="observe" data-reveal>
           <div className="section-index">02 / 03</div>
           <div className="section-content">
-            <p className="section-kicker">BUILD COUNT ≠ BUSINESS VALUE</p>
+            <p className="section-kicker">02 OBSERVE</p>
             <h2>
-              <span className="section-title-line">많이 만든 것과</span>
+              <span className="section-title-line">한 번 잘된 Agent도</span>
               {" "}
-              <span className="section-title-line">잘 쓰이는 것은 다릅니다</span>
+              <span className="section-title-line">데이터와 모델이 바뀌면 흔들립니다</span>
             </h2>
-
-            <div className="metric-grid">
-              <div><span>AX PROJECTS</span><strong>200+</strong><small>산업별 프로젝트 경험</small></div>
-              <div><span>AI AGENTS</span><strong>511</strong><small>실무 도입 에이전트 수</small></div>
-              <div><span>HOURS / YEAR</span><strong>36,800</strong><small>연간 절감 기대 시간</small></div>
-            </div>
-            <p className="self-report">* 위 수치는 기업 자체 발표 수치이며 독립 기관의 검증 수치와는 다를 수 있습니다.</p>
-
-            <div className="usage-story">
-              <div className="usage-copy">
-                <span>THE USAGE GAP</span>
-                <h3>상위 10~20%의 에이전트에 실무 성과가 집중됩니다</h3>
-                <p>
-                  기업 인터뷰에 따르면 수백 개의 에이전트를 구축하더라도 현업의 일상적 업무 개선은
-                  핵심 10~20% 에이전트에서 주로 발생합니다.
-                </p>
-              </div>
-              <div className="usage-chart" aria-label="상위 에이전트 활용 집중도">
-                <div className="top-agents">
-                  <span>TOP 10–20%</span>
-                  <span>(핵심 활용)</span>
-                </div>
-                <div className="long-tail">
-                  <span>LONG TAIL</span>
-                  <span>(간헐적 활용)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: 4 OPERATIONAL RISKS */}
-        <section className="story-section section-risks" id="risks" data-reveal>
-          <div className="section-index">03 / 03</div>
-          <div className="section-content">
-            <p className="section-kicker">OPERATIONAL RISKS & OBSERVABILITY</p>
-            <h2>에이전트 시스템이 흔들리는 4가지 운영 위험</h2>
             <p className="lead-copy compact">
               출시 이후 시스템이 지속적으로 신뢰를 얻기 위해서는 다음 네 가지 영역에 대한 관찰성(Observability) 코드가 구현되어야 합니다.
             </p>
@@ -217,6 +180,57 @@ export default function AgentOperationsPage() {
                 운영 전략 인터뷰 보기 ↗
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: MEASURE */}
+        <section className="story-section section-measure" id="measure" data-reveal>
+          <div className="section-index">03 / 03</div>
+          <div className="section-content">
+            <p className="section-kicker">03 MEASURE</p>
+            <h2>
+              <span className="section-title-line">Agent를 만들 줄 안다는 것과,</span>
+              {" "}
+              <span className="section-title-line">Agent가 가치를 만든다는 것은 다릅니다</span>
+            </h2>
+            <p className="lead-copy">
+              구축 개수는 개발 활동량을 보여줄 뿐, 업무 가치를 증명하지 않습니다.
+              반복 사용률, 업무 완료율, 사람의 수정 횟수, 건당 시간과 비용을 함께 확인해야 합니다.
+            </p>
+
+            <div className="company-report-card">
+              <span className="report-badge">COMPANY-REPORTED CASE</span>
+              <div className="metric-grid">
+                <div><span>AX PROJECTS</span><strong>200+</strong><small>산업별 프로젝트 경험</small></div>
+                <div><span>AI AGENTS</span><strong>511</strong><small>실무 도입 에이전트 수</small></div>
+                <div><span>HOURS / YEAR</span><strong>36,800</strong><small>연간 절감 기대 시간</small></div>
+              </div>
+              <p className="self-report">* 위 수치는 기업 자체 발표 수치이며 독립 기관의 검증 수치와는 다를 수 있습니다.</p>
+            </div>
+
+            <div className="usage-story">
+              <div className="usage-copy">
+                <span>THE USAGE GAP</span>
+                <h3>상위 10~20%의 에이전트에 실무 성과가 집중됩니다</h3>
+                <p>
+                  베스핀글로벌 인터뷰에서 밝힌 자체 분석 기준에 따르면, 수백 개의 에이전트를 구축하더라도 현업의 일상적 업무 개선은 핵심 10~20% 에이전트에서 주로 발생합니다.
+                </p>
+              </div>
+              <div className="usage-chart" aria-label="상위 에이전트 활용 집중도">
+                <div className="top-agents">
+                  <span>TOP 10–20%</span>
+                  <span>(핵심 활용)</span>
+                </div>
+                <div className="long-tail">
+                  <span>LONG TAIL</span>
+                  <span>(간헐적 활용)</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="measure-closing-note">
+              팀은 검색 품질, 도구 실행 성공률, 정책 차단 로그와 실제 사용 지표를 함께 살펴야 Agent가 업무를 개선하고 있는지 판단할 수 있습니다.
+            </p>
 
             <div className="next-fieldnote-banner" style={{ marginTop: "3rem" }}>
               <p>기초 역량과 코드 판독, 그리고 검증 체계를 다룬 이전 글을 확인해보세요.</p>

@@ -57,69 +57,89 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="hero" id="legacy-hero" aria-labelledby="article-title">
-        <div className="hero-copy">
-          <p className="eyebrow">AI × CODE × OPERATIONS</p>
-          <h1 id="article-title">
-            AI가 코드를 써줄수록,
-            <span>개발자는 코드를 더 깊이 읽어야 합니다</span>
+      {/* 00 AGENT PRIMER (REPLACES DUPLICATE HERO) */}
+      <section className="agent-primer" id="agent-primer" aria-labelledby="primer-title">
+        <div className="primer-header">
+          <p className="eyebrow">FROM MODEL TO AGENT SYSTEM</p>
+          <h1 id="primer-title">
+            답하는 모델에서,
+            <span>일을 수행하는 시스템으로</span>
           </h1>
-          <p className="hero-deck">
-            AI 덕분에 코드 생성이 순식간에 끝나는 시대입니다.
-            하지만 사람의 일은 줄지 않았습니다.
-            만들어진 코드를 정확히 판독하고, 안전하게 연결하며,
-            결과까지 책임지는 쪽으로 역할이 옮겨가고 있습니다.
+          <p className="primer-deck">
+            LLM은 질문을 받아 답변을 생성하지만, AI Agent는 목표를 받아 계획을 세우고,
+            사내 정보를 조회하며, 도구를 호출해 작업을 완수합니다.
           </p>
-          <a className="scroll-link" href="#thesis">
-            <span aria-hidden="true">↓</span> 천천히 읽어보기
-          </a>
         </div>
 
-        <div className="hero-visual" aria-label="개발 역량의 이동: 작성에서 책임까지">
-          <div className="signal signal-one">AGENT ONLINE</div>
-          <div className="skill-stack">
-            <div className="skill-card muted">
-              <span>01</span>
-              <strong>WRITE</strong>
-            </div>
-            <div className="skill-card">
-              <span>02</span>
-              <strong>READ</strong>
-            </div>
-            <div className="skill-card">
-              <span>03</span>
-              <strong>VERIFY</strong>
-            </div>
-            <div className="skill-card accent">
-              <span>04</span>
-              <strong>STEER</strong>
-            </div>
-            <div className="skill-card dark">
-              <span>05</span>
-              <strong>OWN</strong>
+        <div className="agent-comparison-diagram" aria-label="LLM과 Agent의 구조 비교">
+          <div className="comparison-box llm-box">
+            <span className="box-badge">LLM (단독 모델)</span>
+            <div className="flow-steps">
+              <span>질문</span>
+              <i aria-hidden="true">→</i>
+              <b>LLM</b>
+              <i aria-hidden="true">→</i>
+              <span>답변</span>
             </div>
           </div>
-          <div className="signal signal-two">HUMAN IN THE LOOP</div>
+
+          <div className="comparison-box agent-box">
+            <span className="box-badge">AI AGENT (수행 시스템)</span>
+            <div className="flow-steps-agent">
+              <span className="goal-tag">목표</span>
+              <div className="agent-loop-track">
+                <span>계획</span>
+                <i aria-hidden="true">→</i>
+                <span>정보 조회 (Context)</span>
+                <i aria-hidden="true">→</i>
+                <span>도구 실행 (Tools)</span>
+                <i aria-hidden="true">→</i>
+                <span>검증 (Guardrails)</span>
+              </div>
+              <i aria-hidden="true">→</i>
+              <strong className="result-tag">결과</strong>
+            </div>
+          </div>
         </div>
 
-        <p className="hero-caption">A SOURCE-BACKED INTERACTIVE EDITORIAL</p>
+        <div className="agent-map-horizontal" aria-label="Agent 6대 구성요소 지도">
+          <div><span>01</span><b>MODEL</b><small>판단 및 추론</small></div>
+          <div><span>02</span><b>CONTEXT · MEMORY</b><small>지식 및 기억</small></div>
+          <div><span>03</span><b>TOOLS</b><small>외부 실행 도구</small></div>
+          <div><span>04</span><b>ORCHESTRATION</b><small>작업 흐름 제어</small></div>
+          <div><span>05</span><b>GUARDRAILS</b><small>권한 및 안전 정책</small></div>
+          <div><span>06</span><b>EVALUATION</b><small>결과 검증 및 평가</small></div>
+        </div>
+
+        <div className="primer-callout">
+          <p>
+            <strong>구성요소의 관계</strong>: RAG는 Context를 보강하는 한 가지 방식이고, MCP는 Tools를 연결하는 표준 규약입니다.
+            하지만 RAG와 MCP만으로 Agent가 완성되는 것은 아니며, <b>권한(Guardrails), 실행 흐름(Orchestration), 평가(Evaluation)와 사람의 개입(HITL)</b>이 함께 설계되어야 합니다.
+          </p>
+        </div>
       </section>
 
+      {/* THESIS */}
       <section className="thesis" id="thesis" aria-labelledby="thesis-title">
-        <div className="thesis-label">핵심 인사이트</div>
+        <div className="thesis-label">왜 AGENT를 알아야 하는가</div>
         <h2 id="thesis-title">
-          코드 생성이 쉬워진 만큼,
-          <span>사람이 지는 책임의 무게는 더 커집니다.</span>
+          Agent가 행동할 수 있는 범위가 넓어지면,
+          <span>개발자가 검토할 대상도 넓어집니다</span>
         </h2>
-        <div className="responsibility-shift" aria-label="개발 책임의 이동">
-          <span>직접 타이핑</span>
+        <div className="responsibility-shift" aria-label="개발자 검토 대상의 확장">
+          <span>코드</span>
           <i aria-hidden="true">→</i>
-          <span>코드 맥락 읽기</span>
+          <span>데이터</span>
           <i aria-hidden="true">→</i>
-          <span>검증 및 통합</span>
+          <span>도구</span>
           <i aria-hidden="true">→</i>
-          <strong>시스템 결과 책임</strong>
+          <span>권한</span>
+          <i aria-hidden="true">→</i>
+          <strong>로그와 결과</strong>
         </div>
+        <p className="thesis-description">
+          개발자는 생성된 코드만 검토하지 않습니다. Agent가 어떤 정보를 읽었는지, 어떤 도구를 선택했는지, 어디까지 실행할 수 있는지, 실패했을 때 무엇을 남겼는지까지 확인해야 합니다.
+        </p>
       </section>
 
       <article className="article-body">
@@ -134,9 +154,9 @@ export default function Home() {
               <span className="section-title-line">왜 한 방향을 가리키고 있을까요?</span>
             </h2>
             <p className="lead-copy">
-              <span className="copy-line">서로 다른 분야를 다루는 대표 교육 프로그램 4곳을 살펴봤습니다.</span>
-              <span className="copy-line">흥미롭게도 수강생들의 성장 경로를 이어보면 하나의 흐름이 완성됩니다.</span>
-              <span className="copy-line">코드를 읽고 데이터를 다루는 법을 먼저 익히고, 그 위에 AI를 연결한 뒤, 마지막에는 시스템을 실제로 배포하고 검증해보는 과정입니다.</span>
+              <span className="copy-line">네 교육과정의 순서를 나란히 놓으면 공통 흐름이 보입니다.</span>
+              <span className="copy-line">코드를 읽고 데이터를 다룬 뒤 AI를 연결하고,</span>
+              <span className="copy-line">마지막에는 배포와 검증을 다룹니다.</span>
             </p>
 
             <div className="learning-rail" aria-label="공통 학습 순서">
@@ -169,24 +189,47 @@ export default function Home() {
             <p className="editor-note">
               <span className="editor-note-label">에디터의 한 줄 생각</span>
               <span className="editor-note-copy">
-                <span className="copy-line">교육 과정이 달라도 배우는 순서는 비슷합니다.</span>
-                <span className="copy-line">AI 에이전트는 기초를 대체하는 지름길이 아니라, 확실한 기초 위에 올라가는 새로운 시스템 레이어이기 때문입니다.</span>
+                교육과정이 기초부터 시작하는 이유는 Agent가 코드와 데이터 위에서 움직이기 때문입니다.
               </span>
             </p>
           </div>
         </section>
 
-        {/* CHAPTER 02: COLLABORATE */}
-        <section className="story-section section-collab" id="collaborate" data-reveal>
+        {/* CHAPTER 02: CONNECT */}
+        <section className="story-section section-connect" id="connect" data-reveal>
           <div className="section-index">02 / 05</div>
+          <div className="section-content">
+            <p className="section-kicker">TWO CONNECTION LAYERS</p>
+            <h2>
+              <span className="section-title-line">모델의 학습 데이터만으로는</span>
+              {" "}
+              <span className="section-title-line">회사의 최신 정보와 업무 도구에 접근할 수 없습니다</span>
+            </h2>
+            <p className="lead-copy compact">
+              RAG는 관련 문서를 찾아 모델의 Context를 보강합니다. MCP는 Agent와 외부 도구 사이의 연결 방식을 표준화합니다.
+              MCP가 실행 안전성을 보장하는 것은 아니며, 권한과 검증은 별도의 정책으로 설계해야 합니다.
+            </p>
+
+            <ConnectFieldnoteCards />
+
+            <div className="video-sources">
+              <p>IBM Technology의 해설을 바탕으로 지식(Context)과 도구(Tools)의 연결 방식을 정리했습니다.</p>
+              <a href="https://youtu.be/T-D1OfcDW1M" {...sourceProps}>IBM RAG 영상 보기 ↗</a>
+              <a href="https://youtu.be/eur8dUO9mvE" {...sourceProps}>IBM MCP 영상 보기 ↗</a>
+            </div>
+          </div>
+        </section>
+
+        {/* CHAPTER 03: COLLABORATE */}
+        <section className="story-section section-collab" id="collaborate" data-reveal>
+          <div className="section-index">03 / 05</div>
           <div className="section-content">
             <p className="section-kicker">COLLABORATION IS ARCHITECTURE</p>
             <h2>에이전트 협업은 ‘대화’보다 ‘시스템 설계’에 가깝습니다</h2>
             <p className="lead-copy">
-              에이전트를 제대로 쓰려면 복잡한 업무를 잘게 나누고, 각 에이전트가 어떤
-              데이터를 보고 어디까지 행동할 수 있을지 명확히 정해주어야 합니다.
-              입력값, 접근 권한, 공유할 상태, 작업 종료 조건, 그리고 에러 발생 시 사람에게
-              바통을 넘길 지점까지 모두 섬세한 시스템 설계의 대상입니다.
+              업무가 길어질수록 하나의 Agent가 계획, 실행과 검토를 모두 안정적으로 맡기 어렵습니다.
+              여러 Agent를 사용한다면 역할, 공유 상태, 반복 한도와 사람에게 넘길 조건을 코드로 정해야 합니다.
+              작업을 나눌 이유가 없다면 단일 Agent가 더 단순합니다.
             </p>
 
             <div className="agent-map" aria-label="멀티에이전트 협업 구조 예시">
@@ -213,43 +256,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CHAPTER 03: CONNECT */}
-        <section className="story-section section-connect" id="connect" data-reveal>
-          <div className="section-index">03 / 05</div>
-          <div className="section-content">
-            <p className="section-kicker">TWO CONNECTION LAYERS</p>
-            <h2>
-              <span className="section-title-line">RAG는 ‘지식’을 다루고,</span>
-              {" "}
-              <span className="section-title-line">MCP는 ‘행동’할 도구를 연결합니다</span>
-            </h2>
-            <p className="lead-copy compact">
-              RAG는 모델이 답변하기 전 관련 문서를 검색해 근거를 보강하고,
-              MCP는 모델이 외부 데이터와 도구에 접근할 수 있도록 표준 규약을 제공합니다.
-            </p>
-
-            <ConnectFieldnoteCards />
-
-            <div className="system-diagram" aria-label="RAG와 MCP가 연결된 서비스 구조">
-              <div className="diagram-lane">
-                <span>KNOWLEDGE LANE (지식 보강: RAG)</span>
-                <div><b>사내 문서·DB</b><i>→</i><b>임베딩·벡터 검색</b><i>→</i><b>검증된 컨텍스트</b></div>
-              </div>
-              <div className="diagram-core"><span>LLM</span><strong>판단 및 도구 실행 결정</strong></div>
-              <div className="diagram-lane">
-                <span>ACTION LANE (행동 실행: MCP)</span>
-                <div><b>MCP Host</b><i>→</i><b>MCP Server</b><i>→</i><b>DB 쿼리 · API 호출</b></div>
-              </div>
-            </div>
-
-            <div className="video-sources">
-              <p>IBM Technology의 해설을 바탕으로 지식(Knowledge)과 행동(Action)의 연결 표준을 정리했습니다.</p>
-              <a href="https://youtu.be/T-D1OfcDW1M" {...sourceProps}>IBM RAG 영상 보기 ↗</a>
-              <a href="https://youtu.be/eur8dUO9mvE" {...sourceProps}>IBM MCP 영상 보기 ↗</a>
-            </div>
-          </div>
-        </section>
-
         {/* CHAPTER 04: READ */}
         <section className="story-section section-read" id="read" data-reveal>
           <div className="section-index">04 / 05</div>
@@ -267,7 +273,7 @@ export default function Home() {
               </div>
               <div className="counter-answer">
                 <span>우리가 놓치기 쉬운 점</span>
-                <p>작성은 쉬워져도, 그 코드를 채택하고 검증해서 실제 시스템에 올리는 책임은 여전히 사람 몫입니다.</p>
+                <p>코드 생성은 AI가 해도, 실행 흐름 판독과 배포·복구 책임은 개발자에게 남습니다.</p>
               </div>
             </div>
             <p className="lead-copy compact">
@@ -276,12 +282,12 @@ export default function Home() {
               <span className="copy-line">보안 지침을 잘 따르고 있는지 개발자가 직접 설명할 수 있어야 합니다.</span>
             </p>
 
-            <div className="skill-ladder" aria-label="Jason Ku가 설명한 코딩 역량의 이동">
-              <div><span>01</span><b>WRITE</b><small>직접 타이핑</small></div>
+            <div className="skill-ladder" aria-label="개발 역량의 이동 사다리">
+              <div><span>01</span><b>WRITE</b><small>코드 생성</small></div>
               <div><span>02</span><b>READ</b><small>실행 흐름 판독</small></div>
-              <div><span>03</span><b>VERIFY</b><small>테스트와 검증</small></div>
-              <div><span>04</span><b>STEER</b><small>AI에게 방향 제시</small></div>
-              <div><span>05</span><b>INTENT</b><small>의도와 기준 정의</small></div>
+              <div><span>03</span><b>VERIFY</b><small>테스트와 데이터 검증</small></div>
+              <div><span>04</span><b>STEER</b><small>요구사항과 수정 방향 제시</small></div>
+              <div><span>05</span><b>OWN</b><small>배포·복구·결과 책임</small></div>
             </div>
 
             <div className="video-sources">
@@ -302,39 +308,36 @@ export default function Home() {
               <div>
                 <p className="lead-copy">
                   챗봇의 텍스트 오류는 대화 실패로 끝나지만,
-                  도구를 쥔 에이전트의 잘못된 선택은 실제 데이터 변조와 재무 손실로 직결됩니다.
-                  단순 프롬프트 작성을 넘어, <strong>실행 전 의도 대조(Policy Gate), 최소 권한 격리, 감사 로그</strong>를 코드로 구현하는 능력이 핵심입니다.
+                  도구를 쥔 에이전트의 잘못된 선택은 실제 데이터 변경이나 재무 손실로 이어질 수 있습니다.
+                  웹 애플리케이션 보안 프로젝트 OWASP에서도
+                  <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}> 출력값 검증 미흡</a>과
+                  <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 주요 위험 항목으로 다룹니다.
                 </p>
                 <div className="safety-points">
                   <div><b>VALIDATE</b><p>입력과 출력 데이터를 실행 직전에 스키마로 검사합니다.</p></div>
                   <div><b>LIMIT</b><p>조회와 수정을 엄격히 분리하고 최소 권한만 부여합니다.</p></div>
                   <div><b>TRACE</b><p>모든 로그를 남겨 실패 원인을 추적하고 복구합니다.</p></div>
                 </div>
-                <p className="owasp-note">
-                  OWASP(국제웹보안표준기구)에서도 LLM 활용 시
-                  <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/2_0_vulns/LLM05_ImproperOutputHandling" {...sourceProps}> 출력값 검증 미흡</a>과
-                  <a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" {...sourceProps}> 에이전트의 과도한 권한 보유</a>를 최우선 보안 위험으로 지목합니다.
-                </p>
               </div>
               <PermissionDemo />
             </div>
           </div>
         </section>
 
-        {/* CONCLUSION & CAREER EPILOGUE */}
+        {/* CONCLUSION / ACT */}
         <section className="story-section section-conclusion" id="conclusion" data-reveal>
           <div className="section-content">
             <p className="section-kicker">CONCLUSION</p>
             <h2>에이전트 활용 능력과 코딩 기본기는 하나의 실무 역량입니다</h2>
             <div className="conclusion-body">
               <p className="lead-copy">
-                생성 도구는 빠르게 코드를 채우지만, 시스템 경계를 설계하고 실패를 검증하며 결과를 책임지는 일은 개발자의 몫으로 남습니다.
-                AI 에이전트 활용 능력과 코딩 기본기는 서로 대체하는 역량이 아니라, 탄탄한 기초 위에 새로운 도구를 얹는 하나의 완성된 실무 역량입니다.
+                AI Agent는 목표를 받아 필요한 정보를 찾고 도구를 사용해 작업을 수행하는 시스템입니다.
+                실제 업무에 연결하려면 Context와 Tools, Orchestration, Guardrails, Evaluation을 함께 설계해야 합니다.
+                개발자는 생성된 코드를 읽고 실행 범위를 제한하며, 결과를 검증하고 실패 원인을 설명해야 합니다.
+                이 일을 수행하려면 코드와 데이터 흐름을 읽고 수정할 기본기가 필요합니다.
               </p>
               <p>
-                취업 준비생과 주니어 개발자에게 필요한 포트폴리오 역시 단순히 &lsquo;AI로 빠르게 구현한 결과물 화면&rsquo;에 머물지 않습니다.
-                어떤 문제를 왜 나누었는지, 데이터와 권한을 어떻게 제한했는지, 어떤 평가 기준으로 모델의 출력을 검증했는지,
-                그리고 실패했을 때의 복구 로그를 함께 기록하는 것이 현장에서 요구하는 개발자의 판단력을 증명합니다.
+                포트폴리오에는 결과 화면뿐 아니라 도구 권한, 평가 기준, 실패 로그와 복구 과정도 함께 기록하는 편이 좋습니다.
               </p>
             </div>
 
@@ -344,12 +347,6 @@ export default function Home() {
                 FIELDNOTE 002: AI Agent는 왜 만드는 것보다 운영하는 것이 어려운가 ↗
               </a>
             </div>
-
-            <blockquote>
-              <span>요약하며</span>
-              AI가 코드를 더 많이 만들어내는 시대일수록,
-              사람의 역할은 축소되는 것이 아니라 <strong>더 넓고 깊은 시스템을 검증하고 책임지는 방향으로 확장됩니다.</strong>
-            </blockquote>
           </div>
         </section>
       </article>

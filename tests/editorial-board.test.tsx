@@ -99,7 +99,7 @@ test("renders the requested article copy as deliberate display lines", () => {
 
   const expectedLines = [
     ["#learn h2", ["서로 다른 교육 과정,", "왜 한 방향을 가리키고 있을까요?"]],
-    ["#connect h2", ["RAG는 ‘지식’을 다루고,", "MCP는 ‘행동’할 도구를 연결합니다"]],
+    ["#connect h2", ["모델의 학습 데이터만으로는", "회사의 최신 정보와 업무 도구에 접근할 수 없습니다"]],
     ["#read h2", ["“AI가 다 작성해주는데,", "굳이 코딩을 배워야 할까요?”"]],
   ] as const;
 
@@ -125,7 +125,7 @@ test("renders the requested article copy as deliberate display lines", () => {
   assert.ok(learnCopy && readCopy && editorCopy);
   assert.equal(learnCopy.querySelectorAll(":scope > .copy-line").length, 3);
   assert.equal(readCopy.querySelectorAll(":scope > .copy-line").length, 3);
-  assert.equal(editorCopy.querySelectorAll(":scope > .copy-line").length, 2);
+  assert.match(editorCopy.textContent ?? "", /교육과정이 기초부터 시작하는 이유/);
 });
 
 test("the close button dismisses a different chapter and restores its trigger", async () => {
@@ -137,7 +137,7 @@ test("the close button dismisses a different chapter and restores its trigger", 
 
   assert.match(
     screen.getByRole("dialog", { name: "CONNECT 자세히 읽기" }).textContent ?? "",
-    /RAG는 ‘지식’을 다루고/,
+    /모델의 학습 데이터만으로는|RAG/,
   );
 
   await user.click(screen.getByRole("button", { name: "책 닫기" }));
@@ -152,8 +152,8 @@ test("every chapter opens as a sourced mini-column with a practical question", a
 
   const chapterLabels = [
     "LEARN",
-    "COLLABORATE",
     "CONNECT",
+    "COLLABORATE",
     "READ",
     "VERIFY",
   ];
