@@ -110,6 +110,223 @@ main > .thesis {
   display: none;
 }
 
+/* 표지 다음에 이어지는 Agent 개념 프라이머 */
+.agent-primer,
+.agent-thesis {
+  scroll-margin-top: 1rem;
+}
+
+.agent-primer {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(5rem, 9vw, 8rem) max(1.5rem, calc((100vw - 1240px) / 2));
+}
+
+.agent-primer-inner,
+.agent-thesis-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.agent-primer h2,
+.agent-thesis h2 {
+  max-width: 980px;
+  margin: 0 auto;
+  font-size: clamp(2.6rem, 4.6vw, 5.2rem);
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+  text-align: center;
+}
+
+.agent-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.comparison-lane {
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  background: var(--surface);
+}
+
+.comparison-lane > span,
+.agent-anatomy b,
+.section-why > span,
+.counter-dialogue > span,
+.primer-note {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.comparison-lane > span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+.comparison-lane p {
+  margin: 1.2rem 0 0;
+  color: var(--ink-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.agent-lane {
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.agent-lane > span {
+  color: var(--sage);
+}
+
+.agent-lane p {
+  color: #c5cad3;
+}
+
+.comparison-flow {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.comparison-flow b,
+.comparison-flow strong {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.comparison-flow strong {
+  background: var(--sage);
+  color: #ffffff;
+}
+
+.agent-lane .comparison-flow b {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.comparison-flow i {
+  color: var(--ink-muted);
+  font-style: normal;
+}
+
+.agent-anatomy {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.agent-anatomy div {
+  min-width: 0;
+  border-right: 1px solid var(--line);
+  padding: 1rem;
+}
+
+.agent-anatomy div:last-child {
+  border-right: 0;
+}
+
+.agent-anatomy b,
+.agent-anatomy span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.agent-anatomy b {
+  color: var(--blue);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+}
+
+.agent-anatomy span {
+  margin-top: 0.5rem;
+  color: var(--ink-secondary);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.primer-note {
+  max-width: 900px;
+  margin: 1.4rem auto 0;
+  color: var(--ink-secondary);
+  font-size: 0.76rem;
+  line-height: 1.65;
+  text-align: center;
+}
+
+.agent-thesis {
+  background: var(--ink);
+  color: #ffffff;
+  padding: clamp(5rem, 8vw, 7rem) max(1.5rem, calc((100vw - 1240px) / 2));
+}
+
+.agent-thesis .section-kicker {
+  color: var(--sage);
+}
+
+.agent-thesis h2 span {
+  display: block;
+  color: var(--sage);
+}
+
+.agent-thesis-inner > p:not(.section-kicker) {
+  max-width: 760px;
+  margin: 2rem auto 0;
+  color: #c5cad3;
+  font-family: var(--font-editorial-serif), "Gowun Batang", serif;
+  font-size: 1.06rem;
+  line-height: 1.8;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.responsibility-scope {
+  display: flex;
+  max-width: 880px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 2.5rem auto 0;
+  flex-wrap: wrap;
+}
+
+.responsibility-scope span,
+.responsibility-scope strong {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.76rem;
+}
+
+.responsibility-scope strong {
+  border-color: var(--sage);
+  background: var(--sage);
+}
+
+.responsibility-scope i {
+  color: var(--ink-muted);
+  font-style: normal;
+}
+
 .editorial-board {
   position: relative;
   isolation: isolate;
@@ -625,6 +842,11 @@ main > .thesis {
   font-weight: 800;
 }
 
+.section-title-line,
+.copy-line {
+  display: block;
+}
+
 .lead-copy {
   max-width: 780px;
   margin-block: 2rem 2.8rem;
@@ -637,6 +859,38 @@ main > .thesis {
 
 .lead-copy.compact {
   max-width: 700px;
+}
+
+.section-why {
+  display: grid;
+  max-width: 780px;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin: 2rem auto 0;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1rem;
+  color: var(--ink-secondary);
+  font-family: var(--font-editorial-serif), "Gowun Batang", serif;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.section-why > span {
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.section-why-dark {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #c5cad3;
+}
+
+.section-why-dark > span {
+  color: var(--sage);
 }
 
 /* 01 LEARN */
@@ -1378,6 +1632,44 @@ main > .thesis {
   color: #c5cad3;
 }
 
+.counter-dialogue {
+  display: grid;
+  max-width: 860px;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 0;
+  margin: 2.2rem auto 0;
+  border-block: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.counter-dialogue > * {
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1rem 0;
+}
+
+.counter-dialogue > :nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.counter-dialogue > span {
+  color: var(--sage);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.counter-dialogue p,
+.counter-dialogue strong {
+  color: #e6edf3;
+  font-family: var(--font-editorial-serif), "Gowun Batang", serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.counter-dialogue strong {
+  font-size: 1.08rem;
+}
+
 .counter-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -1493,6 +1785,15 @@ main > .thesis {
 
 .video-sources a:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+.connect-sources a {
+  border-color: var(--line-strong);
+}
+
+.connect-sources a:hover {
+  background: var(--ink);
+  color: #ffffff;
 }
 
 /* 05 VERIFY (권한 시뮬레이션 고도화) */
@@ -2010,6 +2311,16 @@ main > .thesis {
 }
 
 /* 07 MEASURE (파레토 지표) */
+.case-data-label {
+  margin: 2.8rem 0 -2rem;
+  color: var(--blue);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2138,6 +2449,19 @@ main > .thesis {
 .operations-grid {
   grid-template-columns: repeat(4, 1fr);
   margin-top: 2rem;
+}
+
+.measure-close {
+  max-width: 820px;
+  margin: 2.5rem auto 0;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.4rem;
+  color: var(--ink-secondary);
+  font-family: var(--font-editorial-serif), "Gowun Batang", serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .bespin-links {
@@ -2492,6 +2816,22 @@ blockquote strong {
     overflow-x: auto;
   }
   .chapter-nav { display: none; }
+  .agent-comparison {
+    grid-template-columns: 1fr;
+  }
+  .agent-anatomy {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .agent-anatomy div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .agent-anatomy div:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+  .agent-anatomy div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
   .course-grid,
   .course-reference-list,
   .definition-grid,
@@ -2515,6 +2855,13 @@ blockquote strong {
   }
   .system-diagram {
     grid-template-columns: 1fr;
+  }
+  .section-why {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+  .counter-dialogue {
+    grid-template-columns: 72px minmax(0, 1fr);
   }
   .diagram-core {
     margin: 1rem auto;
@@ -2584,6 +2931,47 @@ blockquote strong {
 }
 
 @media (max-width: 540px) {
+  .agent-primer,
+  .agent-thesis {
+    padding-inline: 1.2rem;
+  }
+  .agent-primer h2,
+  .agent-thesis h2 {
+    font-size: clamp(2.15rem, 11vw, 3.3rem);
+  }
+  .comparison-flow {
+    gap: 0.35rem;
+  }
+  .comparison-flow b,
+  .comparison-flow strong {
+    padding: 0.48rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  .agent-anatomy {
+    grid-template-columns: 1fr;
+  }
+  .agent-anatomy div,
+  .agent-anatomy div:nth-child(odd),
+  .agent-anatomy div:nth-last-child(-n + 2) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .agent-anatomy div:last-child {
+    border-bottom: 0;
+  }
+  .responsibility-scope {
+    gap: 0.45rem;
+  }
+  .counter-dialogue {
+    grid-template-columns: 1fr;
+  }
+  .counter-dialogue > * {
+    border-bottom: 0;
+    padding-block: 0.45rem;
+  }
+  .counter-dialogue > span:not(:first-child) {
+    margin-top: 0.75rem;
+  }
   .concept-strip {
     grid-template-columns: 1fr;
   }

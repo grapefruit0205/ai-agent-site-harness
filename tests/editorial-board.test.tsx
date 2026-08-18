@@ -78,6 +78,55 @@ test("keeps the hero headline in four meaning-based display lines", () => {
   );
 });
 
+test("defines an AI Agent on the opening board before sending readers into the article", () => {
+  render(React.createElement(ArticleInteractions));
+
+  const thesis = document.querySelector(".board-thesis-panel");
+  const continueLink = screen.getByRole("link", { name: /전체 칼럼 이어 읽기/ });
+
+  assert.ok(thesis);
+  assert.match(thesis.textContent ?? "", /LLM은 질문에 답을 생성합니다/);
+  assert.match(
+    thesis.textContent ?? "",
+    /AI Agent는 목표를 받아 정보를 찾고 도구를 사용해 작업을 수행합니다/,
+  );
+  assert.equal(continueLink.getAttribute("href"), "#agent-primer");
+});
+
+test("introduces the complete Agent system before the numbered chapters", () => {
+  render(React.createElement(Home));
+
+  const primer = document.querySelector("#agent-primer");
+  const comparison = primer?.querySelector(
+    '[aria-label="LLM과 AI Agent의 작업 흐름 비교"]',
+  );
+  const anatomy = primer?.querySelector('[aria-label="AI Agent 전체 구성요소"]');
+  const learn = document.querySelector("#learn");
+
+  assert.ok(primer && comparison && anatomy && learn);
+  assert.match(comparison.textContent ?? "", /질문.*LLM.*답변/s);
+  assert.match(
+    comparison.textContent ?? "",
+    /목표.*계획.*정보 조회.*도구 실행.*검증.*결과/s,
+  );
+
+  for (const component of [
+    "MODEL",
+    "CONTEXT · MEMORY",
+    "TOOLS",
+    "ORCHESTRATION",
+    "GUARDRAILS",
+    "EVALUATION",
+  ]) {
+    assert.match(anatomy.textContent ?? "", new RegExp(component.replace(" · ", " \\· ")));
+  }
+
+  assert.ok(
+    Boolean(primer.compareDocumentPosition(learn) & Node.DOCUMENT_POSITION_FOLLOWING),
+    "the Agent primer must appear before the first numbered chapter",
+  );
+});
+
 test("places the verify title above both content columns", () => {
   render(React.createElement(Home));
 
@@ -87,7 +136,7 @@ test("places the verify title above both content columns", () => {
   const split = content?.querySelector(":scope > .split-content");
 
   assert.ok(section && content && heading && split);
-  assert.match(heading.textContent ?? "", /에이전트의 텍스트 한 줄/);
+  assert.match(heading.textContent ?? "", /에이전트의 판단은 틀릴 수 있고/);
   assert.ok(
     Boolean(heading.compareDocumentPosition(split) & Node.DOCUMENT_POSITION_FOLLOWING),
     "the full-width title must come before the two-column body",
@@ -99,7 +148,7 @@ test("renders the requested article copy as deliberate display lines", () => {
 
   const expectedLines = [
     ["#learn h2", ["서로 다른 교육 과정,", "왜 한 방향을 가리키고 있을까요?"]],
-    ["#connect h2", ["RAG는 ‘지식’을 다루고,", "MCP는 ‘행동’할 도구를 연결합니다"]],
+    ["#connect h2", ["모델의 학습 데이터만으로는", "최신 정보와 업무 도구에 접근할 수 없습니다"]],
     ["#read h2", ["“AI가 다 작성해주는데,", "굳이 코딩을 배워야 할까요?”"]],
   ] as const;
 
@@ -123,9 +172,61 @@ test("renders the requested article copy as deliberate display lines", () => {
   const readCopy = document.querySelector("#read .lead-copy");
   const editorCopy = document.querySelector("#learn .editor-note-copy");
   assert.ok(learnCopy && readCopy && editorCopy);
-  assert.equal(learnCopy.querySelectorAll(":scope > .copy-line").length, 3);
+  assert.equal(learnCopy.querySelectorAll(":scope > .copy-line").length, 2);
   assert.equal(readCopy.querySelectorAll(":scope > .copy-line").length, 3);
-  assert.equal(editorCopy.querySelectorAll(":scope > .copy-line").length, 2);
+  assert.equal(editorCopy.querySelectorAll(":scope > .copy-line").length, 1);
+});
+
+test("orders the learning journey from foundations through tools and orchestration to ownership", () => {
+  render(React.createElement(Home));
+
+  const orderedIds = ["learn", "connect", "collaborate", "read", "verify"];
+  const sections = orderedIds.map((id) => document.querySelector(`#${id}`));
+  assert.ok(sections.every(Boolean));
+
+  for (let index = 0; index < sections.length - 1; index += 1) {
+    assert.ok(
+      Boolean(
+        sections[index]?.compareDocumentPosition(sections[index + 1] as Node) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ),
+      `${orderedIds[index]} must precede ${orderedIds[index + 1]}`,
+    );
+  }
+
+  const navLabels = Array.from(document.querySelectorAll(".chapter-nav a b")).map(
+    (element) => element.textContent?.trim(),
+  );
+  assert.deepEqual(navLabels, ["LEARN", "CONNECT", "COLLABORATE", "READ", "VERIFY"]);
+
+  const ladder = document.querySelector("#read .skill-ladder");
+  assert.ok(ladder);
+  assert.match(ladder.textContent ?? "", /OWN/);
+  assert.doesNotMatch(ladder.textContent ?? "", /INTENT/);
+});
+
+test("keeps one primary Connect visual and states that MCP does not provide policy by itself", () => {
+  render(React.createElement(Home));
+
+  const connect = document.querySelector("#connect");
+  assert.ok(connect);
+  assert.equal(connect.querySelectorAll(".definition-card").length, 2);
+  assert.equal(connect.querySelector(".system-diagram"), null);
+  assert.match(
+    connect.textContent ?? "",
+    /MCP가 실행 안전성을 보장하는 것은 아니며, 권한과 검증은 별도의 정책으로 설계해야 합니다/,
+  );
+});
+
+test("closes FIELDNOTE 001 by answering the opening questions without a repeated pull quote", () => {
+  render(React.createElement(Home));
+
+  const conclusion = document.querySelector("#conclusion");
+  assert.ok(conclusion);
+  assert.match(conclusion.textContent ?? "", /AI Agent는 목표를 받아 필요한 정보를 찾고/);
+  assert.match(conclusion.textContent ?? "", /Context와 Tools, Orchestration, Guardrails, Evaluation/);
+  assert.match(conclusion.textContent ?? "", /실패 원인을 설명/);
+  assert.equal(conclusion.querySelector("blockquote"), null);
 });
 
 test("the close button dismisses a different chapter and restores its trigger", async () => {
@@ -137,7 +238,7 @@ test("the close button dismisses a different chapter and restores its trigger", 
 
   assert.match(
     screen.getByRole("dialog", { name: "CONNECT 자세히 읽기" }).textContent ?? "",
-    /RAG는 ‘지식’을 다루고/,
+    /모델의 학습 데이터만으로는 최신 정보와 업무 도구에 접근할 수 없습니다/,
   );
 
   await user.click(screen.getByRole("button", { name: "책 닫기" }));
@@ -152,8 +253,8 @@ test("every chapter opens as a sourced mini-column with a practical question", a
 
   const chapterLabels = [
     "LEARN",
-    "COLLABORATE",
     "CONNECT",
+    "COLLABORATE",
     "READ",
     "VERIFY",
   ];

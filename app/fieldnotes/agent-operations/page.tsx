@@ -62,9 +62,9 @@ export default function AgentOperationsPage() {
           <span>운영하는 것이 어려운가</span>
         </h1>
         <p className="hero-deck">
-          데모 환경에서 프롬프트를 엮어 작동시키는 것은 출발점에 불과합니다.
-          실제 조직 환경에서 모델 드리프트, 데이터 변경, 보안 통제, 그리고 비용과 성과를 지속적으로
-          관리하기 위한 7 Layer AI Stack과 운영 체계(LLMOps)의 핵심 원리를 정리합니다.
+          데모에서 한 번 작동한 Agent가 실제 조직에서도 계속 같은 품질을 내는 것은 아닙니다.
+          데이터와 모델의 변화, 보안 통제, 비용과 성과를 함께 관리해야 합니다. 이 글은
+          7 Layer AI Stack과 운영 체계(LLMOps)를 그 관리 문제의 순서에 맞춰 살펴봅니다.
         </p>
       </div>
 
@@ -73,15 +73,16 @@ export default function AgentOperationsPage() {
         <section className="story-section section-operate" id="stack" data-reveal>
           <div className="section-index">01 / 03</div>
           <div className="section-content">
-            <p className="section-kicker">THE 7 LAYER ARCHITECTURE</p>
+            <p className="section-kicker">WHY A FULL OPERATING STACK</p>
             <h2>
-              <span className="section-title-line">7 Layer AI Stack:</span>
+              <span className="section-title-line">Agent는 모델 하나로</span>
               {" "}
-              <span className="section-title-line">인프라부터 성과까지의 운영 체계</span>
+              <span className="section-title-line">운영되지 않습니다</span>
             </h2>
             <p className="lead-copy">
-              베스핀글로벌의 ‘7 Layer AI Stack’에 따르면, 성공적인 AI 서비스는 모델 하나만으로 완성되지 않습니다.
-              인프라와 데이터에서 시작해 거버넌스와 비즈니스 가치로 이어지는 일곱 계층이 유기적으로 맞물려야 합니다.
+              베스핀글로벌이 제시한 ‘7 Layer AI Stack’은 AI 서비스를 인프라, 모델·LLMOps,
+              데이터, 온톨로지, Agent, 거버넌스와 성과의 일곱 계층으로 구분합니다.
+              팀은 각 계층의 변화가 다른 계층에 미치는 영향을 함께 관리해야 합니다.
             </p>
 
             <div className="operate-layout">
@@ -135,77 +136,42 @@ export default function AgentOperationsPage() {
           </div>
         </section>
 
-        {/* SECTION 2: USAGE GAP & METRICS */}
-        <section className="story-section section-measure" id="metrics" data-reveal>
+        {/* SECTION 2: OPERATIONAL RISKS */}
+        <section className="story-section section-risks" id="risks" data-reveal>
           <div className="section-index">02 / 03</div>
           <div className="section-content">
-            <p className="section-kicker">BUILD COUNT ≠ BUSINESS VALUE</p>
+            <p className="section-kicker">WHY OBSERVABILITY</p>
             <h2>
-              <span className="section-title-line">많이 만든 것과</span>
+              <span className="section-title-line">한 번 잘된 Agent도</span>
               {" "}
-              <span className="section-title-line">잘 쓰이는 것은 다릅니다</span>
+              <span className="section-title-line">데이터와 모델이 바뀌면 흔들립니다</span>
             </h2>
-
-            <div className="metric-grid">
-              <div><span>AX PROJECTS</span><strong>200+</strong><small>산업별 프로젝트 경험</small></div>
-              <div><span>AI AGENTS</span><strong>511</strong><small>실무 도입 에이전트 수</small></div>
-              <div><span>HOURS / YEAR</span><strong>36,800</strong><small>연간 절감 기대 시간</small></div>
-            </div>
-            <p className="self-report">* 위 수치는 기업 자체 발표 수치이며 독립 기관의 검증 수치와는 다를 수 있습니다.</p>
-
-            <div className="usage-story">
-              <div className="usage-copy">
-                <span>THE USAGE GAP</span>
-                <h3>상위 10~20%의 에이전트에 실무 성과가 집중됩니다</h3>
-                <p>
-                  기업 인터뷰에 따르면 수백 개의 에이전트를 구축하더라도 현업의 일상적 업무 개선은
-                  핵심 10~20% 에이전트에서 주로 발생합니다.
-                </p>
-              </div>
-              <div className="usage-chart" aria-label="상위 에이전트 활용 집중도">
-                <div className="top-agents">
-                  <span>TOP 10–20%</span>
-                  <span>(핵심 활용)</span>
-                </div>
-                <div className="long-tail">
-                  <span>LONG TAIL</span>
-                  <span>(간헐적 활용)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: 4 OPERATIONAL RISKS */}
-        <section className="story-section section-risks" id="risks" data-reveal>
-          <div className="section-index">03 / 03</div>
-          <div className="section-content">
-            <p className="section-kicker">OPERATIONAL RISKS & OBSERVABILITY</p>
-            <h2>에이전트 시스템이 흔들리는 4가지 운영 위험</h2>
             <p className="lead-copy compact">
-              출시 이후 시스템이 지속적으로 신뢰를 얻기 위해서는 다음 네 가지 영역에 대한 관찰성(Observability) 코드가 구현되어야 합니다.
+              운영팀은 출시 이후에도 답변 품질, 비용, 모델 업데이트와 데이터 스키마 변경을
+              관찰해야 합니다. 어제 통과한 평가가 오늘의 입력과 도구에서도 재현되는지 로그와
+              테스트로 확인해야 합니다.
             </p>
 
             <div className="operations-grid">
               <div>
                 <span>QUALITY</span>
                 <h3>답변 품질 저하</h3>
-                <p>참조 데이터가 갱신되거나 사용자 질문 패턴이 변하면 검색 적중률과 답변 품질이 저하될 수 있습니다.</p>
+                <p>참조 데이터나 질문 패턴이 바뀌면 검색 적중률과 답변 품질이 달라질 수 있습니다.</p>
               </div>
               <div>
                 <span>COST</span>
                 <h3>비용 변동성</h3>
-                <p>토큰 사용량과 반복 도구 호출(Tool Calling)이 증가하면 건당 클라우드 및 모델 비용이 급증합니다.</p>
+                <p>토큰 사용량과 반복 도구 호출이 늘면 건당 클라우드와 모델 비용도 증가합니다.</p>
               </div>
               <div>
                 <span>MODEL</span>
-                <h3>모델 드리프트 및 업데이트</h3>
-                <p>기본 파운데이션 모델 버전이 업데이트되면 기존 프롬프트와 평가 기준을 재점검해야 합니다.</p>
+                <h3>모델 업데이트</h3>
+                <p>기본 모델 버전이 바뀌면 기존 프롬프트와 평가 기준을 다시 확인해야 합니다.</p>
               </div>
               <div>
                 <span>DATA</span>
                 <h3>데이터 스키마 변경</h3>
-                <p>사내 DB 스키마나 API 명세가 미세하게 변경되어도 도구 실행이 실패하므로 유효성 검증이 필수입니다.</p>
+                <p>사내 DB나 API 명세가 바뀌면 도구 호출 인자와 유효성 검사를 함께 고쳐야 합니다.</p>
               </div>
             </div>
 
@@ -217,6 +183,57 @@ export default function AgentOperationsPage() {
                 운영 전략 인터뷰 보기 ↗
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: VALUE & MEASUREMENT */}
+        <section className="story-section section-measure" id="measure" data-reveal>
+          <div className="section-index">03 / 03</div>
+          <div className="section-content">
+            <p className="section-kicker">MEASURE · BUILD COUNT ≠ BUSINESS VALUE</p>
+            <h2>
+              <span className="section-title-line">Agent를 만들 줄 안다는 것과</span>
+              {" "}
+              <span className="section-title-line">Agent가 가치를 만든다는 것은 다릅니다</span>
+            </h2>
+            <p className="lead-copy">
+              구축 개수는 개발 활동량을 보여줄 뿐 업무 가치를 증명하지 않습니다. 반복 사용률,
+              업무 완료율, 사람의 수정 횟수, 건당 시간과 비용을 함께 확인해야 합니다.
+            </p>
+
+            <p className="case-data-label">COMPANY-REPORTED CASE</p>
+            <div className="metric-grid" aria-label="베스핀글로벌 자체 발표 성과 수치">
+              <div><span>AX PROJECTS</span><strong>200+</strong><small>산업별 프로젝트 경험</small></div>
+              <div><span>AI AGENTS</span><strong>511</strong><small>실무 도입 에이전트 수</small></div>
+              <div><span>HOURS / YEAR</span><strong>36,800</strong><small>연간 절감 기대 시간</small></div>
+            </div>
+            <p className="self-report">* 위 수치는 베스핀글로벌의 자체 발표 수치이며 독립 기관의 검증 수치와는 다를 수 있습니다.</p>
+
+            <div className="usage-story">
+              <div className="usage-copy">
+                <span>COMPANY INTERVIEW / SELF-REPORTED</span>
+                <h3>상위 10~20%가 반복 사용을 이끌었다는 자체 분석</h3>
+                <p>
+                  베스핀글로벌 인터뷰에서는 수백 개의 Agent 가운데 핵심 10~20%에
+                  현업 활용 성과가 집중됐다고 설명합니다. 이 비율은 해당 기업의 자체 분석입니다.
+                </p>
+              </div>
+              <div className="usage-chart" aria-label="기업 인터뷰에서 설명한 Agent 활용 집중도">
+                <div className="top-agents">
+                  <span>TOP 10–20%</span>
+                  <span>(반복 활용)</span>
+                </div>
+                <div className="long-tail">
+                  <span>LONG TAIL</span>
+                  <span>(간헐적 활용)</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="measure-close">
+              팀은 검색 품질, 도구 실행 성공률, 정책 차단 로그와 실제 사용 지표를 함께
+              살펴야 Agent가 업무를 개선하고 있는지 판단할 수 있습니다.
+            </p>
 
             <div className="next-fieldnote-banner" style={{ marginTop: "3rem" }}>
               <p>기초 역량과 코드 판독, 그리고 검증 체계를 다룬 이전 글을 확인해보세요.</p>
