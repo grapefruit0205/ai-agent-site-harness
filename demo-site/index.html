@@ -6,23 +6,24 @@
     <title>FIELDNOTE #01 · AWS S3 OAC × Enterprise RAG & MCP</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" />
+
     <style>
       :root {
-        --bg-canvas: #dcdfe5;
-        --grid-dot: #b4bac6;
-        --card-dark: #111317;
-        --card-coral: #ff5050;
+        --bg-canvas: #edf0f3;
+        --grid-dot: #cdd3dc;
+        --card-dark: #1b1e24;
+        --card-coral: #b85d4f;
         --card-coral-text: #ffffff;
-        --card-lime: #cbff00;
-        --card-lavender: #e0e5ff;
+        --card-sage: #8fa382;
+        --card-lavender: #b5bdd6;
         --card-white: #ffffff;
-        --card-subtle: #f5f6fa;
-        --border-line: rgba(17, 19, 23, 0.16);
-        --border-dark: #111317;
-        --text-primary: #111317;
-        --text-secondary: #5a606d;
-        --text-muted: #8c93a1;
+        --card-subtle: #f7f8fa;
+        --border-line: rgba(27, 30, 36, 0.12);
+        --border-dark: #1b1e24;
+        --text-primary: #1b1e24;
+        --text-secondary: #5c6370;
+        --text-muted: #8e95a2;
         --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         --font-mono: "JetBrains Mono", ui-monospace, monospace;
       }
@@ -48,7 +49,6 @@
         overflow-x: hidden;
       }
 
-      /* Top Technical Bar */
       .top-meta-bar {
         width: 100%;
         max-width: 1440px;
@@ -71,9 +71,9 @@
         color: #fff;
         padding: 2px 8px;
         border-radius: 2px;
+        margin-right: 8px;
       }
 
-      /* Main Dashboard Canvas */
       .editorial-grid {
         width: 100%;
         max-width: 1440px;
@@ -101,12 +101,11 @@
         }
       }
 
-      /* Card Base Styles */
       .bento-card {
         background: var(--card-white);
         border: 1px solid var(--border-line);
-        border-radius: 4px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 6px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
         position: relative;
         display: flex;
         flex-direction: column;
@@ -115,7 +114,7 @@
       }
 
       .bento-card:hover {
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
       }
 
       .card-index {
@@ -124,11 +123,12 @@
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        padding: 16px 20px 0;
+        padding: 18px 24px 0;
         color: var(--text-secondary);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 2;
       }
 
       .card-index .arrow-icon {
@@ -137,7 +137,7 @@
         color: var(--text-muted);
       }
 
-      /* 1. LEFT HERO POSTER CARD */
+      /* 1. 히어로 카드 */
       .hero-poster {
         grid-row: span 2;
         background: var(--card-coral);
@@ -146,8 +146,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        box-shadow: 0 16px 40px rgba(255, 80, 80, 0.25);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: 0 14px 36px rgba(184, 93, 79, 0.2);
       }
 
       .hero-poster .tag {
@@ -156,7 +156,7 @@
         font-weight: 700;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.8);
       }
 
       .hero-headline {
@@ -164,9 +164,9 @@
       }
 
       .hero-headline h1 {
-        font-size: clamp(2rem, 3.4vw, 2.75rem);
+        font-size: clamp(2rem, 3.2vw, 2.65rem);
         font-weight: 800;
-        line-height: 1.22;
+        line-height: 1.25;
         letter-spacing: -0.04em;
         word-break: keep-all;
       }
@@ -174,9 +174,9 @@
       .hero-highlight-box {
         display: inline-block;
         background: #ffffff;
-        color: #111317;
-        padding: 4px 12px;
-        margin: 6px 0;
+        color: #1b1e24;
+        padding: 2px 10px;
+        margin: 4px 0;
         border-radius: 2px;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
@@ -186,7 +186,7 @@
       .hero-pills {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
         margin-top: 24px;
       }
 
@@ -194,28 +194,28 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 9px 14px;
+        padding: 10px 14px;
         font-family: var(--font-mono);
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.05em;
-        border-radius: 2px;
+        border-radius: 3px;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.15s ease;
       }
 
       .pill-normal {
-        background: rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.2);
         color: #fff;
       }
       .pill-normal:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.32);
       }
 
       .pill-accent {
-        background: var(--card-lime);
-        color: #111317;
+        background: var(--card-sage);
+        color: #ffffff;
       }
 
       .pill-dark {
@@ -224,32 +224,35 @@
       }
 
       .hero-footer-btn {
-        margin-top: 28px;
-        background: rgba(17, 19, 23, 0.85);
+        margin-top: 24px;
+        background: rgba(27, 30, 36, 0.88);
         color: #fff;
         border: none;
-        padding: 14px 20px;
-        font-size: 0.85rem;
+        padding: 14px 18px;
+        font-size: 0.82rem;
         font-weight: 700;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 2px;
+        border-radius: 3px;
         transition: background 0.2s ease;
       }
       .hero-footer-btn:hover {
         background: #000;
       }
 
-      /* 2. THESIS CARD (SPLIT TONE) */
+      /* 2. THESIS 카드 */
       .thesis-card {
         background: #ffffff;
         border: 1px solid var(--border-line);
+        display: flex;
+        flex-direction: column;
       }
 
       .thesis-header {
-        padding: 24px 28px 20px;
+        padding: 28px 28px 24px;
+        flex: 1;
       }
 
       .thesis-header .thesis-tag {
@@ -270,148 +273,106 @@
       }
 
       .thesis-split-banner {
-        background: var(--card-lime);
-        padding: 24px 28px;
-        color: #111317;
-        font-size: 1.15rem;
+        background: var(--card-sage);
+        padding: 22px 28px;
+        color: #ffffff;
+        font-size: 1.05rem;
         font-weight: 700;
         line-height: 1.4;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      /* 3. CONNECT (RAG & MCP) CARD */
-      .connect-card {
-        background: var(--card-lavender);
-        padding: 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px solid rgba(17, 19, 23, 0.14);
-      }
-
-      .connect-title {
-        font-size: 2.2rem;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        margin: 16px 0 10px;
-      }
-
-      .connect-desc {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #2b3040;
-        line-height: 1.55;
-        word-break: keep-all;
-      }
-
-      .connect-meta-box {
-        margin-top: 20px;
-        background: rgba(255, 255, 255, 0.75);
-        padding: 12px 16px;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        color: #1d212c;
-      }
-
-      /* 4. LEARN & ARCHITECTURE (NOTEBOOK STYLE) */
-      .notebook-card {
-        background: #ffffff;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+      /* 공통 내부 2분할 레이아웃 */
+      .split-card-body {
+        padding: 20px 28px 28px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+        align-items: center;
+        flex: 1;
         position: relative;
-        padding: 28px;
-        border: 1px solid var(--border-line);
       }
 
-      /* Center seam fold simulation */
-      .notebook-card::before {
+      .split-card-body::before {
         content: "";
         position: absolute;
-        top: 0;
+        top: -20px;
         bottom: 0;
-        left: 50%;
+        left: 55%;
         width: 1px;
-        background: rgba(0, 0, 0, 0.06);
+        background: rgba(0, 0, 0, 0.07);
+      }
+
+      .graphic-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        opacity: 0.35;
+      }
+
+      /* 3. LEARN 카드 */
+      .notebook-card {
+        background: #ffffff;
       }
 
       .notebook-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 900;
         letter-spacing: -0.04em;
-        margin: 16px 0 10px;
+        margin-bottom: 12px;
       }
 
       .notebook-desc {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         color: var(--text-secondary);
-        line-height: 1.55;
+        line-height: 1.5;
         word-break: keep-all;
       }
 
-      .notebook-badge {
-        align-self: flex-end;
-        background: var(--card-dark);
-        color: #fff;
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 2px;
-        letter-spacing: 0.08em;
+      /* 4. CONNECT 카드 */
+      .connect-card {
+        background: var(--card-lavender);
+        border: 1px solid rgba(27, 30, 36, 0.12);
       }
 
-      /* 5. VERIFY & SECURITY CONTRACT */
+      .connect-title {
+        font-size: 2rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin-bottom: 10px;
+      }
+
+      .connect-desc {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #2b3040;
+        line-height: 1.5;
+        word-break: keep-all;
+      }
+
+      /* 5. VERIFY 카드 */
       .verify-card {
         background: #ffffff;
-        padding: 28px;
-        border: 1px solid var(--border-line);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: relative;
-      }
-      .verify-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        width: 1px;
-        background: rgba(0, 0, 0, 0.06);
       }
 
       .verify-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 900;
         letter-spacing: -0.04em;
-        margin: 16px 0 10px;
+        margin-bottom: 10px;
       }
 
       .verify-desc {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         color: var(--text-secondary);
-        line-height: 1.55;
+        line-height: 1.5;
         word-break: keep-all;
       }
 
-      .live-test-badge {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #10b981;
-        background: rgba(16, 185, 129, 0.1);
-        padding: 4px 10px;
-        border-radius: 4px;
-        display: inline-block;
-        margin-top: 14px;
-      }
-
-      /* BOTTOM DRAWER / INDEX BAR */
+      /* 6. 인덱스 서랍 바 */
       .bottom-index-bar {
         grid-column: 1 / -1;
         background: var(--card-white);
@@ -420,7 +381,7 @@
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         border-radius: 4px;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 8px;
       }
 
       .index-tab {
@@ -450,7 +411,7 @@
 
       .index-tab .tab-title {
         font-family: var(--font-mono);
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -458,17 +419,17 @@
         color: var(--text-primary);
       }
 
-      /* Interactive Modal / Console Sheet */
+      /* 7. 터미널 콘솔 */
       .interactive-console {
         grid-column: 1 / -1;
-        background: #0d1117;
+        background: #111418;
         color: #e6edf3;
-        border: 1px solid #30363d;
+        border: 1px solid #2d333b;
         border-radius: 4px;
         padding: 20px 24px;
         font-family: var(--font-mono);
-        font-size: 0.82rem;
-        margin-top: 10px;
+        font-size: 0.8rem;
+        margin-top: 8px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -494,7 +455,7 @@
     </style>
   </head>
   <body>
-    <!-- Top Technical Measurement Bar -->
+    <!-- 상단 메타 바 -->
     <header class="top-meta-bar">
       <div>FIELDNOTE #01 · AWS INFRASTRUCTURE & AGENTIC ARCHITECTURE</div>
       <div>
@@ -503,9 +464,9 @@
       </div>
     </header>
 
-    <!-- Main Editorial Bento Grid -->
+    <!-- 에디토리얼 그리드 -->
     <main class="editorial-grid">
-      <!-- 1. LEFT HERO POSTER CARD -->
+      <!-- 1. 좌측 히어로 포스터 -->
       <section class="bento-card hero-poster">
         <div>
           <span class="tag">HERO / SECURITY BOUNDARY</span>
@@ -552,7 +513,7 @@
         </div>
       </section>
 
-      <!-- 2. THESIS SPLIT TONE CARD -->
+      <!-- 2. THESIS 카드 -->
       <section class="bento-card thesis-card">
         <div class="thesis-header">
           <div class="thesis-tag">THESIS</div>
@@ -565,65 +526,92 @@
         <div class="thesis-split-banner">
           <div>
             <strong>Zero Trust S3 Origin</strong><br />
-            <span style="font-size: 0.85rem; font-weight: 500;">
+            <span style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">
               Public Access Block 4중 활성화 + SigV4 OAC
             </span>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.2rem;">403 ➔ 200</span>
+          <span style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800;">403 ➔ 200</span>
         </div>
       </section>
 
-      <!-- 3. TOP RIGHT CARD: LEARN (NOTEBOOK STYLE) -->
+      <!-- 3. LEARN 노트북 카드 -->
       <section class="bento-card notebook-card">
         <div class="card-index">
           <span>01 / 08</span>
           <span class="arrow-icon">↗</span>
         </div>
-        <div>
-          <div class="notebook-title">LEARN</div>
-          <p class="notebook-desc">
-            서로 다른 클라우드 패턴,<br />
-            왜 모두 하나의 보안 경계를 가리키고 있을까요?
-          </p>
+        <div class="split-card-body">
+          <div>
+            <div class="notebook-title">LEARN</div>
+            <p class="notebook-desc">
+              서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?
+            </p>
+          </div>
+          <div class="graphic-placeholder">
+            <!-- 네트워크/토폴로지 SVG 모티프 -->
+            <svg width="100" height="80" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="20" cy="40" r="4" fill="currentColor"/>
+              <circle cx="50" cy="20" r="4" fill="currentColor"/>
+              <circle cx="50" cy="60" r="4" fill="currentColor"/>
+              <circle cx="80" cy="40" r="4" fill="currentColor"/>
+              <line x1="20" y1="40" x2="50" y2="20"/>
+              <line x1="20" y1="40" x2="50" y2="60"/>
+              <line x1="50" y1="20" x2="80" y2="40"/>
+              <line x1="50" y1="60" x2="80" y2="40"/>
+            </svg>
+          </div>
         </div>
-        <div class="notebook-badge">01 LEARN</div>
       </section>
 
-      <!-- 4. BOTTOM MIDDLE CARD: CONNECT (RAG & MCP) -->
+      <!-- 4. CONNECT 카드 -->
       <section class="bento-card connect-card">
         <div class="card-index">
           <span>03 / 08</span>
           <span class="arrow-icon">↗</span>
         </div>
-        <div>
-          <div class="connect-title">CONNECT</div>
-          <p class="connect-desc">
-            <strong>RAG는 '지식'을 다루고,<br />MCP는 '행동'할 도구를 연결합니다.</strong>
-          </p>
-          <div class="connect-meta-box">
-            • FastMCP Server: JSON-RPC stdio<br />
-            • Multimodal Citations via CloudFront Edge
+        <div class="split-card-body">
+          <div>
+            <div class="connect-title">CONNECT</div>
+            <p class="connect-desc">
+              RAG는 '지식'을 다루고, MCP는 '행동'할 도구를 연결합니다.
+            </p>
+          </div>
+          <div class="graphic-placeholder">
+            <!-- 아이소메트릭 큐브 모티프 -->
+            <svg width="90" height="90" viewBox="0 0 90 90" fill="none" stroke="#2b3040" stroke-width="1.5">
+              <path d="M45 20 L70 34 L70 62 L45 76 L20 62 L20 34 Z"/>
+              <line x1="45" y1="20" x2="45" y2="48"/>
+              <line x1="45" y1="48" x2="70" y2="34"/>
+              <line x1="45" y1="48" x2="20" y2="34"/>
+            </svg>
           </div>
         </div>
       </section>
 
-      <!-- 5. BOTTOM RIGHT CARD: VERIFY (SECURITY PROOF) -->
+      <!-- 5. VERIFY 카드 -->
       <section class="bento-card verify-card">
         <div class="card-index">
-          <span>06 / 08</span>
+          <span>05 / 08</span>
           <span class="arrow-icon">↗</span>
         </div>
-        <div>
-          <div class="verify-title">VERIFY</div>
-          <p class="verify-desc">
-            에이전트의 넥스트 한 줄은<br />
-            실제 인프라 행동이 됩니다.
-          </p>
-          <div class="live-test-badge">✓ 5 passed, 0 failed (tftest)</div>
+        <div class="split-card-body">
+          <div>
+            <div class="verify-title">VERIFY</div>
+            <p class="verify-desc">
+              에이전트의 텍스트 한 줄은 실제 인프라 행동이 됩니다.
+            </p>
+          </div>
+          <div class="graphic-placeholder">
+            <!-- 보안 체크 엠블럼 SVG 모티프 -->
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="40" cy="40" r="32"/>
+              <path d="M26 40 L36 50 L54 30"/>
+            </svg>
+          </div>
         </div>
       </section>
 
-      <!-- 6. BOTTOM DRAWER / INDEX TABS -->
+      <!-- 6. 하단 인덱스 서랍 탭 -->
       <nav class="bottom-index-bar">
         <div class="index-tab" onclick="switchConsole('write')">
           <div class="tab-num"><span>02 / 08</span> <span>↗</span></div>
@@ -647,7 +635,7 @@
         </div>
       </nav>
 
-      <!-- Interactive Console Output Sheet -->
+      <!-- 7. 하단 인터랙티브 터미널 콘솔 -->
       <section class="interactive-console" id="consoleOutput">
         <div class="console-header">
           <span id="consoleTitle">TERMINAL CONSOLE // MCP & SECURITY CONTRACT SIMULATOR</span>
@@ -655,9 +643,9 @@
         </div>
         <div class="console-code" id="consoleBody">
           $ curl -I "https://BUCKET.s3.ap-northeast-2.amazonaws.com/index.html"<br />
-          <span style="color: #ff7b72;">HTTP/1.1 403 Forbidden (Public Access Block Enforced)</span><br /><br />
-          $ curl -I "https://DISTRIBUTION.cloudfront.net/"<br />
-          <span style="color: #7ee787;">HTTP/2 200 OK (SigV4 OAC Authorized & Edge Cached)</span><br /><br />
+          <span style="color: #e06c75;">HTTP/1.1 403 Forbidden (Public Access Block Enforced)</span><br /><br />
+          $ curl -I "https://article.tripjunseok.site/"<br />
+          <span style="color: #98c379;">HTTP/2 200 OK (SigV4 OAC Authorized & Edge Cached)</span><br /><br />
           <span class="console-accent">[MCP Server] 5 tools active (verify_s3_oac_security, get_rag_document_url, ...)</span>
         </div>
       </section>
@@ -675,15 +663,15 @@
         },
         verify: {
           title: "03 VERIFY // RUNTIME ZERO-TRUST VALIDATION",
-          code: "# Direct S3:\nHTTP/1.1 403 Forbidden\nx-amz-bucket-region: ap-northeast-2\n\n# CloudFront CDN:\nHTTP/2 200 OK\nx-cache: Hit from cloudfront\nstrict-transport-security: max-age=31536000; includeSubDomains; preload"
+          code: "# 1. Direct S3 (Zero Trust Block):\nHTTP/1.1 403 Forbidden\nx-amz-bucket-region: ap-northeast-2\n\n# 2. Custom Domain (CloudFront OAC Edge):\nHTTP/2 200 OK\nx-cache: Hit from cloudfront\nstrict-transport-security: max-age=31536000; includeSubDomains; preload"
         },
         steer: {
           title: "04 STEER // RAG MULTIMODAL CITATION GENERATION",
-          code: "$ mcp-server --tool get_rag_document_url --asset 'assets/figure-4.png'\n{\n  \"citation_url\": \"https://cdn.example.com/assets/figure-4.png\",\n  \"delivery_mode\": \"CloudFront Edge with OAC SigV4 backend\",\n  \"latency\": \"8ms (Global Edge Cached)\"\n}"
+          code: "$ mcp-server --tool get_rag_document_url --asset 'assets/figure-4.png'\n{\n  \"citation_url\": \"https://article.tripjunseok.site/assets/figure-4.png\",\n  \"delivery_mode\": \"CloudFront Edge with OAC SigV4 backend\",\n  \"latency\": \"8ms (Global Edge Cached)\"\n}"
         },
         own: {
           title: "05 OWN // PRODUCTION DEPLOYMENT CONTRACT",
-          code: "$ terraform apply -auto-approve\nApply complete! Resources: 7 added, 0 changed, 0 destroyed.\n\nOutputs:\ncloudfront_distribution_domain = \"d111111abcdef8.cloudfront.net\"\norigin_bucket_name = \"aws-private-s3-rag-origin-123456789012-ap-northeast-2\""
+          code: "$ terraform apply -auto-approve\nApply complete! Resources: 7 added, 0 changed, 0 destroyed.\n\nOutputs:\ncustom_domain = \"article.tripjunseok.site\"\norigin_bucket_name = \"ai-agent-article-891376981416-ap-northeast-2\""
         },
         full: {
           title: "ENTERPRISE SPECIFICATION // RAG + MCP + TERRAFORM",
