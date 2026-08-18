@@ -1,11 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
-
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 
 async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -28,64 +22,41 @@ async function render() {
   );
 }
 
-test("server-renders the starter loading skeleton", async () => {
+test("server-renders the complete Korean interactive article", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+  assert.match(html, /<html[^>]*lang="ko"/i);
+  assert.match(html, /<title>AI가 코드를 쓸수록, 개발자는 더 깊이 읽어야 한다<\/title>/i);
+  assert.match(html, /개발자는 더 깊이 읽어야 한다/);
+  assert.match(html, /책임은 사라지지 않고 위로 이동한다/);
+  assert.match(html, /자체 발표이며 독립 검증 통계가 아니다/);
+
+  for (const sectionId of [
+    "learn",
+    "collaborate",
+    "connect",
+    "read",
+    "verify",
+    "operate",
+    "measure",
+    "act",
+  ]) {
+    assert.match(html, new RegExp(`id="${sectionId}"`));
+  }
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
-  ]);
+test("renders accessible navigation and the permission experiment", async () => {
+  const response = await render();
+  const html = await response.text();
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
-
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
-
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
-
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+  assert.match(html, /aria-label="칼럼 목차"/);
+  assert.match(html, /aria-label="에이전트 권한 설정"/);
+  assert.match(html, /aria-pressed="true"/);
+  assert.match(html, /권한 넓게/);
+  assert.match(html, /최소 권한/);
+  assert.match(html, /11 SOURCES/);
+  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/i);
 });
