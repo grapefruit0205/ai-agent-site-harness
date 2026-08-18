@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #eef2f5;
-  --paper-deep: #dbe2e8;
-  --surface: #f7f9fb;
-  --ink: #17202a;
-  --blue: #3155e7;
-  --acid: #d9ff52;
-  --coral: #ff6072;
-  --mint: #abeadd;
-  --line: rgba(23, 32, 42, 0.22);
+  --paper: #edf0f3;
+  --paper-deep: #cdd3dc;
+  --surface: #f7f8fa;
+  --ink: #1b1e24;
+  --blue: #4a5c88;
+  --acid: #8fa382;
+  --coral: #b85d4f;
+  --mint: #8fa382;
+  --line: rgba(27, 30, 36, 0.14);
   --page: min(1320px, calc(100vw - 3rem));
 }
 
@@ -368,7 +368,7 @@ main > .thesis {
 .board-book-card[data-chapter="learn"] { grid-column: 2; grid-row: 1; }
 .board-book-card[data-chapter="connect"] { grid-column: 1; grid-row: 2; }
 .board-book-card[data-chapter="verify"] { grid-column: 2; grid-row: 2; }
-.board-book-card.tone-blue { background-color: #dce3ff; }
+.board-book-card.tone-blue { background-color: #b5bdd6; }
 .board-book-card.tone-danger { background-color: #e6ebef; }
 .board-book-card:hover,
 .board-book-card:focus-visible { transform: translateY(-5px) rotate(-0.35deg); box-shadow: 0 22px 30px rgba(14, 24, 34, 0.3), 4px 4px 0 rgba(31, 43, 54, 0.3); }
