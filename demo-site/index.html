@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FIELDNOTE #01 · AWS S3 OAC × Enterprise RAG & MCP</title>
+    <title>03 / 08 · RAG & MCP Two Connection Layers</title>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" />
@@ -14,9 +15,10 @@
         --grid-dot: #cdd3dc;
         --card-dark: #1b1e24;
         --card-coral: #b85d4f;
-        --card-coral-text: #ffffff;
         --card-sage: #8fa382;
+        --card-sage-bg: #eaf0e7;
         --card-lavender: #b5bdd6;
+        --card-lavender-bg: #edf0f8;
         --card-white: #ffffff;
         --card-subtle: #f7f8fa;
         --border-line: rgba(27, 30, 36, 0.12);
@@ -41,649 +43,420 @@
         background-size: 24px 24px;
         color: var(--text-primary);
         min-height: 100vh;
-        padding: 24px;
+        padding: 40px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
-        overflow-x: hidden;
+        justify-content: center;
       }
 
-      .top-meta-bar {
+      .slide-container {
         width: 100%;
-        max-width: 1440px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--text-secondary);
-        padding: 8px 12px 16px;
-        border-bottom: 1px dashed var(--border-line);
-        margin-bottom: 24px;
-      }
-
-      .top-meta-bar .badge {
-        background: var(--card-dark);
-        color: #fff;
-        padding: 2px 8px;
-        border-radius: 2px;
-        margin-right: 8px;
-      }
-
-      .editorial-grid {
-        width: 100%;
-        max-width: 1440px;
-        display: grid;
-        grid-template-columns: 380px 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        gap: 20px;
-      }
-
-      @media (max-width: 1180px) {
-        .editorial-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .hero-poster {
-          grid-column: span 2;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .editorial-grid {
-          grid-template-columns: 1fr;
-        }
-        .hero-poster {
-          grid-column: span 1;
-        }
-      }
-
-      .bento-card {
+        max-width: 960px;
         background: var(--card-white);
         border: 1px solid var(--border-line);
-        border-radius: 6px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-        position: relative;
+        border-radius: 8px;
+        padding: 48px 44px;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+        gap: 36px;
       }
 
-      .bento-card:hover {
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
-      }
-
-      .card-index {
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 18px 24px 0;
-        color: var(--text-secondary);
+      /* 1. 상단 헤더 */
+      .slide-header {
+        text-align: center;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-        z-index: 2;
+        gap: 12px;
       }
 
-      .card-index .arrow-icon {
-        font-size: 0.9rem;
-        transform: rotate(-45deg);
-        color: var(--text-muted);
-      }
-
-      /* 1. 히어로 카드 */
-      .hero-poster {
-        grid-row: span 2;
-        background: var(--card-coral);
-        color: var(--card-coral-text);
-        padding: 36px 32px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        box-shadow: 0 14px 36px rgba(184, 93, 79, 0.2);
-      }
-
-      .hero-poster .tag {
+      .slide-meta {
         font-family: var(--font-mono);
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--text-secondary);
+        display: flex;
+        gap: 12px;
+        align-items: center;
       }
 
-      .hero-headline {
-        margin: 28px 0;
+      .slide-meta .badge {
+        background: var(--card-dark);
+        color: #ffffff;
+        padding: 2px 8px;
+        border-radius: 2px;
       }
 
-      .hero-headline h1 {
-        font-size: clamp(2rem, 3.2vw, 2.65rem);
+      .slide-header h1 {
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
         font-weight: 800;
-        line-height: 1.25;
-        letter-spacing: -0.04em;
+        line-height: 1.35;
+        letter-spacing: -0.035em;
         word-break: keep-all;
       }
 
-      .hero-highlight-box {
-        display: inline-block;
-        background: #ffffff;
-        color: #1b1e24;
-        padding: 2px 10px;
-        margin: 4px 0;
-        border-radius: 2px;
-        box-decoration-break: clone;
-        -webkit-box-decoration-break: clone;
-        font-weight: 900;
+      .highlight-sage {
+        color: #3b6033;
+        text-decoration: underline;
+        text-decoration-color: var(--card-sage);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
       }
 
-      .hero-pills {
+      .highlight-lavender {
+        color: #36446b;
+        text-decoration: underline;
+        text-decoration-color: var(--card-lavender);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+      }
+
+      /* 2. 2대 핵심 레이어 카드 */
+      .layers-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .layers-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .layer-card {
+        border-radius: 6px;
+        padding: 28px 24px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        margin-top: 24px;
-      }
-
-      .hero-pill-item {
-        display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 10px 14px;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        border-radius: 3px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.15s ease;
-      }
-
-      .pill-normal {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-      }
-      .pill-normal:hover {
-        background: rgba(255, 255, 255, 0.32);
-      }
-
-      .pill-accent {
-        background: var(--card-sage);
-        color: #ffffff;
-      }
-
-      .pill-dark {
-        background: var(--card-dark);
-        color: #fff;
-      }
-
-      .hero-footer-btn {
-        margin-top: 24px;
-        background: rgba(27, 30, 36, 0.88);
-        color: #fff;
-        border: none;
-        padding: 14px 18px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-radius: 3px;
-        transition: background 0.2s ease;
-      }
-      .hero-footer-btn:hover {
-        background: #000;
-      }
-
-      /* 2. THESIS 카드 */
-      .thesis-card {
-        background: #ffffff;
+        gap: 20px;
         border: 1px solid var(--border-line);
-        display: flex;
-        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
 
-      .thesis-header {
-        padding: 28px 28px 24px;
-        flex: 1;
+      .layer-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
       }
 
-      .thesis-header .thesis-tag {
+      .card-rag {
+        background: var(--card-sage-bg);
+        border-color: rgba(143, 163, 130, 0.4);
+      }
+
+      .card-mcp {
+        background: var(--card-lavender-bg);
+        border-color: rgba(181, 189, 214, 0.5);
+      }
+
+      .layer-badge {
         font-family: var(--font-mono);
         font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 0.12em;
-        color: var(--text-secondary);
-        margin-bottom: 12px;
-      }
-
-      .thesis-header h2 {
-        font-size: 1.45rem;
-        font-weight: 800;
-        line-height: 1.35;
-        letter-spacing: -0.03em;
-        word-break: keep-all;
-      }
-
-      .thesis-split-banner {
-        background: var(--card-sage);
-        padding: 22px 28px;
-        color: #ffffff;
-        font-size: 1.05rem;
-        font-weight: 700;
-        line-height: 1.4;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      /* 공통 내부 2분할 레이아웃 */
-      .split-card-body {
-        padding: 20px 28px 28px;
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 16px;
-        align-items: center;
-        flex: 1;
-        position: relative;
-      }
-
-      .split-card-body::before {
-        content: "";
-        position: absolute;
-        top: -20px;
-        bottom: 0;
-        left: 55%;
-        width: 1px;
-        background: rgba(0, 0, 0, 0.07);
-      }
-
-      .graphic-placeholder {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        opacity: 0.35;
-      }
-
-      /* 3. LEARN 카드 */
-      .notebook-card {
-        background: #ffffff;
-      }
-
-      .notebook-title {
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        margin-bottom: 12px;
-      }
-
-      .notebook-desc {
-        font-size: 0.88rem;
-        color: var(--text-secondary);
-        line-height: 1.5;
-        word-break: keep-all;
-      }
-
-      /* 4. CONNECT 카드 */
-      .connect-card {
-        background: var(--card-lavender);
-        border: 1px solid rgba(27, 30, 36, 0.12);
-      }
-
-      .connect-title {
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        margin-bottom: 10px;
-      }
-
-      .connect-desc {
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #2b3040;
-        line-height: 1.5;
-        word-break: keep-all;
-      }
-
-      /* 5. VERIFY 카드 */
-      .verify-card {
-        background: #ffffff;
-      }
-
-      .verify-title {
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        margin-bottom: 10px;
-      }
-
-      .verify-desc {
-        font-size: 0.88rem;
-        color: var(--text-secondary);
-        line-height: 1.5;
-        word-break: keep-all;
-      }
-
-      /* 6. 인덱스 서랍 바 */
-      .bottom-index-bar {
-        grid-column: 1 / -1;
-        background: var(--card-white);
-        border: 1px solid var(--border-line);
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        border-radius: 4px;
-        overflow: hidden;
-        margin-top: 8px;
-      }
-
-      .index-tab {
-        padding: 16px 20px;
-        border-right: 1px solid var(--border-line);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        cursor: pointer;
-        transition: background 0.15s ease;
-      }
-      .index-tab:last-child {
-        border-right: none;
-      }
-      .index-tab:hover {
-        background: var(--card-subtle);
-      }
-
-      .index-tab .tab-num {
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        font-weight: 700;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .index-tab .tab-title {
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        margin-top: 10px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      .card-rag .layer-badge {
+        color: #3f5d34;
+      }
+
+      .card-mcp .layer-badge {
+        color: #3a476a;
+      }
+
+      .layer-title {
+        font-size: 1.4rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+      }
+
+      .layer-desc {
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        line-height: 1.55;
+        word-break: keep-all;
+      }
+
+      .pipeline-chain {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+
+      .pipeline-step {
+        background: #ffffff;
+        border: 1px solid var(--border-line);
+        padding: 6px 10px;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        font-weight: 600;
+        border-radius: 3px;
         color: var(--text-primary);
       }
 
-      /* 7. 터미널 콘솔 */
-      .interactive-console {
-        grid-column: 1 / -1;
-        background: #111418;
-        color: #e6edf3;
-        border: 1px solid #2d333b;
-        border-radius: 4px;
-        padding: 20px 24px;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        margin-top: 8px;
+      .pipeline-arrow {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+      }
+
+      /* 3. 중앙 아키텍처 다이어그램 */
+      .architecture-hub {
+        background: var(--card-subtle);
+        border: 1px solid var(--border-line);
+        border-radius: 6px;
+        padding: 24px 20px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .architecture-hub {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+      }
+
+      .lane-box {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
 
-      .console-header {
+      .lane-label {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .lane-flow {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .lane-node {
+        flex: 1;
+        background: #ffffff;
+        border: 1px solid var(--border-line);
+        padding: 8px 10px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
+
+      .hub-center-node {
+        background: var(--card-dark);
+        color: #ffffff;
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        margin: 0 auto;
+      }
+
+      .hub-center-node .hub-title {
+        font-family: var(--font-mono);
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .hub-center-node .hub-sub {
+        font-size: 0.58rem;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      /* 4. 하단 3대 리스크 가드레일 카드 */
+      .risk-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .risk-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .risk-card {
+        background: var(--card-white);
+        border: 1px solid var(--border-line);
+        border-radius: 4px;
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .risk-header {
         display: flex;
         justify-content: space-between;
-        color: #8b949e;
-        border-bottom: 1px solid #21262d;
-        padding-bottom: 8px;
-        font-weight: 600;
+        align-items: center;
       }
 
-      .console-code {
-        color: #7ee787;
-        line-height: 1.6;
+      .risk-num {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-muted);
       }
 
-      .console-accent {
-        color: #79c0ff;
+      .risk-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .risk-desc {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        word-break: keep-all;
       }
     </style>
   </head>
   <body>
-    <!-- 상단 메타 바 -->
-    <header class="top-meta-bar">
-      <div>FIELDNOTE #01 · AWS INFRASTRUCTURE & AGENTIC ARCHITECTURE</div>
-      <div>
-        <span class="badge">INTERACTIVE EDITION</span>
-        <span>LATENCY: 12ms · OAC SigV4: ACTIVE</span>
-      </div>
-    </header>
-
-    <!-- 에디토리얼 그리드 -->
-    <main class="editorial-grid">
-      <!-- 1. 좌측 히어로 포스터 -->
-      <section class="bento-card hero-poster">
-        <div>
-          <span class="tag">HERO / SECURITY BOUNDARY</span>
-          <div class="hero-headline">
-            <h1>
-              AI가 코드를<br />
-              써줄수록,<br />
-              <span class="hero-highlight-box">개발자는</span><br />
-              <span class="hero-highlight-box">코드를</span><br />
-              더 깊이<br />
-              읽어야 합니다
-            </h1>
-          </div>
+    <main class="slide-container">
+      <!-- 상단 헤더 -->
+      <header class="slide-header">
+        <div class="slide-meta">
+          <span class="badge">03 / 08</span>
+          <span>TWO CONNECTION LAYERS</span>
         </div>
+        <h1>
+          RAG는 <span class="highlight-sage">'지식'</span>을 다루고,<br />
+          MCP는 <span class="highlight-lavender">'행동'</span>할 도구를 연결합니다
+        </h1>
+      </header>
 
-        <div>
-          <div class="hero-pills">
-            <div class="hero-pill-item pill-normal" onclick="switchConsole('write')">
-              <span>01 WRITE</span>
-              <span>TERRAFORM IAC</span>
-            </div>
-            <div class="hero-pill-item pill-normal" onclick="switchConsole('read')">
-              <span>02 READ</span>
-              <span>AUDIT BOUNDARIES</span>
-            </div>
-            <div class="hero-pill-item pill-accent" onclick="switchConsole('verify')">
-              <span>03 VERIFY</span>
-              <span>ZERO-COST TEST</span>
-            </div>
-            <div class="hero-pill-item pill-normal" onclick="switchConsole('steer')">
-              <span>04 STEER</span>
-              <span>RAG & MCP AGENTS</span>
-            </div>
-            <div class="hero-pill-item pill-dark" onclick="switchConsole('own')">
-              <span>05 OWN</span>
-              <span>ZERO-TRUST ORIGIN</span>
-            </div>
-          </div>
-
-          <button class="hero-footer-btn" onclick="switchConsole('full')">
-            <span>아키텍처 증거 실행 명세 확인</span>
-            <span>+</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- 2. THESIS 카드 -->
-      <section class="bento-card thesis-card">
-        <div class="thesis-header">
-          <div class="thesis-tag">THESIS</div>
-          <h2>
-            코드 생성이 쉬워진 만큼,<br />
-            사람이 지는 책임의 무게는<br />
-            더 커집니다.
-          </h2>
-        </div>
-        <div class="thesis-split-banner">
+      <!-- 2대 핵심 레이어 카드 -->
+      <section class="layers-grid">
+        <!-- RAG 카드 -->
+        <div class="layer-card card-rag">
           <div>
-            <strong>Zero Trust S3 Origin</strong><br />
-            <span style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">
-              Public Access Block 4중 활성화 + SigV4 OAC
-            </span>
-          </div>
-          <span style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800;">403 ➔ 200</span>
-        </div>
-      </section>
-
-      <!-- 3. LEARN 노트북 카드 -->
-      <section class="bento-card notebook-card">
-        <div class="card-index">
-          <span>01 / 08</span>
-          <span class="arrow-icon">↗</span>
-        </div>
-        <div class="split-card-body">
-          <div>
-            <div class="notebook-title">LEARN</div>
-            <p class="notebook-desc">
-              서로 다른 교육 과정, 왜 한 방향을 가리키고 있을까요?
+            <span class="layer-badge">RAG · KNOWLEDGE</span>
+            <div class="layer-title">검색 증강 생성</div>
+            <p class="layer-desc">
+              AI가 답변을 생성하기 전에 사내/외부 문서를 조회하여 정확한 근거를 바탕으로 답하게 만드는 방식입니다.
             </p>
           </div>
-          <div class="graphic-placeholder">
-            <!-- 네트워크/토폴로지 SVG 모티프 -->
-            <svg width="100" height="80" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="20" cy="40" r="4" fill="currentColor"/>
-              <circle cx="50" cy="20" r="4" fill="currentColor"/>
-              <circle cx="50" cy="60" r="4" fill="currentColor"/>
-              <circle cx="80" cy="40" r="4" fill="currentColor"/>
-              <line x1="20" y1="40" x2="50" y2="20"/>
-              <line x1="20" y1="40" x2="50" y2="60"/>
-              <line x1="50" y1="20" x2="80" y2="40"/>
-              <line x1="50" y1="60" x2="80" y2="40"/>
-            </svg>
+          <div class="pipeline-chain">
+            <span class="pipeline-step">질의 분석</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-step">임베딩 검색</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-step">근거 기반 답변</span>
           </div>
         </div>
-      </section>
 
-      <!-- 4. CONNECT 카드 -->
-      <section class="bento-card connect-card">
-        <div class="card-index">
-          <span>03 / 08</span>
-          <span class="arrow-icon">↗</span>
-        </div>
-        <div class="split-card-body">
+        <!-- MCP 카드 -->
+        <div class="layer-card card-mcp">
           <div>
-            <div class="connect-title">CONNECT</div>
-            <p class="connect-desc">
-              RAG는 '지식'을 다루고, MCP는 '행동'할 도구를 연결합니다.
+            <span class="layer-badge">MCP · ACTION</span>
+            <div class="layer-title">모델 컨텍스트 프로토콜</div>
+            <p class="layer-desc">
+              AI가 텍스트 생성에 그치지 않고, 외부 앱이나 데이터베이스 도구를 직접 실행할 수 있도록 연결하는 표준 규약입니다.
             </p>
           </div>
-          <div class="graphic-placeholder">
-            <!-- 아이소메트릭 큐브 모티프 -->
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none" stroke="#2b3040" stroke-width="1.5">
-              <path d="M45 20 L70 34 L70 62 L45 76 L20 62 L20 34 Z"/>
-              <line x1="45" y1="20" x2="45" y2="48"/>
-              <line x1="45" y1="48" x2="70" y2="34"/>
-              <line x1="45" y1="48" x2="20" y2="34"/>
-            </svg>
+          <div class="pipeline-chain">
+            <span class="pipeline-step">AI 모델</span>
+            <span class="pipeline-arrow">⇄</span>
+            <span class="pipeline-step">MCP 도구</span>
+            <span class="pipeline-arrow">⇄</span>
+            <span class="pipeline-step">실제 인프라 실행</span>
           </div>
         </div>
       </section>
 
-      <!-- 5. VERIFY 카드 -->
-      <section class="bento-card verify-card">
-        <div class="card-index">
-          <span>05 / 08</span>
-          <span class="arrow-icon">↗</span>
-        </div>
-        <div class="split-card-body">
-          <div>
-            <div class="verify-title">VERIFY</div>
-            <p class="verify-desc">
-              에이전트의 텍스트 한 줄은 실제 인프라 행동이 됩니다.
-            </p>
+      <!-- 중앙 아키텍처 다이어그램 -->
+      <section class="architecture-hub">
+        <!-- Knowledge Lane -->
+        <div class="lane-box">
+          <span class="lane-label">KNOWLEDGE LANE (지식)</span>
+          <div class="lane-flow">
+            <span class="lane-node">사내 문서</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="lane-node">임베딩</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="lane-node">벡터 검색</span>
           </div>
-          <div class="graphic-placeholder">
-            <!-- 보안 체크 엠블럼 SVG 모티프 -->
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="40" cy="40" r="32"/>
-              <path d="M26 40 L36 50 L54 30"/>
-            </svg>
+        </div>
+
+        <!-- LLM 중앙 허브 -->
+        <div class="hub-center-node">
+          <span class="hub-title">LLM</span>
+          <span class="hub-sub">판단 & 생성</span>
+        </div>
+
+        <!-- Action Lane -->
+        <div class="lane-box">
+          <span class="lane-label">ACTION LANE (행동)</span>
+          <div class="lane-flow">
+            <span class="lane-node">MCP Client</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="lane-node">Tool Server</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="lane-node">DB · API 실행</span>
           </div>
         </div>
       </section>
 
-      <!-- 6. 하단 인덱스 서랍 탭 -->
-      <nav class="bottom-index-bar">
-        <div class="index-tab" onclick="switchConsole('write')">
-          <div class="tab-num"><span>02 / 08</span> <span>↗</span></div>
-          <div class="tab-title">COLLABORATE</div>
+      <!-- 하단 예외 처리 카드 -->
+      <section class="risk-grid">
+        <div class="risk-card">
+          <div class="risk-header">
+            <span class="risk-title">검색 결과가 없을 때</span>
+            <span class="risk-num">01</span>
+          </div>
+          <p class="risk-desc">
+            '모른다'고 응답할지, 사용자에게 되물어볼지에 대한 폴백 처리 규칙을 정의해야 합니다.
+          </p>
         </div>
-        <div class="index-tab" onclick="switchConsole('read')">
-          <div class="tab-num"><span>04 / 08</span> <span>↗</span></div>
-          <div class="tab-title">READ</div>
-        </div>
-        <div class="index-tab" onclick="switchConsole('steer')">
-          <div class="tab-num"><span>05 / 08</span> <span>↗</span></div>
-          <div class="tab-title">OPERATE</div>
-        </div>
-        <div class="index-tab" onclick="switchConsole('verify')">
-          <div class="tab-num"><span>07 / 08</span> <span>↗</span></div>
-          <div class="tab-title">MEASURE</div>
-        </div>
-        <div class="index-tab" onclick="switchConsole('own')">
-          <div class="tab-num"><span>08 / 08</span> <span>↗</span></div>
-          <div class="tab-title">ACT</div>
-        </div>
-      </nav>
 
-      <!-- 7. 하단 인터랙티브 터미널 콘솔 -->
-      <section class="interactive-console" id="consoleOutput">
-        <div class="console-header">
-          <span id="consoleTitle">TERMINAL CONSOLE // MCP & SECURITY CONTRACT SIMULATOR</span>
-          <span>STATUS: LIVE</span>
+        <div class="risk-card">
+          <div class="risk-header">
+            <span class="risk-title">데이터 형식이 다를 때</span>
+            <span class="risk-num">02</span>
+          </div>
+          <p class="risk-desc">
+            도구가 요구하는 인자 타입과 모델 생성 스키마가 다르면 즉시 에러 복구 프롬프트를 트리거합니다.
+          </p>
         </div>
-        <div class="console-code" id="consoleBody">
-          $ curl -I "https://BUCKET.s3.ap-northeast-2.amazonaws.com/index.html"<br />
-          <span style="color: #e06c75;">HTTP/1.1 403 Forbidden (Public Access Block Enforced)</span><br /><br />
-          $ curl -I "https://article.tripjunseok.site/"<br />
-          <span style="color: #98c379;">HTTP/2 200 OK (SigV4 OAC Authorized & Edge Cached)</span><br /><br />
-          <span class="console-accent">[MCP Server] 5 tools active (verify_s3_oac_security, get_rag_document_url, ...)</span>
+
+        <div class="risk-card">
+          <div class="risk-header">
+            <span class="risk-title">권한 범위를 넘어섰을 때</span>
+            <span class="risk-num">03</span>
+          </div>
+          <p class="risk-desc">
+            단순 조회 권한이 파괴적 수정/삭제 작업으로 이어지지 않도록 실행 전 확인 가드레일이 필수적입니다.
+          </p>
         </div>
       </section>
     </main>
-
-    <script>
-      const consoles = {
-        write: {
-          title: "01 WRITE // TERRAFORM INFRASTRUCTURE AS CODE",
-          code: "$ terraform test\n✓ keeps_the_origin_bucket_private ... pass\n✓ connects_cloudfront_to_s3_with_oac ... pass\n✓ allows_only_the_expected_cloudfront_distribution ... pass\n\nSuccess! 5 passed, 0 failed (Zero AWS Cost Mock Provider)."
-        },
-        read: {
-          title: "02 READ // S3 & OAC SECURITY BOUNDARY AUDIT",
-          code: "$ mcp-server --tool verify_s3_oac_security\n{\n  \"status\": \"COMPLIANT\",\n  \"checks\": {\n    \"block_public_acls\": true,\n    \"bucket_ownership\": \"BucketOwnerEnforced\",\n    \"oac_signing_protocol\": \"sigv4\",\n    \"source_arn_enforced\": true\n  }\n}"
-        },
-        verify: {
-          title: "03 VERIFY // RUNTIME ZERO-TRUST VALIDATION",
-          code: "# 1. Direct S3 (Zero Trust Block):\nHTTP/1.1 403 Forbidden\nx-amz-bucket-region: ap-northeast-2\n\n# 2. Custom Domain (CloudFront OAC Edge):\nHTTP/2 200 OK\nx-cache: Hit from cloudfront\nstrict-transport-security: max-age=31536000; includeSubDomains; preload"
-        },
-        steer: {
-          title: "04 STEER // RAG MULTIMODAL CITATION GENERATION",
-          code: "$ mcp-server --tool get_rag_document_url --asset 'assets/figure-4.png'\n{\n  \"citation_url\": \"https://article.tripjunseok.site/assets/figure-4.png\",\n  \"delivery_mode\": \"CloudFront Edge with OAC SigV4 backend\",\n  \"latency\": \"8ms (Global Edge Cached)\"\n}"
-        },
-        own: {
-          title: "05 OWN // PRODUCTION DEPLOYMENT CONTRACT",
-          code: "$ terraform apply -auto-approve\nApply complete! Resources: 7 added, 0 changed, 0 destroyed.\n\nOutputs:\ncustom_domain = \"article.tripjunseok.site\"\norigin_bucket_name = \"ai-agent-article-891376981416-ap-northeast-2\""
-        },
-        full: {
-          title: "ENTERPRISE SPECIFICATION // RAG + MCP + TERRAFORM",
-          code: "Architecture: Private S3 Origin behind CloudFront Origin Access Control (OAC)\nTooling: Model Context Protocol (MCP) Server for Autonomous AI DevOps\nWorkload: Multimodal RAG Knowledge Storage & Low-latency Secure Streaming\nCompliance: CIS AWS Benchmark & Zero Trust Origin Isolation"
-        }
-      };
-
-      function switchConsole(key) {
-        const item = consoles[key] || consoles.full;
-        document.getElementById('consoleTitle').innerText = item.title;
-        document.getElementById('consoleBody').innerHTML = item.code.replace(/\n/g, '<br />');
-      }
-    </script>
   </body>
 </html>
