@@ -1,0 +1,16 @@
+.worktrees/
+.harness/runs/raw/
+node_modules/
+.env
+.env.*
+!.env.example
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/crash.*.log
+*.tfplan
+frontend/.next/
+frontend/.vinext/
+frontend/dist/
+frontend/.wrangler/
