@@ -14,7 +14,7 @@ function git(cwd, ...args) {
   }).trim();
 }
 
-test("createPhaseWorktree creates an isolated codex branch from the requested base", () => {
+test("createPhaseWorktree creates an isolated phase branch from the requested base", () => {
   const sandbox = mkdtempSync(join(tmpdir(), "agent-harness-worktree-"));
   const repository = join(sandbox, "repository");
   const worktree = join(sandbox, "phase-01");
@@ -32,16 +32,16 @@ test("createPhaseWorktree creates an isolated codex branch from the requested ba
     const result = createPhaseWorktree({
       repository,
       target: worktree,
-      branch: "codex/phase-01-isolation",
+      branch: "phase/01-isolation",
       base: "main"
     });
 
     assert.deepEqual(result, {
-      branch: "codex/phase-01-isolation",
+      branch: "phase/01-isolation",
       target: worktree,
       baseCommit
     });
-    assert.equal(git(worktree, "branch", "--show-current"), "codex/phase-01-isolation");
+    assert.equal(git(worktree, "branch", "--show-current"), "phase/01-isolation");
     assert.equal(git(worktree, "rev-parse", "HEAD"), baseCommit);
   } finally {
     if (existsAsWorktree(repository, worktree)) {

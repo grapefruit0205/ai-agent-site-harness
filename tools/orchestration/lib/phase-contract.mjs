@@ -17,8 +17,8 @@ export function parsePhase(markdown) {
     throw new Error("verify must contain at least one command");
   }
 
-  if (typeof metadata.branch !== "string" || !metadata.branch.startsWith("codex/")) {
-    throw new Error("branch must start with codex/");
+  if (typeof metadata.branch !== "string" || !metadata.branch.startsWith("phase/")) {
+    throw new Error("branch must start with phase/");
   }
 
   return {

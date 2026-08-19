@@ -17,7 +17,7 @@ id: phase-01
 title: Verify the harness
 status: planned
 base: main
-branch: codex/phase-01-verify
+branch: phase/01-verify
 worktree: .worktrees/phase-01
 verify:
   - npm test
@@ -73,7 +73,7 @@ id: phase-02
 title: Review the change
 status: planned
 base: main
-branch: codex/phase-02-review
+branch: phase/02-review
 worktree: .worktrees/phase-02
 verify:
   - npm test

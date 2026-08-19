@@ -3,7 +3,7 @@ id: phase-00
 title: Bootstrap the history-preserving agent harness
 status: accepted
 base: main
-branch: codex/phase-00-harness-bootstrap
+branch: phase/00-harness-bootstrap
 worktree: ../ai-agent-site-harness-phase-00
 verify:
   - npm run verify:harness

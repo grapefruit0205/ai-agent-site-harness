@@ -14,7 +14,7 @@
 | 권한 경계를 설명하는 인터랙션을 구현했다 | `49f749b`와 `frontend/app/article-interactions.tsx` |
 | private S3와 CloudFront OAC를 코드로 구성했다 | `infra/terraform/`, `140b6b0`, Terraform security contract |
 | 실제 도메인 경로를 검증했다 | `infra/docs/deployment-proof.md`, `0321abc` |
-| harness 도입 후 작업을 격리한다 | `codex/phase-00-harness-bootstrap`, phase 파일, worktree 테스트 |
+| harness 도입 후 작업을 격리한다 | `phase/00-harness-bootstrap`, phase 파일, worktree 테스트 |
 
 `git log --graph --all`을 실행하면 프론트엔드와 인프라의 원본 커밋이 각각 harness import commit의 부모로 나타납니다. 파일만 복사한 저장소와 달리 어떤 변경이 언제 추가되고 되돌려졌는지 추적할 수 있습니다.
 

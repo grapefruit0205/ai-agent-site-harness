@@ -3,7 +3,7 @@
 ## Scope
 
 - Treat `docs/phases/phase-*.md` as the work contract.
-- Create implementation branches under `codex/` and use a separate Git worktree for each phase.
+- Create implementation branches under `phase/` and use a separate Git worktree for each phase.
 - Keep planner, worker, and reviewer outputs separate. A reviewer must not edit the worker worktree.
 - Do not merge, deploy, apply Terraform, invalidate CloudFront, or change DNS without explicit human approval.
 

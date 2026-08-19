@@ -3,7 +3,7 @@ id: phase-02
 title: Run the same class of task through the harness
 status: planned
 base: main
-branch: codex/phase-02-harness-comparison
+branch: phase/02-harness-comparison
 worktree: .worktrees/phase-02
 verify:
   - npm run verify:harness

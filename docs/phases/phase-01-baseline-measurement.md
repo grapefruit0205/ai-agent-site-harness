@@ -3,7 +3,7 @@ id: phase-01
 title: Measure a baseline coding-agent task
 status: planned
 base: main
-branch: codex/phase-01-baseline-measurement
+branch: phase/01-baseline-measurement
 worktree: .worktrees/phase-01
 verify:
   - npm run verify:harness

@@ -18,7 +18,7 @@ id: phase-03
 title: Capture a failed gate
 status: planned
 base: main
-branch: codex/phase-03-failed-gate
+branch: phase/03-failed-gate
 worktree: .
 verify:
   - node -e "process.exit(0)"

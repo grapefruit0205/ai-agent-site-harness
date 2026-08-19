@@ -8,7 +8,7 @@ id: phase-01
 title: Build the verification gate
 status: planned
 base: main
-branch: codex/phase-01-verification-gate
+branch: phase/01-verification-gate
 worktree: .worktrees/phase-01
 verify:
   - npm test
@@ -27,7 +27,7 @@ test("parsePhase returns a validated phase contract", () => {
     title: "Build the verification gate",
     status: "planned",
     base: "main",
-    branch: "codex/phase-01-verification-gate",
+    branch: "phase/01-verification-gate",
     worktree: ".worktrees/phase-01",
     verify: ["npm test"],
     acceptance: ["Tests pass in a clean checkout"],
@@ -47,13 +47,13 @@ test("parsePhase rejects a phase without acceptance criteria", () => {
   );
 });
 
-test("parsePhase rejects a worker branch outside the codex namespace", () => {
+test("parsePhase rejects a worker branch outside the phase namespace", () => {
   const unsafePhase = validPhase.replace(
-    "branch: codex/phase-01-verification-gate",
+    "branch: phase/01-verification-gate",
     "branch: main"
   );
 
-  assert.throws(() => parsePhase(unsafePhase), /branch must start with codex\//);
+  assert.throws(() => parsePhase(unsafePhase), /branch must start with phase\//);
 });
 
 test("parsePhase rejects a phase without verification commands", () => {

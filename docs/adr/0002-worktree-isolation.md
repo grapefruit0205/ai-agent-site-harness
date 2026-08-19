@@ -8,7 +8,7 @@ The original frontend history uses one `main` branch. It does not prove that ear
 
 ## Decision
 
-Each phase declares a `codex/` branch and worktree path in YAML frontmatter. `new-phase.mjs` creates the worktree from the declared base commit. Workers may edit only that checkout.
+Each phase declares a `phase/` branch and worktree path in YAML frontmatter. `new-phase.mjs` creates the worktree from the declared base commit. Workers may edit only that checkout.
 
 The planner writes the phase contract. A worker implements it. Deterministic checks run in the worker worktree. A reviewer receives read-only Codex permissions and inspects the diff and evidence. A human approves the merge.
 

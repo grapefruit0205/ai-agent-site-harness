@@ -34,4 +34,4 @@ The local infrastructure checkout had six modified files when the harness was cr
 
 ## Harness history
 
-The harness begins with `codex/phase-00-harness-bootstrap`. From this point, phase files, worktrees, verification artifacts, review decisions, and recovery counts are new evidence produced by this repository.
+The harness begins with `phase/00-harness-bootstrap`. From this point, phase files, worktrees, verification artifacts, review decisions, and recovery counts are new evidence produced by this repository.
