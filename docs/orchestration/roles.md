@@ -1,13 +1,13 @@
-# Roles and permissions
+# 역할과 권한
 
-| Role | Input | Allowed work | Required output |
+| 역할 | 입력 | 허용 작업 | 필수 출력 |
 | --- | --- | --- | --- |
-| Human | Goal and constraints | Approve scope, merge, deployment, and exceptions | Decision record |
-| Planner | Repository state and goal | Write or revise a phase contract | `docs/phases/phase-*.md` |
-| Worker | One phase contract | Edit the assigned worktree and run declared checks | Commit and verification evidence |
-| Reviewer | Worker diff and verification evidence | Inspect in a read-only sandbox | Accept, rework, or block decision |
-| Recovery worker | Failed run and reviewer findings | Apply the smallest corrective change in a new attempt | New evidence without rewriting the failed attempt |
+| 사람 | 목표와 제약 | 범위, 병합, 배포, 예외 승인 | 결정 기록 |
+| 계획 에이전트 | 저장소 상태와 목표 | 단계 계약 작성 또는 수정 | `docs/phases/phase-*.md` |
+| 작업 에이전트 | 단계 계약 하나 | 배정된 worktree 수정 및 선언된 검증 실행 | 커밋과 검증 증거 |
+| 검토 에이전트 | 작업 diff와 검증 증거 | 읽기 전용 sandbox에서 점검 | 승인, 재작업, 차단 결정 |
+| 복구 에이전트 | 실패한 실행과 검토 결과 | 새 시도에서 필요한 최소 수정 적용 | 실패 기록을 덮어쓰지 않은 새 증거 |
 
-The orchestrator passes the phase body through standard input to `codex exec --json`. It uses `workspace-write` for workers and `read-only` for reviewers. The scripts never select `danger-full-access`.
+오케스트레이터는 단계 본문을 표준 입력으로 `codex exec --json`에 전달한다. 작업 에이전트에는 `workspace-write`, 검토 에이전트에는 `read-only`를 사용한다. 스크립트는 `danger-full-access`를 선택하지 않는다.
 
-The human owns merge and deployment decisions. Automated checks supply evidence; they do not transfer accountability to the model.
+병합과 배포는 사람이 결정한다. 자동 검증은 판단 근거를 제공하지만 책임을 모델에 넘기지 않는다.

@@ -1,7 +1,7 @@
-# Backend status
+# 백엔드 현황
 
-The production article does not use an application backend. CloudFront serves a static build from a private S3 origin.
+프로덕션 칼럼은 애플리케이션 백엔드를 사용하지 않는다. CloudFront가 비공개 S3 원본의 정적 빌드를 제공한다.
 
-The imported frontend history contains optional Cloudflare Worker, D1, and Drizzle scaffold files because the original site toolchain generated them. The AWS deployment proof does not show those components running in production. They remain under `frontend/` so the imported snapshot still builds and its history stays traceable.
+원본 사이트 도구가 생성한 선택적 Cloudflare Worker, D1, Drizzle 초기 구성 파일이 프론트엔드 이력에 포함돼 있다. AWS 배포 증거에는 해당 구성요소가 프로덕션에서 실행된 기록이 없다. 가져온 스냅샷의 빌드와 이력을 보존하기 위해 해당 파일을 `frontend/` 아래에 유지한다.
 
-Add a service under this directory only after the project has a concrete server-side requirement, tests, and deployment evidence.
+구체적인 서버 요구사항과 테스트 및 배포 증거가 생긴 뒤에만 이 디렉터리에 서비스를 추가한다.

@@ -1,30 +1,30 @@
-# Incident 001: Repository initialized in the parent directory
+# 사고 001: 상위 디렉터리에 저장소를 초기화함
 
-Date: 2026-08-18 KST
+발생일: 2026-08-18 KST
 
-## Impact
+## 영향
 
-The bootstrap command created an empty `.git` directory in the date-level parent folder instead of the new harness folder. It did not change either source repository or any project file. The harness import had not started.
+초기화 명령이 새 하네스 폴더 대신 날짜 단위 상위 폴더에 빈 `.git` 디렉터리를 만들었다. 두 원본 저장소와 프로젝트 파일은 바뀌지 않았고 하네스 가져오기도 시작 전이었다.
 
-## Detection
+## 발견
 
-`git init` reported a path ending at `2026-08-18/.git`. A boundary check then showed:
+`git init` 출력 경로가 `2026-08-18/.git`으로 끝났다. 경계를 확인한 결과는 다음과 같았다.
 
-- the parent folder had a new repository with no commits
-- the intended harness directory had no `.git`
-- both source repositories still pointed to their original roots and commits
+- 상위 폴더에는 커밋이 없는 새 저장소가 있었다.
+- 의도한 하네스 디렉터리에는 `.git`이 없었다.
+- 두 원본 저장소는 기존 루트와 커밋을 그대로 가리켰다.
 
-## Cause
+## 원인
 
-The PowerShell command assigned the intended target to a variable but invoked `git init` without that path. Git used the command's working directory.
+PowerShell 명령에서 대상 경로를 변수에 저장했지만 `git init`에 그 경로를 전달하지 않았다. Git은 셸의 현재 작업 디렉터리를 사용했다.
 
-## Recovery
+## 복구
 
-The destructive deletion command was blocked by the execution safety policy. The empty `.git` directory was moved to a recoverable quarantine path in the same date folder. A second check confirmed that the parent was no longer a Git repository. The harness was then initialized with `git -C <validated-target> init -b main`.
+실행 안전 정책이 파괴적 삭제 명령을 차단했다. 빈 `.git` 디렉터리를 같은 날짜 폴더의 복구 가능한 격리 경로로 옮겼다. 다시 확인해 상위 폴더가 Git 저장소가 아님을 확인한 뒤 `git -C <검증한-대상> init -b main`으로 하네스를 초기화했다.
 
-## Prevention
+## 재발 방지
 
-- Resolve and print the target before repository mutations.
-- Pass the target through `git -C` rather than relying on shell location.
-- Stop when Git reports a root different from the expected path.
-- Keep the initialization event in phase metrics as a recovery rather than rewriting the phase as a first-pass success.
+- 저장소를 변경하기 전에 대상의 절대 경로를 확인하고 출력한다.
+- 셸 위치에 의존하지 않고 `git -C`로 대상을 전달한다.
+- Git이 예상과 다른 루트를 출력하면 작업을 중단한다.
+- 초기화 사고를 첫 시도 성공으로 고치지 않고 단계 지표에 복구로 남긴다.

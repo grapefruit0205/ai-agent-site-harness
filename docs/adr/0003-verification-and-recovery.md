@@ -1,15 +1,15 @@
-# ADR 0003: Gate merges with deterministic checks and an independent review
+# ADR 0003: 결정적 검증과 독립 검토를 병합 조건으로 삼는다
 
-Status: accepted
+상태: 승인
 
-## Context
+## 배경
 
-An implementation agent can report completion even when a build, test, responsive layout, or infrastructure policy still fails. Model self-evaluation cannot replace executable evidence.
+구현 에이전트가 완료를 보고해도 빌드, 테스트, 반응형 레이아웃, 인프라 정책이 실패할 수 있다. 모델의 자기평가는 실행 가능한 증거를 대신하지 못한다.
 
-## Decision
+## 결정
 
-Each phase lists verification commands and acceptance criteria. `verify-phase.mjs` runs every command and writes exit codes, stdout, and stderr to a JSON artifact. A reviewer runs read-only. Failed gates create a new recovery attempt; they are not amended into a first-pass success.
+각 단계는 검증 명령과 인수 조건을 명시한다. `verify-phase.mjs`는 모든 명령을 실행하고 종료 코드, 표준 출력, 표준 오류를 JSON 결과물에 기록한다. 검토 에이전트는 읽기 전용으로 실행한다. 검증에 실패하면 새 복구 시도를 만들고 첫 시도 성공으로 기록을 고치지 않는다.
 
-## Consequences
+## 결과
 
-The harness can measure first-pass acceptance, recovery count, human interventions, and final test state. Raw model JSONL remains local because it can contain machine paths or sensitive context. Sanitized summaries may be committed.
+하네스는 첫 시도 승인 여부, 복구 횟수, 사람의 개입 횟수, 최종 테스트 상태를 측정할 수 있다. 모델의 원본 JSONL에는 로컬 경로나 민감한 문맥이 들어갈 수 있으므로 로컬에만 보관한다. 민감정보를 제거한 요약만 커밋한다.
