@@ -1,15 +1,15 @@
-# Verify and review a phase
+# 단계 검증과 검토
 
-Run the phase's deterministic commands and save the result outside the committed raw-log path.
+단계에 선언한 결정적 명령을 실행하고 Git에 포함하지 않는 원본 로그 경로에 결과를 저장한다.
 
 ```powershell
 node tools/orchestration/verify-phase.mjs docs/phases/phase-01-baseline-measurement.md `
   --output .harness/runs/raw/phase-01-verification.json
 ```
 
-Inspect the JSON before asking for review. A failed command keeps the phase out of review.
+검토를 요청하기 전에 JSON을 확인한다. 명령 하나라도 실패하면 검토 단계로 넘기지 않는다.
 
-Preview the reviewer invocation:
+검토 에이전트 실행 명령을 미리 확인한다.
 
 ```powershell
 node tools/orchestration/run-phase.mjs docs/phases/phase-01-baseline-measurement.md `
@@ -17,4 +17,4 @@ node tools/orchestration/run-phase.mjs docs/phases/phase-01-baseline-measurement
   --dry-run
 ```
 
-The reviewer runs with a read-only sandbox. Commit the decision summary, not raw model reasoning. A human merges after checking the diff, verification artifact, and reviewer findings.
+검토 에이전트는 읽기 전용 sandbox에서 실행한다. 모델의 원본 추론 대신 결정 요약을 커밋한다. 사람은 diff, 검증 산출물, 검토 결과를 확인한 뒤 병합한다.

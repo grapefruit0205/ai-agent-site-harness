@@ -1,0 +1,4 @@
+interface:
+  display_name: "인터랙티브 에디토리얼 사이트"
+  short_description: "한국어 장문 콘텐츠를 반응형 인터랙티브 웹으로 설계합니다"
+  default_prompt: "Use $build-interactive-editorial-site to turn my source material into an accessible Korean interactive editorial website."

@@ -1,31 +1,31 @@
-# Evidence model
+# 증거 모델
 
-## Committed evidence
+## Git에 남기는 증거
 
-- phase Markdown and acceptance criteria
-- implementation and recovery commits
-- deterministic verification summary
-- reviewer decision
-- sanitized metrics summary
-- deployment proof without credentials
+- 단계 Markdown과 인수 조건
+- 구현 및 복구 커밋
+- 결정적 검증 요약
+- 검토 결정
+- 민감정보를 제거한 지표 요약
+- 자격 증명이 없는 배포 증거
 
-## Local-only evidence
+## 로컬에만 두는 증거
 
-- raw Codex JSONL
-- complete prompts containing machine paths or private context
-- temporary worktrees
-- Terraform state and saved plans
-- environment and authentication files
+- Codex 원본 JSONL
+- 로컬 경로나 비공개 문맥이 포함된 전체 프롬프트
+- 임시 worktree
+- Terraform 상태 파일과 저장된 plan
+- 환경 및 인증 파일
 
-The top-level `.gitignore` enforces the local-only boundary. Before publishing the repository, review the full imported Git history because the frontend source repository was private at import time.
+루트 `.gitignore`는 로컬 전용 파일의 커밋을 막는다. 가져올 당시 프론트엔드 원본 저장소가 비공개였으므로 이 저장소를 공개하기 전에 전체 Git 이력을 검토해야 한다.
 
-## Run summary fields
+## 실행 요약 필드
 
-| Field | Meaning |
+| 필드 | 의미 |
 | --- | --- |
-| `phaseId` | Stable phase identifier |
-| `firstPass` | Whether the first gate attempt passed |
-| `recoveryCount` | Attempts after the first gate |
-| `humanInterventions` | Explicit changes or decisions supplied by a person during the phase |
-| `finalStatus` | `accepted` or `blocked` |
-| `finalTests` | Final total, passed, and failed checks |
+| `phaseId` | 변하지 않는 단계 식별자 |
+| `firstPass` | 첫 검증 시도의 통과 여부 |
+| `recoveryCount` | 첫 검증 이후 복구 시도 횟수 |
+| `humanInterventions` | 단계 진행 중 사람이 제공한 명시적 변경이나 결정 횟수 |
+| `finalStatus` | 최종 상태인 `accepted` 또는 `blocked` |
+| `finalTests` | 최종 검증의 전체·통과·실패 개수 |

@@ -1,13 +1,13 @@
-# GitHub Actions verification
+# GitHub Actions 검증
 
-Commit: `258d39522671b08e447440b30b8f24cc96270bc1`
+검증 커밋: `258d39522671b08e447440b30b8f24cc96270bc1`
 
-The first push to `main` started three deterministic workflows. All three completed successfully:
+`main`에 처음 푸시하자 결정적 검증 워크플로 3개가 시작됐고 모두 성공했다.
 
-| Workflow | Result | Run |
+| 워크플로 | 결과 | 실행 |
 | --- | --- | --- |
-| Harness contract | success | [32132975855](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975855) |
-| Frontend verification | success | [32132975846](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975846) |
-| Terraform security contract | success | [32132975995](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975995) |
+| 하네스 계약 | 성공 | [32132975855](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975855) |
+| 프론트엔드 검증 | 성공 | [32132975846](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975846) |
+| Terraform 보안 계약 | 성공 | [32132975995](https://github.com/grapefruit0205/ai-agent-site-harness/actions/runs/32132975995) |
 
-The manual production workflow did not run. The repository did not have a configured `production` environment at verification time, so environment-review protection remains a deployment prerequisite rather than completed evidence.
+프로덕션 수동 워크플로는 실행하지 않았다. 검증 당시 저장소에는 설정된 `production` 환경이 없었다. 환경 검토 보호 규칙은 완료된 증거가 아니라 배포 전 준비 항목이다.

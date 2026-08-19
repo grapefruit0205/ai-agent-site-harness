@@ -1,29 +1,29 @@
-# Harness architecture
+# 하네스 아키텍처
 
 ```mermaid
 flowchart TD
-    H[Human goal] --> P[Planner]
-    P --> S[Phase Markdown]
-    S --> O[Orchestrator]
-    O --> W[Worker in codex branch and worktree]
-    W --> V[Deterministic verification]
-    V -->|pass| R[Read-only reviewer]
-    V -->|fail| E[Failure evidence]
-    R -->|accept| G[Human merge gate]
-    R -->|rework| E
-    E --> C[Recovery attempt]
+    H[사람이 목표와 제약 제시] --> P[계획 에이전트]
+    P --> S[단계 Markdown 계약]
+    S --> O[오케스트레이터]
+    O --> W[phase 브랜치와 worktree의 작업 에이전트]
+    W --> V[결정적 검증]
+    V -->|통과| R[읽기 전용 검토 에이전트]
+    V -->|실패| E[실패 증거]
+    R -->|승인| G[사람의 병합 승인]
+    R -->|재작업| E
+    E --> C[복구 시도]
     C --> W
     G --> M[main]
-    M --> D[Manual deployment gate]
+    M --> D[수동 배포 승인]
 ```
 
-## Trust boundaries
+## 신뢰 경계
 
-The phase file limits scope and declares the commands that decide completion. The worker receives `workspace-write`; the reviewer receives `read-only`. Neither role merges or deploys. GitHub Actions repeats deterministic checks in a clean runner. The production workflow requires a manual input and references a `production` environment. Repository administrators must configure that environment's required reviewers before treating it as an approval boundary.
+단계 문서는 작업 범위를 제한하고 완료 여부를 판단할 명령을 선언한다. 작업 에이전트에는 `workspace-write`, 검토 에이전트에는 `read-only` 권한을 부여한다. 두 역할 모두 병합하거나 배포하지 않는다. GitHub Actions는 깨끗한 실행 환경에서 결정적 검증을 반복한다. 프로덕션 워크플로는 수동 입력을 요구하고 `production` 환경을 참조한다. 저장소 관리자가 필수 검토자를 설정하기 전에는 이 환경을 승인 경계로 간주하지 않는다.
 
-## Evidence path
+## 증거가 남는 경로
 
-1. Git records the source commit, phase branch, implementation diff, review decision, and merge.
-2. Verification JSON records every command and exit code.
-3. A run summary records first-pass status, recovery count, human interventions, and final tests.
-4. Deployment proof records CloudFront and private-origin behavior without committing credentials or state.
+1. Git은 원본 커밋, 단계 브랜치, 구현 diff, 검토 결정, 병합을 기록한다.
+2. 검증 JSON은 실행한 명령과 종료 코드를 기록한다.
+3. 실행 요약은 첫 시도 결과, 복구 횟수, 사람의 개입, 최종 테스트 결과를 기록한다.
+4. 배포 증거는 자격 증명과 상태 파일을 커밋하지 않고 CloudFront와 비공개 원본의 동작을 기록한다.

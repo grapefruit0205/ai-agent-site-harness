@@ -1,37 +1,37 @@
-# Source history map
+# 원본 이력 지도
 
-This map separates evidence visible in Git from the harness workflow introduced later.
+이 문서는 Git에서 확인할 수 있는 증거와 이후 도입한 하네스 작업 흐름을 구분한다.
 
-## Frontend history
+## 프론트엔드 이력
 
-| Commit | Evidence |
+| 커밋 | 확인 가능한 증거 |
 | --- | --- |
-| `166b6b1` | Interactive article repository initialized |
-| `5430ae9` | First complete editorial implementation |
-| `e1fa9e1` | Rendering and build verification added |
-| `e4c7cfb` | Interactive book experience added |
-| `66399e8` | Static export refined |
-| `49f749b` | Six-stage permission verification simulation added |
-| `738604d` | Mobile clipping regression fixed |
-| `7107ccd` | Article split into focused fieldnotes |
-| `26489b6` | Editorial restructuring attempted |
-| `40b571b` | The restructuring was reverted, providing a concrete recovery record |
-| `e467fd0` | Agent primer and chapter sequence refined after recovery |
-| `873ae0c` | Current imported frontend source |
+| `166b6b1` | 인터랙티브 칼럼 저장소 초기화 |
+| `5430ae9` | 첫 에디토리얼 화면 구현 완료 |
+| `e1fa9e1` | 렌더링 및 빌드 검증 추가 |
+| `e4c7cfb` | 책이 펼쳐지는 인터랙션 추가 |
+| `66399e8` | 정적 export 개선 |
+| `49f749b` | 6단계 권한 검증 시뮬레이션 추가 |
+| `738604d` | 모바일 잘림 회귀 오류 수정 |
+| `7107ccd` | 칼럼을 주제별 FIELDNOTE로 분리 |
+| `26489b6` | 에디토리얼 구조 개편 시도 |
+| `40b571b` | 개편을 되돌려 구체적인 복구 기록 생성 |
+| `e467fd0` | 복구 후 Agent 입문부와 장 순서 개선 |
+| `873ae0c` | 현재 가져온 프론트엔드 원본 |
 
-The original frontend repository has one visible branch, `main`, and one working tree at import time. Git does not prove that earlier changes used worker branches or worktrees.
+원본 프론트엔드 저장소에는 `main` 브랜치와 가져올 당시의 작업 트리 하나만 보인다. 이전 변경에서 작업 브랜치나 worktree를 사용했는지는 Git으로 증명할 수 없다.
 
-## Infrastructure history
+## 인프라 이력
 
-| Commit | Evidence |
+| 커밋 | 확인 가능한 증거 |
 | --- | --- |
-| `140b6b0` | Private S3 and CloudFront OAC reference architecture |
-| `0fa8f64` | RAG documentation and an MCP server added |
-| `0321abc` | Runtime deployment proof for `article.tripjunseok.site` |
-| `b033f25` | Latest imported infrastructure branch after demo-site synchronization |
+| `140b6b0` | 비공개 S3 및 CloudFront OAC 참조 아키텍처 |
+| `0fa8f64` | RAG 문서와 MCP 서버 추가 |
+| `0321abc` | `article.tripjunseok.site` 실행 환경 배포 증거 |
+| `b033f25` | 데모 사이트 동기화 후 가져온 최신 인프라 브랜치 |
 
-The local infrastructure checkout had six modified files when the harness was created. The import fetched `infra-source/main@b033f25`; those uncommitted local changes were not copied.
+하네스를 만들 당시 로컬 인프라 체크아웃에는 수정된 파일 6개가 있었다. 가져오기 작업은 `infra-source/main@b033f25`를 사용했으며 해당 미커밋 변경은 복사하지 않았다.
 
-## Harness history
+## 하네스 이력
 
-The harness begins with `phase/00-harness-bootstrap`. From this point, phase files, worktrees, verification artifacts, review decisions, and recovery counts are new evidence produced by this repository.
+하네스 이력은 `phase/00-harness-bootstrap`에서 시작한다. 이후의 단계 파일, worktree, 검증 산출물, 검토 결정, 복구 횟수는 이 저장소가 새로 만든 증거다.

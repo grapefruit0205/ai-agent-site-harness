@@ -1,20 +1,20 @@
-# Frontend dependency audit snapshot
+# 프론트엔드 의존성 감사 기록
 
-Date: 2026-08-18 KST
+점검일: 2026-08-18 KST
 
-Command:
+실행 명령:
 
 ```powershell
 npm audit --prefix frontend --json
 ```
 
-The imported lock file reported 701 dependencies and 20 advisories:
+가져온 lock 파일을 검사한 결과 의존성 701개와 보안 권고 20건이 보고됐다.
 
-| Severity | Count |
+| 심각도 | 개수 |
 | --- | ---: |
-| Low | 1 |
-| Moderate | 6 |
-| High | 13 |
-| Critical | 0 |
+| 낮음 | 1 |
+| 보통 | 6 |
+| 높음 | 13 |
+| 치명적 | 0 |
 
-The bootstrap phase did not run `npm audit fix`. An automatic fix can change dependency versions and application behavior, so remediation belongs in a separate phase with build and regression checks.
+초기 구성 단계에서는 `npm audit fix`를 실행하지 않았다. 자동 수정은 의존성 버전과 애플리케이션 동작을 바꿀 수 있다. 별도 단계에서 빌드와 회귀 검증을 포함해 조치한다.

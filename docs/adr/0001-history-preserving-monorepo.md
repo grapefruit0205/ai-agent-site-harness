@@ -1,22 +1,22 @@
-# ADR 0001: Preserve both source histories in a separate harness repository
+# ADR 0001: 두 원본 저장소의 이력을 별도 하네스 저장소에 보존한다
 
-Status: accepted
+상태: 승인
 
-## Context
+## 배경
 
-The interactive article and its AWS infrastructure began in separate Git repositories. Copying only their latest files would hide the sequence of implementation, testing, design changes, failure, recovery, and deployment.
+인터랙티브 칼럼과 AWS 인프라는 서로 다른 Git 저장소에서 시작했다. 최신 파일만 복사하면 구현, 테스트, 디자인 변경, 실패, 복구, 배포의 순서를 확인할 수 없다.
 
-## Decision
+## 결정
 
-Create a third repository for the harness. Import each source branch as a merge parent and place its tree under `frontend/` or `infra/`.
+세 번째 저장소를 하네스용으로 만든다. 각 원본 브랜치를 병합 커밋의 부모로 가져오고 파일 트리를 `frontend/`와 `infra/` 아래에 배치한다.
 
-The bootstrap commits connect:
+초기 구성 커밋은 다음 원본 커밋을 연결한다.
 
-- frontend source `873ae0c524a87f2a5bfeaf062fcb7c4b8f0069d1`
-- infrastructure source `b033f25177043d62d42f9a4ae31fa10cf24dd7cb`
+- 프론트엔드 원본 `873ae0c524a87f2a5bfeaf062fcb7c4b8f0069d1`
+- 인프라 원본 `b033f25177043d62d42f9a4ae31fa10cf24dd7cb`
 
-The infrastructure import uses the fetched remote commit. Six uncommitted files in the local infrastructure checkout were excluded.
+인프라는 원격에서 가져온 커밋을 기준으로 병합했다. 로컬 인프라 체크아웃에 남아 있던 미커밋 파일 6개는 포함하지 않았다.
 
-## Consequences
+## 결과
 
-`git log --graph --all` shows both original histories. Reviewers can trace claims to source commits. Future source updates require another explicit merge or subtree-style synchronization rather than an unrecorded file copy.
+`git log --graph --all`에서 두 원본 이력을 확인할 수 있다. 검토자는 README의 설명을 원본 커밋까지 추적할 수 있다. 이후 원본 변경을 반영할 때는 기록이 남지 않는 파일 복사 대신 명시적 병합이나 subtree 방식의 동기화를 사용해야 한다.

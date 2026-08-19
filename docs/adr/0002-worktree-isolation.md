@@ -1,17 +1,17 @@
-# ADR 0002: Isolate each implementation phase with a branch and worktree
+# ADR 0002: 구현 단계마다 브랜치와 worktree를 분리한다
 
-Status: accepted
+상태: 승인
 
-## Context
+## 배경
 
-The original frontend history uses one `main` branch. It does not prove that earlier tasks ran in isolated worktrees. The harness needs a reproducible boundary for future worker runs.
+원본 프론트엔드 이력에는 `main` 브랜치 하나만 보인다. 과거 작업이 분리된 worktree에서 실행됐다는 사실은 이 이력만으로 증명할 수 없다. 하네스를 도입한 뒤 실행하는 작업부터 재현 가능한 격리 경계를 마련한다.
 
-## Decision
+## 결정
 
-Each phase declares a `phase/` branch and worktree path in YAML frontmatter. `new-phase.mjs` creates the worktree from the declared base commit. Workers may edit only that checkout.
+각 단계 문서의 YAML frontmatter에 `phase/` 브랜치와 worktree 경로를 선언한다. `new-phase.mjs`는 지정한 기준 커밋에서 worktree를 만든다. 작업 에이전트는 배정된 체크아웃만 수정한다.
 
-The planner writes the phase contract. A worker implements it. Deterministic checks run in the worker worktree. A reviewer receives read-only Codex permissions and inspects the diff and evidence. A human approves the merge.
+계획 에이전트는 단계 계약을 작성하고 작업 에이전트는 이를 구현한다. 작업 worktree에서 결정적 검증 명령을 실행한다. 검토 에이전트는 읽기 전용 권한으로 diff와 증거를 확인하며, 사람은 병합 여부를 승인한다.
 
-## Consequences
+## 결과
 
-Parallel tasks no longer share a working directory. The repository can prove isolation for harness phases created after this ADR. It makes no retrospective claim about worktrees used before the harness existed.
+병렬 작업은 같은 작업 디렉터리를 공유하지 않는다. 저장소는 이 ADR 이후 생성한 단계의 격리 여부를 증명할 수 있다. 하네스 도입 전 worktree 사용 여부는 소급해 주장하지 않는다.

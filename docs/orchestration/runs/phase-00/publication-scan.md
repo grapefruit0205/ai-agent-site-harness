@@ -1,7 +1,7 @@
-# Publication scan
+# 공개 전 점검
 
-Date: 2026-08-18 KST
+점검일: 2026-08-18 KST
 
-A filename-only pattern scan checked the reachable Git history and current worktree for common AWS access key IDs, private-key headers, OpenAI API key assignments, AWS secret-key assignments, and GitHub token prefixes. It reported zero matching files.
+도달 가능한 Git 이력과 현재 worktree의 파일을 대상으로 패턴 검사를 실행했다. 일반적인 AWS 액세스 키 ID, 개인 키 헤더, OpenAI API 키 할당문, AWS 비밀 키 할당문, GitHub 토큰 접두사가 들어간 파일은 발견되지 않았다.
 
-This narrow scan does not prove that the imported private history is safe to publish. The repository remains private. Before changing visibility, run a dedicated secret scanner, inspect historical large files, review personal information and source licenses, and confirm that the frontend source owner approves publication.
+이 제한적인 검사는 가져온 비공개 이력 전체가 공개에 안전하다는 사실을 증명하지 않는다. 저장소는 비공개로 유지한다. 공개로 전환하기 전에 전용 비밀정보 탐지기를 실행하고, 과거 대용량 파일과 개인정보 및 원본 라이선스를 검토하며, 프론트엔드 원본 소유자의 공개 동의를 확인해야 한다.

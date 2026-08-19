@@ -1,15 +1,15 @@
-# ADR 0004: Keep the production runtime static
+# ADR 0004: 프로덕션 실행 경계를 정적 사이트로 제한한다
 
-Status: accepted
+상태: 승인
 
-## Context
+## 배경
 
-The article builds to static assets and is served through CloudFront with a private S3 origin. The imported frontend also contains Worker, D1, and Drizzle scaffolding that the AWS deployment does not use.
+칼럼은 정적 파일로 빌드하며 CloudFront가 비공개 S3 원본에서 이를 제공한다. 가져온 프론트엔드에는 AWS 배포에서 사용하지 않는 Worker, D1, Drizzle 초기 구성도 포함돼 있다.
 
-## Decision
+## 결정
 
-Treat `frontend/dist/client` as the production artifact. Treat `infra/terraform` as the production infrastructure definition. Keep `backend/` documentary until a deployed server-side requirement exists.
+`frontend/dist/client`를 프로덕션 산출물로 본다. `infra/terraform`을 프로덕션 인프라 정의로 본다. 실제 서버 기능과 배포 증거가 생기기 전까지 `backend/`에는 현황 문서만 둔다.
 
-## Consequences
+## 결과
 
-The portfolio does not overstate backend experience. CloudFront, OAC, bucket policy, DNS, certificate, and runtime checks remain supported by the infrastructure history and deployment proof.
+포트폴리오에서 백엔드 경험을 과장하지 않는다. CloudFront, OAC, 버킷 정책, DNS, 인증서, 실행 환경 검증은 인프라 이력과 배포 증거로 뒷받침한다.
